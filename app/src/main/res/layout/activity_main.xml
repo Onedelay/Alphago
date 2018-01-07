@@ -26,26 +26,28 @@
 
     <Button
         android:id="@+id/btn_recognition"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="Recognition"
         app:layout_constraintRight_toLeftOf="@id/guideline"
         app:layout_constraintBottom_toTopOf="@+id/btn_card_book"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"/>
 
     <Button
         android:id="@+id/btn_game"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="Game"
         app:layout_constraintLeft_toLeftOf="@id/guideline"
         app:layout_constraintBottom_toTopOf="@+id/btn_collection"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"/>
 
     <Button
         android:id="@+id/btn_card_book"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="Card book"
         app:layout_constraintRight_toLeftOf="@id/guideline"
         app:layout_constraintBottom_toBottomOf="@id/btn_collection"
@@ -53,8 +55,8 @@
 
     <Button
         android:id="@+id/btn_collection"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:text="Collections"
         app:layout_constraintLeft_toLeftOf="@id/guideline"
         app:layout_constraintBottom_toBottomOf="parent"
