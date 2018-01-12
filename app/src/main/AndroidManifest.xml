@@ -29,6 +29,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.CardBookListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SelectImageDetail"
             android:screenOrientation="landscape"></activity>
     </application>
 

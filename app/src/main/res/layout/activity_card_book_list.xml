@@ -6,4 +6,33 @@
     android:layout_height="match_parent"
     tools:context="com.alphago.alphago.activity.CardBookListActivity">
 
+    <Button
+        android:id="@+id/btn_cd_list_back"
+        android:text="뒤로"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="8dp"/>
+
+    <ImageButton
+        android:id="@+id/btn_cd_list_tmp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="60dp"/>
+
+    <TextView
+        android:text="label1"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_cd_list_tmp"
+        app:layout_constraintLeft_toLeftOf="@id/btn_cd_list_tmp"
+        app:layout_constraintRight_toRightOf="@id/btn_cd_list_tmp"
+        />
+
 </android.support.constraint.ConstraintLayout>
