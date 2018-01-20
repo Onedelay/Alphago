@@ -20,12 +20,20 @@ import android.widget.Toast;
 import com.alphago.alphago.R;
 import com.alphago.alphago.activity.ImageRecognitionActivity;
 
+import java.io.File;
+import java.util.List;
+
+import pl.aprilapps.easyphotopicker.EasyImage;
+
 
 /**
  * Created by su_me on 2018-01-07.
  */
 
 public class ImageSelectionMethodDialog extends DialogFragment {
+    public static final int TYPE_GALLERY = 0;
+    public static final int TYPE_CAMERA = 1;
+
 
     private Button btnImageCapture;
     private Button btnImageSelect;
@@ -44,10 +52,7 @@ public class ImageSelectionMethodDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "사진 촬영 버튼 선택", Toast.LENGTH_SHORT).show();
-                // 메인 액티비티에게 전달해 줄 인터페이스 구현.
-                // 프래그먼트에서 액티비티로 이벤트 전달하는 것
-                Intent intent = new Intent(getContext(), ImageRecognitionActivity.class);
-                startActivity(intent);
+                EasyImage.openCamera(ImageSelectionMethodDialog.this, TYPE_CAMERA);
             }
         });
 
@@ -55,14 +60,33 @@ public class ImageSelectionMethodDialog extends DialogFragment {
         btnImageSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "사진 선택 버튼 선택", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), ImageRecognitionActivity.class);
-                startActivity(intent);
+                EasyImage.openGallery(ImageSelectionMethodDialog.this, TYPE_GALLERY);
             }
         });
 
         return builder.create();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                Toast.makeText(getContext(), "onImagePickError", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
+                Toast.makeText(getContext(), "onImagePicked", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toast.makeText(getContext(), "onCanceld", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
