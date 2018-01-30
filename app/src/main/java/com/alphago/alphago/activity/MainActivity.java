@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnRecognition;
-    private Button btnCardBook;
     private BackPressCloseHandler backPressCloseHandler;
 
     @Override
@@ -55,16 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
                 .check();
 
-        btnRecognition = (Button) findViewById(R.id.btn_recognition);
-        btnRecognition.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_recognition).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
             }
         });
 
-        btnCardBook = (Button) findViewById(R.id.btn_card_book);
-        btnCardBook.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_card_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "카드 북 버튼 클릭", Toast.LENGTH_SHORT).show();
