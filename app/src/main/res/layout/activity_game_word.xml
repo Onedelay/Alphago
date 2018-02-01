@@ -4,6 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_game"
     tools:context="com.alphago.alphago.activity.GameWordActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="316dp"
+        android:layout_height="239dp"
+        app:srcCompat="@drawable/bg_qst"
+        tools:layout_editor_absoluteX="-24dp"
+        tools:layout_editor_absoluteY="-19dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="300dp"
+        android:layout_height="345dp"
+        app:srcCompat="@drawable/bg_img"
+        tools:layout_editor_absoluteY="7dp"
+        tools:layout_editor_absoluteX="227dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="304dp"
+        android:layout_height="281dp"
+        app:srcCompat="@drawable/teacher"
+        tools:layout_editor_absoluteX="-59dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <Button
+        android:id="@+id/btn_wordgame_exit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_exit"
+        tools:layout_editor_absoluteX="535dp"
+        tools:layout_editor_absoluteY="7dp" />
+
+    <Button
+        android:id="@+id/btn_wordgame_next"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_next"
+        tools:layout_editor_absoluteX="535dp"
+        tools:layout_editor_absoluteY="154dp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="184dp"
+        android:layout_height="91dp"
+        app:srcCompat="@drawable/tv_qst"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="42dp" />
 </android.support.constraint.ConstraintLayout>
