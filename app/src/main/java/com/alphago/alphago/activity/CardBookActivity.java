@@ -15,6 +15,7 @@ public class CardBookActivity extends AppCompatActivity {
     private Button btnLearning;
     private ImageButton btnTmp;
 
+    //TEst
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
