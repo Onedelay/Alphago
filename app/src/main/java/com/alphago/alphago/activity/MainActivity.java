@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         backPressCloseHandler = new BackPressCloseHandler(this);
 
-        PermissionListener permissionlistener = new PermissionListener() {
+        /* PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
                 Toast.makeText(MainActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPermissionListener(permissionlistener)
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
-                .check();
+                .check(); */
 
         findViewById(R.id.btn_recognition).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GameModeSelectionDialog().show(getSupportFragmentManager(), "dialog");
+                // new GameModeSelectionDialog().show(getSupportFragmentManager(), "dialog");
+                Intent intent = new Intent(MainActivity.this, GameWordActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
