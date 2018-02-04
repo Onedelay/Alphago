@@ -3,6 +3,7 @@ package com.alphago.alphago.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,10 +18,12 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 
+import java.io.File;
+
 
 public class ImageRecognitionActivity extends NoStatusBarActivity {
 
-    private ImageView imageRecognition;
+    private File imageFile;
     private ImageButton btnPronon;
     private Button btnRetry;
     private Button btnSave;
@@ -31,7 +34,12 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_recognition);
 
-        imageRecognition = (ImageView) findViewById(R.id.image_recognition);
+        imageFile = (File) getIntent().getSerializableExtra("imageFile");
+        if (imageFile.exists()) {
+            Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
+            myImage.setImageBitmap(myBitmap);
+        }
 
         btnPronon = (ImageButton) findViewById(R.id.btn_pronounce);
         btnPronon.setOnClickListener(new View.OnClickListener() {

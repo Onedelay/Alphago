@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.alphago.alphago.R;
 import com.alphago.alphago.activity.ImageRecognitionActivity;
+import com.alphago.alphago.activity.SendImageActivity;
 
 import java.io.File;
 import java.util.List;
@@ -81,6 +82,10 @@ public class ImageSelectionMethodDialog extends DialogFragment {
             @Override
             public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
                 Toast.makeText(getContext(), "onImagePicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), SendImageActivity.class);
+                intent.putExtra("sendImage", imageFiles.get(0));
+                startActivity(intent);
+                dismiss();
             }
 
             @Override
