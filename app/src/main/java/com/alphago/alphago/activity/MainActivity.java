@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
@@ -20,7 +21,7 @@ import com.alphago.alphago.util.PermissionUtils;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NoStatusBarActivity {
     private static final int REQUEST_PERMISSONS = 1;
 
     private BackPressCloseHandler backPressCloseHandler;

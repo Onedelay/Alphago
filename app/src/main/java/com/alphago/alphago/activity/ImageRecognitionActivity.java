@@ -13,11 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 
 
-public class ImageRecognitionActivity extends AppCompatActivity {
+public class ImageRecognitionActivity extends NoStatusBarActivity {
 
     private ImageView imageRecognition;
     private ImageButton btnPronon;

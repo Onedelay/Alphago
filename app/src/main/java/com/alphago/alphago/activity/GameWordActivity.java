@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 
-public class GameWordActivity extends AppCompatActivity {
+public class GameWordActivity extends NoStatusBarActivity {
 
     private ImageView game_qst;
     private Button btn_exit;

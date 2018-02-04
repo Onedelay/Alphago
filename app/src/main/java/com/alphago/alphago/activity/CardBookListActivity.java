@@ -8,9 +8,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 
-public class CardBookListActivity extends AppCompatActivity {
+public class CardBookListActivity extends NoStatusBarActivity {
     private Button btnCdListBack;
     private ImageButton btnCdListTmp;
 

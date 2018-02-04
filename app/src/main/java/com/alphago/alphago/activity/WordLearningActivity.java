@@ -3,9 +3,10 @@ package com.alphago.alphago.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 
-public class WordLearningActivity extends AppCompatActivity {
+public class WordLearningActivity extends NoStatusBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
