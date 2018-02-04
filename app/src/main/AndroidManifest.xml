@@ -36,7 +36,9 @@
         <activity
             android:name=".activity.SelectImageDetail"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.GameWordActivity"></activity>
+        <activity
+            android:name=".activity.GameWordActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>
