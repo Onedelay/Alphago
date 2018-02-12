@@ -67,9 +67,9 @@
         android:id="@+id/game_qst"
         android:layout_width="0dp"
         android:layout_height="91dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@+id/imageView2"
@@ -141,5 +141,18 @@
         app:layout_constraintLeft_toRightOf="@id/btn_wordgame_ex3"
         app:layout_constraintRight_toRightOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/btn_wordgame_ex2" />
+
+    <TextView
+        android:id="@+id/tv_wordgame_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:text="Q1"
+        android:textColor="@android:color/white"
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
