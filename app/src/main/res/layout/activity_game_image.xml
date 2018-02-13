@@ -4,6 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_game"
     tools:context="com.alphago.alphago.activity.GameImageActivity">
+
+    <ImageView
+        android:id="@+id/img_imggame_bgqst"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/img_imggame_tch"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_qst" />
+
+    <ImageView
+        android:id="@+id/img_imggame_shape"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/img_imggame_tch"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/shape_green_rectangle" />
+
+    <ImageView
+        android:id="@+id/img_imggame_tch"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="400dp"
+        android:layout_marginTop="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/teacher2" />
+
+    <Button
+        android:id="@+id/btn_imggame_exit"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_exit"
+        app:layout_constraintBottom_toTopOf="@+id/btn_imggame_next"
+        app:layout_constraintLeft_toRightOf="@+id/img_imggame_shape"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_imggame_shape" />
+
+    <Button
+        android:id="@+id/btn_imggame_next"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/button_next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_exit"
+        app:layout_constraintRight_toRightOf="@+id/btn_imggame_exit"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_imggame_tvqst"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginTop="45dp"
+        app:layout_constraintBottom_toTopOf="@+id/img_imggame_tch"
+        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
+        app:layout_constraintRight_toRightOf="@+id/img_imggame_bgqst"
+        app:layout_constraintTop_toTopOf="@+id/img_imggame_bgqst"
+        app:srcCompat="@drawable/tv_qst" />
 
 </android.support.constraint.ConstraintLayout>

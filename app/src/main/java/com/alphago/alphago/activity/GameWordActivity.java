@@ -12,7 +12,6 @@ import com.alphago.alphago.R;
 
 public class GameWordActivity extends NoStatusBarActivity {
 
-    private ImageView game_qst;
     private Button btn_exit;
     private Button btn_next;
     private Button btn_wordgame_ex1;
@@ -25,7 +24,6 @@ public class GameWordActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_word);
 
-        game_qst = (ImageView)findViewById(R.id.game_qst);
         btn_exit = (Button)findViewById(R.id.btn_wordgame_exit);
         btn_next = (Button)findViewById(R.id.btn_wordgame_next);
         btn_wordgame_ex1 = (Button)findViewById(R.id.btn_wordgame_ex1);
