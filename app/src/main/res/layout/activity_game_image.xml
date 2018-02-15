@@ -72,12 +72,88 @@
         android:id="@+id/img_imggame_tvqst"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginBottom="80dp"
+        android:layout_marginTop="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
+        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
+        app:layout_constraintRight_toRightOf="@+id/img_imggame_bgqst"
+        app:layout_constraintTop_toTopOf="@+id/tv_imggame_num"
+        app:srcCompat="@drawable/tv_qst" />
+
+    <Button
+        android:id="@+id/btn_imggame_ex4"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:background="@mipmap/ic_launcher"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex3"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex2"
+        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex2"
+        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex3" />
+
+    <Button
+        android:id="@+id/btn_imggame_ex3"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="6dp"
+        android:background="@mipmap/ic_launcher"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_shape"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex1"
+        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex1"
+        app:layout_constraintTop_toBottomOf="@+id/btn_imggame_ex1" />
+
+    <Button
+        android:id="@+id/btn_imggame_ex2"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginLeft="20dp"
+        android:background="@mipmap/ic_launcher"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex1"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_imggame_qst"
+        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
+        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex1" />
+
+    <Button
+        android:id="@+id/btn_imggame_ex1"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"
+        android:background="@mipmap/ic_launcher"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
+        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
+        app:layout_constraintRight_toRightOf="@+id/tv_imggame_qst"
+        app:layout_constraintTop_toBottomOf="@+id/tv_imggame_qst" />
+
+    <TextView
+        android:id="@+id/tv_imggame_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Q1"
+        android:textColor="@android:color/white"
+        android:textSize="35sp"
         app:layout_constraintBottom_toTopOf="@+id/img_imggame_tch"
         app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
         app:layout_constraintRight_toRightOf="@+id/img_imggame_bgqst"
-        app:layout_constraintTop_toTopOf="@+id/img_imggame_bgqst"
-        app:srcCompat="@drawable/tv_qst" />
+        app:layout_constraintTop_toTopOf="@+id/img_imggame_bgqst" />
+
+    <TextView
+        android:id="@+id/tv_imggame_qst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="label"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_exit"
+        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
+        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
+        app:layout_constraintTop_toTopOf="@+id/img_imggame_shape" />
 
 </android.support.constraint.ConstraintLayout>

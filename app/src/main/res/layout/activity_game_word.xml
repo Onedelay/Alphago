@@ -146,9 +146,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="Q1"
         android:textColor="@android:color/white"
-        android:textSize="40sp"
+        android:textSize="35sp"
         app:layout_constraintLeft_toLeftOf="@+id/img_wordgame_bgqst"
         app:layout_constraintRight_toRightOf="@+id/img_wordgame_bgqst"
         app:layout_constraintTop_toTopOf="@+id/img_wordgame_bgqst" />
