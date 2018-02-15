@@ -8,6 +8,46 @@
     tools:context="com.alphago.alphago.activity.GameImageActivity">
 
     <ImageView
+        android:id="@+id/img_imggame_check4"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex3"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex2"
+        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex2"
+        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex3"
+        app:srcCompat="@drawable/img_check" />
+
+    <ImageView
+        android:id="@+id/img_imggame_check3"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_shape"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex1"
+        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex1"
+        app:layout_constraintTop_toBottomOf="@+id/btn_imggame_ex1"
+        app:srcCompat="@drawable/img_check" />
+
+    <ImageView
+        android:id="@+id/img_imggame_check2"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex1"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_imggame_qst"
+        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
+        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex1"
+        app:srcCompat="@drawable/img_check" />
+
+    <ImageView
+        android:id="@+id/img_imggame_check1"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
+        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
+        app:layout_constraintRight_toRightOf="@+id/tv_imggame_qst"
+        app:layout_constraintTop_toBottomOf="@+id/tv_imggame_qst"
+        app:srcCompat="@drawable/img_check" />
+
+    <ImageView
         android:id="@+id/img_imggame_shape"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -151,45 +191,5 @@
         app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
         app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
         app:layout_constraintTop_toTopOf="@+id/img_imggame_shape" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check4"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:srcCompat="@drawable/img_check"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex3"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex2"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex2"
-        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex3" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check3"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:srcCompat="@drawable/img_check"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_shape"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex1"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex1"
-        app:layout_constraintTop_toBottomOf="@+id/btn_imggame_ex1" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check2"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:srcCompat="@drawable/img_check"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex1"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_imggame_qst"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
-        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex1" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check1"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
-        app:layout_constraintRight_toRightOf="@+id/tv_imggame_qst"
-        app:layout_constraintTop_toBottomOf="@+id/tv_imggame_qst"
-        app:srcCompat="@drawable/img_check" />
 
 </android.support.constraint.ConstraintLayout>
