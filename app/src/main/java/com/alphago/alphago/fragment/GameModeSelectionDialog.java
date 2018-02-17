@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.alphago.alphago.R;
+import com.alphago.alphago.activity.GameImageActivity;
 import com.alphago.alphago.activity.ImageRecognitionActivity;
+import com.alphago.alphago.activity.MainActivity;
 
 
 /**
@@ -48,6 +50,7 @@ public class GameModeSelectionDialog extends DialogFragment {
             public void onClick(View v) {
                 Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
                 gameMode = GAME_MODE_WORD;
+                
                 selectDifficultyGrade(rootView);
             }
         });

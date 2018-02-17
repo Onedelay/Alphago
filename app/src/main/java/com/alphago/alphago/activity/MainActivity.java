@@ -59,9 +59,9 @@ public class MainActivity extends NoStatusBarActivity {
         findViewById(R.id.btn_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // new GameModeSelectionDialog().show(getSupportFragmentManager(), "dialog");
-                Intent intent = new Intent(MainActivity.this, GameImageActivity.class);
-                startActivity(intent);
+                new GameModeSelectionDialog().show(getSupportFragmentManager(), "dialog");
+                /* Intent intent = new Intent(MainActivity.this, GameImageActivity.class);
+                startActivity(intent); */
             }
         });
     }
