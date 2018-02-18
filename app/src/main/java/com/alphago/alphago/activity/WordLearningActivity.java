@@ -37,14 +37,14 @@ public class WordLearningActivity extends NoStatusBarActivity {
         btn_learn_pre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WordLearningActivity.this, "Next", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WordLearningActivity.this, "Previous", Toast.LENGTH_SHORT).show();
             }
         });
 
         btn_learn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WordLearningActivity.this, "Previous", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WordLearningActivity.this, "Next", Toast.LENGTH_SHORT).show();
             }
         });
     }
