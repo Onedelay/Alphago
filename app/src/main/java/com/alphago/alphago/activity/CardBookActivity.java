@@ -25,7 +25,7 @@ public class CardBookActivity extends NoStatusBarActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "홈 버튼 클릭", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getBaseContext(), "홈 버튼 클릭", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CardBookActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -36,7 +36,7 @@ public class CardBookActivity extends NoStatusBarActivity {
         btnLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "학습하기 버튼 클릭", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getBaseContext(), "학습하기 버튼 클릭", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CardBookActivity.this, WordLearningActivity.class);
                 startActivity(intent);
             }
@@ -46,7 +46,7 @@ public class CardBookActivity extends NoStatusBarActivity {
         btnTmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "사진 항목 클릭", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getBaseContext(), "사진 항목 클릭", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(CardBookActivity.this, CardBookListActivity.class);
                 startActivity(intent);
             }

@@ -54,7 +54,7 @@
         android:background="@drawable/button_learn"
         android:text="home"
         app:layout_constraintBottom_toBottomOf="@+id/image_recognition"
-        app:layout_constraintLeft_toRightOf="@id/btn_save"
+        app:layout_constraintLeft_toRightOf="@+id/btn_save"
         app:layout_constraintRight_toRightOf="@id/result_recog"
         app:layout_constraintTop_toBottomOf="@id/result_recog" />
 
