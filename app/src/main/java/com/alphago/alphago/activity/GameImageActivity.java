@@ -14,34 +14,26 @@ import com.alphago.alphago.R;
 
 public class GameImageActivity extends AppCompatActivity {
 
-    private ImageView img_imggame_check1;
-    private ImageView img_imggame_check2;
-    private ImageView img_imggame_check3;
-    private ImageView img_imggame_check4;
-    private Button btn_imggame_exit;
-    private Button btn_imggame_next;
-    private ImageButton btn_imggame_ex1;
-    private ImageButton btn_imggame_ex2;
-    private ImageButton btn_imggame_ex3;
-    private ImageButton btn_imggame_ex4;
+    private ImageButton btn_igame_exit;
+    private ImageButton btn_igame_next;
+    private Button btn_igame_ex1;
+    private Button btn_igame_ex2;
+    private Button btn_igame_ex3;
+    private Button btn_igame_ex4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_image);
 
-        img_imggame_check1 = (ImageView)findViewById(R.id.img_imggame_check1);
-        img_imggame_check2 = (ImageView)findViewById(R.id.img_imggame_check1);
-        img_imggame_check3 = (ImageView)findViewById(R.id.img_imggame_check1);
-        img_imggame_check4 = (ImageView)findViewById(R.id.img_imggame_check1);
-        btn_imggame_exit = (Button)findViewById(R.id.btn_imggame_exit);
-        btn_imggame_next = (Button)findViewById(R.id.btn_imggame_next);
-        btn_imggame_ex1 = (ImageButton)findViewById(R.id.btn_imggame_ex1);
-        btn_imggame_ex2 = (ImageButton)findViewById(R.id.btn_imggame_ex2);
-        btn_imggame_ex3 = (ImageButton)findViewById(R.id.btn_imggame_ex3);
-        btn_imggame_ex4 = (ImageButton)findViewById(R.id.btn_imggame_ex4);
+        btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
+        btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
+        btn_igame_ex1 = (Button)findViewById(R.id.btn_igame_ex1);
+        btn_igame_ex2 = (Button)findViewById(R.id.btn_igame_ex2);
+        btn_igame_ex3 = (Button)findViewById(R.id.btn_igame_ex3);
+        btn_igame_ex4 = (Button)findViewById(R.id.btn_igame_ex4);
 
-        btn_imggame_exit.setOnClickListener(new View.OnClickListener() {
+        btn_igame_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GameImageActivity.this, MainActivity.class);
@@ -50,7 +42,7 @@ public class GameImageActivity extends AppCompatActivity {
             }
         });
 
-        btn_imggame_next.setOnClickListener(new View.OnClickListener() {
+        btn_igame_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Right or Wrong", Toast.LENGTH_SHORT).show();
@@ -61,40 +53,29 @@ public class GameImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.btn_imggame_ex1 :
-                        img_imggame_check1.setVisibility(View.VISIBLE);
+                    case R.id.btn_igame_ex1 :
+                        Toast.makeText(GameImageActivity.this, btn_igame_ex1.getText(), Toast.LENGTH_SHORT).show();
+                        /* img_imggame_check1.setVisibility(View.VISIBLE);
                         img_imggame_check1.bringToFront();
                         img_imggame_check2.setVisibility(View.INVISIBLE);
                         img_imggame_check3.setVisibility(View.INVISIBLE);
-                        img_imggame_check4.setVisibility(View.INVISIBLE);
+                        img_imggame_check4.setVisibility(View.INVISIBLE); */
                         break;
-                    case R.id.btn_imggame_ex2 :
-                        img_imggame_check2.setVisibility(View.VISIBLE);
-                        img_imggame_check2.bringToFront();
-                        img_imggame_check1.setVisibility(View.INVISIBLE);
-                        img_imggame_check3.setVisibility(View.INVISIBLE);
-                        img_imggame_check4.setVisibility(View.INVISIBLE);
+                    case R.id.btn_igame_ex2 :
+                        Toast.makeText(GameImageActivity.this, btn_igame_ex2.getText(), Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.btn_imggame_ex3 :
-                        img_imggame_check3.setVisibility(View.VISIBLE);
-                        img_imggame_check3.bringToFront();
-                        img_imggame_check1.setVisibility(View.INVISIBLE);
-                        img_imggame_check2.setVisibility(View.INVISIBLE);
-                        img_imggame_check4.setVisibility(View.INVISIBLE);
+                    case R.id.btn_igame_ex3 :
+                        Toast.makeText(GameImageActivity.this, btn_igame_ex3.getText(), Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.btn_imggame_ex4 :
-                        img_imggame_check4.setVisibility(View.VISIBLE);
-                        img_imggame_check4.bringToFront();
-                        img_imggame_check1.setVisibility(View.INVISIBLE);
-                        img_imggame_check2.setVisibility(View.INVISIBLE);
-                        img_imggame_check3.setVisibility(View.INVISIBLE);
+                    case R.id.btn_igame_ex4 :
+                        Toast.makeText(GameImageActivity.this, btn_igame_ex4.getText(), Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
         };
-        btn_imggame_ex1.setOnClickListener(onClickListener);
-        btn_imggame_ex2.setOnClickListener(onClickListener);
-        btn_imggame_ex3.setOnClickListener(onClickListener);
-        btn_imggame_ex4.setOnClickListener(onClickListener);
+        btn_igame_ex1.setOnClickListener(onClickListener);
+        btn_igame_ex2.setOnClickListener(onClickListener);
+        btn_igame_ex3.setOnClickListener(onClickListener);
+        btn_igame_ex4.setOnClickListener(onClickListener);
     }
 }

@@ -39,9 +39,6 @@
             android:name=".activity.SelectImageDetail"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.GameWordActivity"
-            android:screenOrientation="landscape" />
-        <activity
             android:name=".activity.SendImageActivity"
             android:screenOrientation="landscape" />
         <activity

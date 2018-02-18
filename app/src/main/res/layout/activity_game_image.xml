@@ -8,188 +8,187 @@
     tools:context="com.alphago.alphago.activity.GameImageActivity">
 
     <ImageView
-        android:id="@+id/img_imggame_check4"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex3"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex2"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex2"
-        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex3"
-        app:srcCompat="@drawable/img_check" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check3"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_shape"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex1"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex1"
-        app:layout_constraintTop_toBottomOf="@+id/btn_imggame_ex1"
-        app:srcCompat="@drawable/img_check" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check2"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex1"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_imggame_qst"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
-        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex1"
-        app:srcCompat="@drawable/img_check" />
-
-    <ImageView
-        android:id="@+id/img_imggame_check1"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
-        app:layout_constraintRight_toRightOf="@+id/tv_imggame_qst"
-        app:layout_constraintTop_toBottomOf="@+id/tv_imggame_qst"
-        app:srcCompat="@drawable/img_check" />
-
-    <ImageView
-        android:id="@+id/img_imggame_shape"
+        android:id="@+id/img_igame_bgqst"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/img_imggame_tch"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/shape_green_rectangle" />
-
-    <ImageView
-        android:id="@+id/img_imggame_bgqst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_next"
+        app:layout_constraintBottom_toBottomOf="@+id/igame_guideline2"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_tch"
+        app:layout_constraintRight_toLeftOf="@+id/igame_guideline"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bg_qst" />
 
-    <ImageView
-        android:id="@+id/img_imggame_tch"
-        android:layout_width="200dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="400dp"
-        android:layout_marginTop="130dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/teacher2" />
-
-    <Button
-        android:id="@+id/btn_imggame_exit"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="60dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/button_exit"
-        app:layout_constraintBottom_toTopOf="@+id/btn_imggame_next"
-        app:layout_constraintLeft_toRightOf="@+id/img_imggame_shape"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/img_imggame_shape" />
-
-    <Button
-        android:id="@+id/btn_imggame_next"
+    <ImageButton
+        android:id="@+id/btn_igame_next"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/button_next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_exit"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_exit"
+        app:layout_constraintLeft_toLeftOf="@+id/btn_igame_exit"
+        app:layout_constraintRight_toRightOf="@+id/btn_igame_exit"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img_imggame_tvqst"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_bgqst"
-        app:layout_constraintTop_toTopOf="@+id/tv_imggame_num"
-        app:srcCompat="@drawable/tv_qst" />
-
     <ImageButton
-        android:id="@+id/btn_imggame_ex4"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:background="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex3"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex2"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex2"
-        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex3" />
-
-    <ImageButton
-        android:id="@+id/btn_imggame_ex3"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="6dp"
-        android:background="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_shape"
-        app:layout_constraintLeft_toLeftOf="@+id/btn_imggame_ex1"
-        app:layout_constraintRight_toRightOf="@+id/btn_imggame_ex1"
-        app:layout_constraintTop_toBottomOf="@+id/btn_imggame_ex1" />
-
-    <ImageButton
-        android:id="@+id/btn_imggame_ex2"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="20dp"
-        android:background="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_ex1"
-        app:layout_constraintLeft_toLeftOf="@+id/tv_imggame_qst"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
-        app:layout_constraintTop_toTopOf="@+id/btn_imggame_ex1" />
-
-    <ImageButton
-        android:id="@+id/btn_imggame_ex1"
-        android:layout_width="130dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="20dp"
-        android:background="@mipmap/ic_launcher"
-        app:layout_constraintBottom_toBottomOf="@+id/img_imggame_bgqst"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
-        app:layout_constraintRight_toRightOf="@+id/tv_imggame_qst"
-        app:layout_constraintTop_toBottomOf="@+id/tv_imggame_qst" />
+        android:id="@+id/btn_igame_exit"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/button_exit"
+        app:layout_constraintLeft_toRightOf="@+id/layout_image_game"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layout_image_game" />
 
     <TextView
-        android:id="@+id/tv_imggame_num"
+        android:id="@+id/tv_igame_tvqst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="Q1"
         android:textColor="@android:color/white"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/img_imggame_tch"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_bgqst"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_bgqst"
-        app:layout_constraintTop_toTopOf="@+id/img_imggame_bgqst" />
+        android:textSize="40sp"
+        app:layout_constraintLeft_toLeftOf="@+id/img_igame_tvqst"
+        app:layout_constraintRight_toRightOf="@+id/img_igame_tvqst"
+        app:layout_constraintTop_toTopOf="@+id/img_igame_bgqst" />
 
-    <TextView
-        android:id="@+id/tv_imggame_qst"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_image_game"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_green_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.09"
+        app:layout_constraintLeft_toLeftOf="@+id/igame_guideline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/igame_guideline4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/igame_guideline3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5">
+
+        </android.support.constraint.Guideline>
+
+        <Button
+            android:id="@+id/btn_igame_ex4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/button_ex"
+            android:text="label4"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_igame_ex3"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_igame_ex2"
+            app:layout_constraintRight_toRightOf="@+id/btn_igame_ex2"
+            app:layout_constraintTop_toTopOf="@+id/btn_igame_ex3" />
+
+        <Button
+            android:id="@+id/btn_igame_ex3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/button_ex"
+            android:text="label3"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_igame_ex1"
+            app:layout_constraintRight_toRightOf="@+id/btn_igame_ex1"
+            app:layout_constraintTop_toTopOf="@+id/igame_guideline4" />
+
+        <Button
+            android:id="@+id/btn_igame_ex2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_ex"
+            android:text="label2"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_igame_ex1"
+            app:layout_constraintLeft_toLeftOf="@+id/igame_guideline3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btn_igame_ex1" />
+
+        <Button
+            android:id="@+id/btn_igame_ex1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_ex"
+            android:text="label1"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/igame_guideline4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/igame_guideline3"
+            app:layout_constraintTop_toBottomOf="@+id/img_igame_qst" />
+
+        <ImageView
+            android:id="@+id/img_igame_qst"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="130dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/igame_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="label"
-        android:textColor="@android:color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_imggame_exit"
-        app:layout_constraintLeft_toLeftOf="@+id/img_imggame_shape"
-        app:layout_constraintRight_toRightOf="@+id/img_imggame_shape"
-        app:layout_constraintTop_toTopOf="@+id/img_imggame_shape" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.35"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/igame_guideline2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6">
+
+    </android.support.constraint.Guideline>
+
+    <ImageView
+        android:id="@+id/img_igame_tch"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/igame_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/img_igame_tvqst"
+        app:srcCompat="@drawable/teacher3" />
+
+    <ImageView
+        android:id="@+id/img_igame_tvqst"
+        android:layout_width="180dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_igame_bgqst"
+        app:layout_constraintLeft_toLeftOf="@+id/img_igame_bgqst"
+        app:layout_constraintRight_toRightOf="@+id/img_igame_bgqst"
+        app:layout_constraintTop_toTopOf="@+id/img_igame_bgqst"
+        app:srcCompat="@drawable/tv_qst" />
 
 </android.support.constraint.ConstraintLayout>

@@ -6,22 +6,17 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.alphago.alphago.R;
 import com.alphago.alphago.activity.GameImageActivity;
-import com.alphago.alphago.activity.GameWordActivity;
 import com.alphago.alphago.activity.GameWordActivity2;
-import com.alphago.alphago.activity.ImageRecognitionActivity;
-import com.alphago.alphago.activity.MainActivity;
 
 
 /**
