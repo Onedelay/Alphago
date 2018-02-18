@@ -44,7 +44,12 @@
         <activity
             android:name=".activity.SendImageActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.GameImageActivity"></activity>
+        <activity
+            android:name=".activity.GameImageActivity"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.GameWordActivity2"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
