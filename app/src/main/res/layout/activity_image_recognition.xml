@@ -11,7 +11,7 @@
         android:id="@+id/image_recognition"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginRight="150dp"
         android:background="@drawable/bg_img_line"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40dp"
         android:gravity="center"
         android:text="ALPHAGO"
         android:textColor="@android:color/white"
@@ -50,9 +50,11 @@
         android:id="@+id/btn_home"
         android:layout_width="85dp"
         android:layout_height="40dp"
+        android:layout_marginLeft="2dp"
         android:background="@drawable/button_learn"
         android:text="home"
         app:layout_constraintBottom_toBottomOf="@+id/image_recognition"
+        app:layout_constraintLeft_toRightOf="@id/btn_save"
         app:layout_constraintRight_toRightOf="@id/result_recog"
         app:layout_constraintTop_toBottomOf="@id/result_recog" />
 
@@ -60,23 +62,25 @@
         android:id="@+id/btn_save"
         android:layout_width="85dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
         android:background="@drawable/button_learn"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="@id/btn_home"
-        app:layout_constraintLeft_toRightOf="@+id/btn_retry"
-        app:layout_constraintRight_toLeftOf="@id/btn_home"
+        app:layout_constraintLeft_toLeftOf="@id/result_recog"
+        app:layout_constraintRight_toRightOf="@id/result_recog"
         app:layout_constraintTop_toTopOf="@id/btn_home" />
 
     <Button
         android:id="@+id/btn_retry"
         android:layout_width="85dp"
         android:layout_height="40dp"
+        android:layout_marginRight="2dp"
         android:background="@drawable/button_learn"
         android:text="retry"
         app:layout_constraintBottom_toBottomOf="@id/btn_home"
         app:layout_constraintLeft_toLeftOf="@id/result_recog"
+        app:layout_constraintRight_toLeftOf="@id/btn_save"
         app:layout_constraintTop_toTopOf="@id/btn_home" />
 
 </android.support.constraint.ConstraintLayout>
