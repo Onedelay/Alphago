@@ -36,10 +36,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
         if (imageFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath()); // 사진이 계속 누적되면 out of memory 오류 발생. 라이브러리 써서 이미지 크기 줄여야함.
             ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
             myImage.setImageBitmap(myBitmap);
         }
+
+        TextView textView = (TextView)findViewById(R.id.result_recog);
+        textView.setText(getIntent().getStringExtra("max_label"));
 
         btnPronon = (ImageButton) findViewById(R.id.btn_pronounce);
         btnPronon.setOnClickListener(new View.OnClickListener() {

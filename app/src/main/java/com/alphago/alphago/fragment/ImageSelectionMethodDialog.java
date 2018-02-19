@@ -3,6 +3,7 @@ package com.alphago.alphago.fragment;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,6 +15,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -64,6 +66,9 @@ public class ImageSelectionMethodDialog extends DialogFragment {
                 EasyImage.openGallery(ImageSelectionMethodDialog.this, TYPE_GALLERY);
             }
         });
+
+        // 상태바 숨김
+        getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         return builder.create();
     }

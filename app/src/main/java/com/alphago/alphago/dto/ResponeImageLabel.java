@@ -5,13 +5,22 @@ package com.alphago.alphago.dto;
  */
 
 public class ResponeImageLabel {
-    private String responseLabel;
+    private String category;
+    private String max_label;
 
-    public String getResponseLabel() {
-        return responseLabel;
+    public String getCategory() {
+        return category;
     }
 
-    public void setResponseLabel(String responseLabel) {
-        this.responseLabel = responseLabel;
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getResponseLabel() {
+        return max_label;
+    }
+
+    public void setResponseLabel(String max_label) {
+        this.max_label = max_label;
     }
 }

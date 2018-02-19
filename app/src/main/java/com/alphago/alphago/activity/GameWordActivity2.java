@@ -8,9 +8,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 
-public class GameWordActivity2 extends AppCompatActivity {
+public class GameWordActivity2 extends NoStatusBarActivity {
 
     private ImageButton btn_wgame_exit;
     private ImageButton btn_wgame_next;
