@@ -169,9 +169,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6">
-
-    </android.support.constraint.Guideline>
+        app:layout_constraintGuide_percent="0.6" />
 
     <ImageView
         android:id="@+id/img_igame_tch"

@@ -43,10 +43,11 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.GameImageActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.GameWordActivity2"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".activity.GameResultActivity"></activity>
     </application>
 
 </manifest>

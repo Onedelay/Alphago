@@ -47,6 +47,9 @@ public class GameImageActivity extends NoStatusBarActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Right or Wrong", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(GameImageActivity.this, GameResultActivity.class);
+                startActivity(intent);
+                // finish();
             }
         });
 
