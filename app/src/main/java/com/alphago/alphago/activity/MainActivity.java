@@ -51,7 +51,6 @@ public class MainActivity extends NoStatusBarActivity {
         findViewById(R.id.btn_card_book).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "카드 북 버튼 클릭", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, CardBookActivity.class);
                 startActivity(intent);
             }
