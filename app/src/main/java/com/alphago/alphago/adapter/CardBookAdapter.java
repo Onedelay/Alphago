@@ -15,9 +15,11 @@ import java.util.List;
 public class CardBookAdapter extends RecyclerView.Adapter<CardViewHolder> {
     private List<CardBook> list = new ArrayList<>();
     private CardViewHolder.OnCardClickListener listener;
+    private boolean type; // true인 경우 category
 
-    public CardBookAdapter(CardViewHolder.OnCardClickListener listener) {
+    public CardBookAdapter(CardViewHolder.OnCardClickListener listener, boolean type) {
         this.listener = listener;
+        this.type = type;
     }
 
     @Override
@@ -29,7 +31,8 @@ public class CardBookAdapter extends RecyclerView.Adapter<CardViewHolder> {
 
     @Override
     public void onBindViewHolder(CardViewHolder holder, int position) {
-        holder.bind(list.get(position));
+        if(type) holder.bindCat(list.get(position)); // true인 경우 category
+        else holder.bind(list.get(position));
     }
 
     @Override

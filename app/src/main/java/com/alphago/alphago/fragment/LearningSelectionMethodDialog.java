@@ -2,44 +2,35 @@ package com.alphago.alphago.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphago.alphago.R;
-import com.alphago.alphago.activity.ImageRecognitionActivity;
 import com.alphago.alphago.activity.SendImageActivity;
-
-import java.io.File;
-import java.util.List;
-
-import pl.aprilapps.easyphotopicker.EasyImage;
-
+import com.alphago.alphago.activity.WordLearningActivity;
 
 /**
  * Created by su_me on 2018-01-07.
  */
 
-public class ImageSelectionMethodDialog extends DialogFragment {
-    public static final int TYPE_GALLERY = 0;
-    public static final int TYPE_CAMERA = 1;
+public class LearningSelectionMethodDialog extends DialogFragment {
+    public static final int TYPE_ALL = 0;
+    public static final int TYPE_ALBUM = 1;
 
+    private TextView method;
+    private TextView method1;
+    private TextView method2;
 
-    private Button btnImageCapture;
-    private Button btnImageSelect;
+    Intent intent;
 
     @NonNull
     @Override
@@ -50,20 +41,28 @@ public class ImageSelectionMethodDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_img_select_method, null);
         builder.setView(rootView);
 
-        btnImageCapture = (Button) rootView.findViewById(R.id.btn_img_capture);
-        btnImageCapture.setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.how_to_img);
+        method1 = (TextView) rootView.findViewById(R.id.btn_img_capture);
+        method2 = (TextView) rootView.findViewById(R.id.btn_img_album_select);
+
+        method.setText("학습 방법을 선택하세요.");
+        method1.setText("앨범 학습하기");
+        method2.setText("전체 학습하기");
+
+        intent = new Intent(getActivity(), WordLearningActivity.class);
+
+        rootView.findViewById(R.id.btn_img_capture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "사진 촬영 버튼 선택", Toast.LENGTH_SHORT).show();
-                EasyImage.openCamera(ImageSelectionMethodDialog.this, TYPE_CAMERA);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
-        btnImageSelect = (Button) rootView.findViewById(R.id.btn_img_album_select);
-        btnImageSelect.setOnClickListener(new View.OnClickListener() {
+        rootView.findViewById(R.id.btn_img_album_select).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EasyImage.openGallery(ImageSelectionMethodDialog.this, TYPE_GALLERY);
+                startActivity(intent);
             }
         });
 
@@ -73,30 +72,4 @@ public class ImageSelectionMethodDialog extends DialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new EasyImage.Callbacks() {
-            @Override
-            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                Toast.makeText(getContext(), "onImagePickError", Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
-                Toast.makeText(getContext(), "onImagePicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getContext(), SendImageActivity.class);
-                intent.putExtra("sendImage", imageFiles.get(0));
-                startActivity(intent);
-                dismiss();
-            }
-
-            @Override
-            public void onCanceled(EasyImage.ImageSource source, int type) {
-                Toast.makeText(getContext(), "onCanceld", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }

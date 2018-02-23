@@ -15,6 +15,7 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
 import com.alphago.alphago.adapter.CardBookAdapter;
+import com.alphago.alphago.fragment.LearningSelectionMethodDialog;
 import com.alphago.alphago.model.CardBook;
 
 import java.util.ArrayList;
@@ -25,8 +26,6 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     private RecyclerView recyclerView;
     private CardBookAdapter adapter;
 
-    private String categoryList[] = {"animal", "fruit", "furniture","vegetable"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +35,11 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         btnLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "학습하기 버튼 클릭", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CardBookActivity.this, WordLearningActivity.class);
-                startActivity(intent);
+                new LearningSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
             }
         });
 
-        adapter = new CardBookAdapter(this);
+        adapter = new CardBookAdapter(this, true);
         recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -50,17 +47,18 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
 
         List<CardBook> list = new ArrayList<>();
 
-        list.add(new CardBook(categoryList[0], R.drawable.tmp_dog));
-        list.add(new CardBook(categoryList[1], R.drawable.tmp_apple));
-        list.add(new CardBook(categoryList[2], R.drawable.tmp_bed));
-        list.add(new CardBook(categoryList[3], R.drawable.tmp_tomato));
-
+        list.add(new CardBook(TestData.dataLabel[0], TestData.dataCat[0], R.drawable.tmp_dog));
+        list.add(new CardBook(TestData.dataLabel[3], TestData.dataCat[3], R.drawable.tmp_apple));
+        list.add(new CardBook(TestData.dataLabel[7], TestData.dataCat[7], R.drawable.tmp_bed));
+        list.add(new CardBook(TestData.dataLabel[10], TestData.dataCat[10], R.drawable.tmp_tomato));
 
         adapter.setList(list);
     }
 
     @Override
     public void onCardClick(CardBook cardBook) {
-        Toast.makeText(this, cardBook.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
+        intent.putExtra("category",cardBook.getCategory());
+        startActivity(intent);
     }
 }

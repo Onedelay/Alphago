@@ -14,6 +14,7 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
 import com.alphago.alphago.dto.ResponeImageLabel;
+import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 
 import java.io.File;
 import java.io.Serializable;
@@ -39,6 +40,13 @@ public class SendImageActivity extends NoStatusBarActivity {
             ImageView myImage = (ImageView) findViewById(R.id.sendImageView);
             myImage.setImageBitmap(myBitmap);
         }
+
+        findViewById(R.id.btn_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
+            }
+        });
 
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +79,8 @@ public class SendImageActivity extends NoStatusBarActivity {
 
             }
         });
+
+
 
     }
 }

@@ -4,25 +4,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 
-public class SelectImageDetail extends NoStatusBarActivity {
+import org.w3c.dom.Text;
 
-    private Button btnDetailBack;
+public class SelectImageDetail extends NoStatusBarActivity {
+    private TextView detailLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_image_detail);
 
-        btnDetailBack = (Button) findViewById(R.id.btn_detail_back);
-        btnDetailBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        String label = getIntent().getStringExtra("label");
+        detailLabel = (TextView) findViewById(R.id.detail_label);
+        detailLabel.setText(label);
+
     }
 }

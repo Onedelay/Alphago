@@ -13,12 +13,6 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <Button
-        android:id="@+id/btn_detail_back"
-        android:text="뒤로"
-        android:layout_width="100dp"
-        android:layout_height="50dp" />
-
     <TextView
         android:id="@+id/detail_label"
         android:text="임시 화면..구성 안했음"

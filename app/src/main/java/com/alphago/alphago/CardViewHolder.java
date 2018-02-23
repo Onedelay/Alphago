@@ -33,4 +33,10 @@ public class CardViewHolder extends RecyclerView.ViewHolder {
         mImageView.setImageResource(cardBook.getImageResourceId());
         mTextView.setText(cardBook.getName());
     }
+
+    public void bindCat(CardBook cardBook) {
+        this.cardBook = cardBook;
+        mImageView.setImageResource(cardBook.getImageResourceId()); // 최신사진 뽑아오게하기
+        mTextView.setText(cardBook.getCategory());
+    }
 }
