@@ -40,6 +40,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
             Picasso.with(getBaseContext())
                     .load(imageFile)
+                    .centerInside()
                     .fit()
                     .into(myImage);
         }

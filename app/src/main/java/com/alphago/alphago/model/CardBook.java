@@ -1,25 +1,37 @@
 package com.alphago.alphago.model;
 
 public class CardBook {
+    private long id;
     private String name;
+    private long categoryId;
     private String category;
-    private int imageResourceId;
+    private String filePath;
 
-    public CardBook(String name, String category, int imageResourceId) {
+    public CardBook(long id, String name, long categoryId, String category, String filePath) {
+        this.id = id;
         this.name = name;
+        this.categoryId = categoryId;
         this.category = category;
-        this.imageResourceId = imageResourceId;
+        this.filePath = filePath;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getImageResourceId() {
-        return imageResourceId;
+    public long getCategoryId() {
+        return categoryId;
     }
 
     public String getCategory() {
         return category;
+    }
+
+    public String getFilePath() {
+        return filePath;
     }
 }

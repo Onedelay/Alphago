@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.R;
 import com.alphago.alphago.model.CardBook;
+import com.alphago.alphago.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardBookAdapter extends RecyclerView.Adapter<CardViewHolder> {
-    private List<CardBook> list = new ArrayList<>();
+public class CategoryAdapter extends RecyclerView.Adapter<CardViewHolder> {
+    private List<Category> list = new ArrayList<>();
     private CardViewHolder.OnCardClickListener listener;
 
-    public CardBookAdapter(CardViewHolder.OnCardClickListener listener) {
+    public CategoryAdapter(CardViewHolder.OnCardClickListener listener) {
         this.listener = listener;
     }
 
@@ -37,7 +38,7 @@ public class CardBookAdapter extends RecyclerView.Adapter<CardViewHolder> {
         return list.size();
     }
 
-    public void setList(List<CardBook> list) {
+    public void setList(List<Category> list) {
         this.list = list;
         notifyDataSetChanged();
     }

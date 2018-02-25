@@ -15,6 +15,7 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
 import com.alphago.alphago.adapter.CardBookAdapter;
+import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 
 import java.util.ArrayList;
@@ -30,30 +31,29 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_book_list);
 
+        long categoryId = getIntent().getLongExtra("categoryId", -1);
         String category = getIntent().getStringExtra("category");
+
 
         cat = (TextView) findViewById(R.id.cardbook_list_main_label);
         cat.setText(category);
 
-        adapter = new CardBookAdapter(this, false);
+        adapter = new CardBookAdapter(this);
         recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        List<CardBook> list = new ArrayList<>();
-        List labelList = TestData.labelArray(category);
-        for(int i=0; i<labelList.size(); i++){
-            list.add(new CardBook(labelList.get(i).toString(), category, R.mipmap.ic_launcher));
-        }
-
-        adapter.setList(list);
+        DbHelper dbHelper = new DbHelper(getBaseContext());
+        adapter.setList(dbHelper.labelSelect(categoryId));
     }
 
     @Override
-    public void onCardClick(CardBook cardBook) {
-        Toast.makeText(this, "on click", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, SelectImageDetail.class);
-        intent.putExtra("label",cardBook.getName());
-        startActivity(intent);
+    public void onCardClick(Object data) {
+        if (data instanceof CardBook) {
+            Toast.makeText(this, "on click", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SelectImageDetail.class);
+            intent.putExtra("label", ((CardBook) data).getName());
+            startActivity(intent);
+        }
     }
 }

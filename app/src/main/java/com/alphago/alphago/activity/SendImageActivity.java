@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SendImageActivity extends NoStatusBarActivity {
+    private FrameLayout frameLoading;
     private File imageFile;
     private String category;
     private String max_label;
@@ -39,6 +41,7 @@ public class SendImageActivity extends NoStatusBarActivity {
             ImageView myImage = (ImageView) findViewById(R.id.sendImageView);
             Picasso.with(getBaseContext())
                     .load(imageFile)
+                    .centerInside()
                     .fit()
                     .into(myImage);
         }
@@ -53,9 +56,11 @@ public class SendImageActivity extends NoStatusBarActivity {
         findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                frameLoading.setVisibility(View.VISIBLE);
                 AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
                     @Override
                     public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
+                        frameLoading.setVisibility(View.GONE);
                         if (response.body() != null) {
                             Toast.makeText(SendImageActivity.this, response.body().getResponseLabel(), Toast.LENGTH_SHORT).show();
                             category = response.body().getCategory();
@@ -64,9 +69,9 @@ public class SendImageActivity extends NoStatusBarActivity {
                             // 서버 응답 받는 시간 너무 느림. loading 화면 만들기
 
                             Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
-                            intent.putExtra("imageFile",imageFile);
-                            intent.putExtra("category",category);
-                            intent.putExtra("max_label",max_label);
+                            intent.putExtra("imageFile", imageFile);
+                            intent.putExtra("category", category);
+                            intent.putExtra("max_label", max_label);
                             startActivity(intent);
                             finish();
                         }
@@ -74,15 +79,13 @@ public class SendImageActivity extends NoStatusBarActivity {
 
                     @Override
                     public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
+                        frameLoading.setVisibility(View.GONE);
                         t.printStackTrace();
                     }
                 });
-
-
             }
         });
 
-
-
+        frameLoading = (FrameLayout) findViewById(R.id.frame_loading);
     }
 }

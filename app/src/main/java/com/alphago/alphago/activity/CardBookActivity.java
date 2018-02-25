@@ -15,8 +15,11 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
 import com.alphago.alphago.adapter.CardBookAdapter;
+import com.alphago.alphago.adapter.CategoryAdapter;
+import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.fragment.LearningSelectionMethodDialog;
 import com.alphago.alphago.model.CardBook;
+import com.alphago.alphago.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +27,7 @@ import java.util.List;
 public class CardBookActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
     private Button btnLearning;
     private RecyclerView recyclerView;
-    private CardBookAdapter adapter;
+    private CategoryAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +42,23 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
             }
         });
 
-        adapter = new CardBookAdapter(this, true);
+        adapter = new CategoryAdapter(this);
         recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
 
-        List<CardBook> list = new ArrayList<>();
-
-        list.add(new CardBook(TestData.dataLabel[0], TestData.dataCat[0], R.drawable.tmp_dog));
-        list.add(new CardBook(TestData.dataLabel[3], TestData.dataCat[3], R.drawable.tmp_apple));
-        list.add(new CardBook(TestData.dataLabel[7], TestData.dataCat[7], R.drawable.tmp_bed));
-        list.add(new CardBook(TestData.dataLabel[10], TestData.dataCat[10], R.drawable.tmp_tomato));
-
-        adapter.setList(list);
+        DbHelper dbHelper = new DbHelper(getBaseContext());
+        adapter.setList(dbHelper.categorySelect());
     }
 
     @Override
-    public void onCardClick(CardBook cardBook) {
-        Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
-        intent.putExtra("category",cardBook.getCategory());
-        startActivity(intent);
+    public void onCardClick(Object data) {
+        if (data instanceof Category) {
+            Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
+            intent.putExtra("categoryId", ((Category) data).getId());
+            intent.putExtra("category", ((Category) data).getLabel());
+            startActivity(intent);
+        }
     }
 }
