@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphago.alphago.model.CardBook;
+import com.squareup.picasso.Picasso;
 
 public class CardViewHolder extends RecyclerView.ViewHolder {
     private ImageView mImageView;
@@ -30,13 +31,13 @@ public class CardViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(CardBook cardBook) {
         this.cardBook = cardBook;
-        mImageView.setImageResource(cardBook.getImageResourceId());
+        Picasso.with(itemView.getContext()).load(cardBook.getImageResourceId()).fit().into(mImageView);
         mTextView.setText(cardBook.getName());
     }
 
     public void bindCat(CardBook cardBook) {
         this.cardBook = cardBook;
-        mImageView.setImageResource(cardBook.getImageResourceId()); // 최신사진 뽑아오게하기
+        Picasso.with(itemView.getContext()).load(cardBook.getImageResourceId()).fit().into(mImageView); // 최신사진 받아오게하기
         mTextView.setText(cardBook.getCategory());
     }
 }

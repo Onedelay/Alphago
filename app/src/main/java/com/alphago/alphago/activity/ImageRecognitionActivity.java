@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -36,9 +37,11 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
         if (imageFile.exists()) {
-            Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath()); // 사진이 계속 누적되면 out of memory 오류 발생. 라이브러리 써서 이미지 크기 줄여야함.
             ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
-            myImage.setImageBitmap(myBitmap);
+            Picasso.with(getBaseContext())
+                    .load(imageFile)
+                    .fit()
+                    .into(myImage);
         }
 
         TextView textView = (TextView)findViewById(R.id.result_recog);

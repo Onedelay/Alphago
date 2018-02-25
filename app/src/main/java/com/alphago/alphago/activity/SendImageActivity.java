@@ -15,6 +15,7 @@ import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
 import com.alphago.alphago.dto.ResponeImageLabel;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.Serializable;
@@ -35,10 +36,11 @@ public class SendImageActivity extends NoStatusBarActivity {
 
         imageFile = (File) getIntent().getSerializableExtra("sendImage");
         if (imageFile.exists()) {
-
-            Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
             ImageView myImage = (ImageView) findViewById(R.id.sendImageView);
-            myImage.setImageBitmap(myBitmap);
+            Picasso.with(getBaseContext())
+                    .load(imageFile)
+                    .fit()
+                    .into(myImage);
         }
 
         findViewById(R.id.btn_retry).setOnClickListener(new View.OnClickListener() {

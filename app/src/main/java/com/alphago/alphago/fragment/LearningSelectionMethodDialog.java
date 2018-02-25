@@ -41,7 +41,7 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_img_select_method, null);
         builder.setView(rootView);
 
-        rootView.findViewById(R.id.how_to_img);
+        method = (TextView) rootView.findViewById(R.id.how_to_img);
         method1 = (TextView) rootView.findViewById(R.id.btn_img_capture);
         method2 = (TextView) rootView.findViewById(R.id.btn_img_album_select);
 
