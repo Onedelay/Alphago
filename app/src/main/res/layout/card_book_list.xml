@@ -16,14 +16,15 @@
 
     <TextView
         android:id="@+id/cardbook_list_label"
-        android:text="label"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        style="@style/CardBookFont"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:text="label"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/cardbook_list_img"
         app:layout_constraintRight_toRightOf="@id/cardbook_list_img"
-        app:layout_constraintTop_toBottomOf="@id/cardbook_list_img"/>
+        app:layout_constraintTop_toBottomOf="@id/cardbook_list_img" />
 
 </android.support.constraint.ConstraintLayout>

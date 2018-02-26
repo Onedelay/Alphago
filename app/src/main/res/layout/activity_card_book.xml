@@ -4,29 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_cardbook"
     android:padding="10dp"
     tools:context="com.alphago.alphago.activity.CardBookActivity">
 
     <Button
         android:id="@+id/btn_learning"
-        android:text="학습하기"
         android:layout_width="80dp"
         android:layout_height="50dp"
+        android:background="@drawable/button_learn"
+        android:text="학습하기"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/cardbook_grid"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/cardbook_grid"
-        app:layoutManager="GridLayoutManager"
-        app:spanCount="3"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center_horizontal"
+        app:layoutManager="GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/btn_learning"/>
+        app:layout_constraintRight_toLeftOf="@id/btn_learning"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="3" />
 
 </android.support.constraint.ConstraintLayout>

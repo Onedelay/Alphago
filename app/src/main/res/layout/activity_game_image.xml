@@ -40,12 +40,12 @@
 
     <TextView
         android:id="@+id/tv_igame_tvqst"
+        style="@style/CardBookFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="Q1"
-        android:textColor="@android:color/white"
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="@+id/img_igame_tvqst"
         app:layout_constraintRight_toRightOf="@+id/img_igame_tvqst"
