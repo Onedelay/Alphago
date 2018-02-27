@@ -3,7 +3,6 @@ package com.alphago.alphago.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -41,14 +40,16 @@ public class DbHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + CardsEntry.TABLE_NAME + " (" +
                     CardsEntry._ID + " INTEGER PRIMARY KEY," +
                     CardsEntry.COLUMN_NAME_IMG + " INTEGER ," +
+                    CardsEntry.COLUMN_NAME_LABEL + " TEXT ," +
                     CardsEntry.COLUMN_NAME_PATH + " TEXT)";
 
     // Default images
-    private static final String[] CATEGORY_LIST = {"animal", "fruit", "furniture", "vegetable"};
-    private static final String IMAGE_LIST_ANIMAL[] = {"dog", "cat", "lion"};
-    private static final String IMAGE_LIST_FRUIT[] = {"apple", "banana", "strawberry", "lemon"};
-    private static final String IMAGE_LIST_FURNITURE[] = {"bed", "chair", "desk"};
-    private static final String IMAGE_LIST_VEGETABLE[] = {"tomato", "cucumber", "potato", "pumpkin"};
+    private static final String[] CATEGORY_LIST = {"animal", "furniture", "food", "school", "kitchen", "electronics", "bathroom", "room", "clothes", "ETC" };
+    private static final String[][] IMAGE_LIST = {
+            {"animal","cat","1","1"}, {"animal","dog","1","2"}, {"animal","lion","1","3"},
+            {"food","apple","3","3"}, {"food","potato","3","13"},
+            {"furniture","bed","2","20"}, {"furniture","chair","2","21"}, {"furniture","desk","2","22"}
+    };
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -63,40 +64,28 @@ public class DbHelper extends SQLiteOpenHelper {
         * default image 초기화 부분, 서버에서 주면 좋다고함.
         * */
 
-        // 카테고리
+        // 카테고리 초기화
         for (String category : CATEGORY_LIST) {
             ContentValues values = new ContentValues();
             values.put(CategoryEntry.COLUMN_NAME_LABEL, category);
             db.insert(CategoryEntry.TABLE_NAME, null, values); // return row ID (long)
         }
 
-        // 카테고리 별 사진들
-        for (String label : IMAGE_LIST_ANIMAL) {
+        // 카드북 초기화
+        for(int i=0; i<IMAGE_LIST.length; i++){
             ContentValues values = new ContentValues();
-            values.put(CardBookEntry.COLUMN_NAME_LABEL, label);
-            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, 1);
+            values.put(CardBookEntry._ID, IMAGE_LIST[i][3]);
+            values.put(CardBookEntry.COLUMN_NAME_LABEL, IMAGE_LIST[i][1]);
+            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, IMAGE_LIST[i][2]);
             db.insert(CardBookEntry.TABLE_NAME, null, values);
         }
 
-        for (String label : IMAGE_LIST_FRUIT) {
+        // 카드 초기화
+        for(int i=0; i<IMAGE_LIST.length; i++){
             ContentValues values = new ContentValues();
-            values.put(CardBookEntry.COLUMN_NAME_LABEL, label);
-            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, 2);
-            db.insert(CardBookEntry.TABLE_NAME, null, values);
-        }
-
-        for (String label : IMAGE_LIST_FURNITURE) {
-            ContentValues values = new ContentValues();
-            values.put(CardBookEntry.COLUMN_NAME_LABEL, label);
-            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, 3);
-            db.insert(CardBookEntry.TABLE_NAME, null, values);
-        }
-
-        for (String label : IMAGE_LIST_VEGETABLE) {
-            ContentValues values = new ContentValues();
-            values.put(CardBookEntry.COLUMN_NAME_LABEL, label);
-            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, 4);
-            db.insert(CardBookEntry.TABLE_NAME, null, values);
+            values.put(CardsEntry.COLUMN_NAME_IMG, IMAGE_LIST[i][3]);
+            values.put(CardsEntry.COLUMN_NAME_LABEL, IMAGE_LIST[i][1]);
+            db.insert(CardsEntry.TABLE_NAME, null, values);
         }
 
         // 같은 레이블 가진 다른 사진들
@@ -122,7 +111,7 @@ public class DbHelper extends SQLiteOpenHelper {
         return categoryList;
     }
 
-    public List<CardBook> labelSelect(long categoryId) {
+    public List<CardBook> cardbookSelect(long categoryId) {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {"*"};
         String selection = CardBookEntry.COLUMN_NAME_CATEGORY + " = ?";
@@ -158,35 +147,33 @@ public class DbHelper extends SQLiteOpenHelper {
         c.close();
         return cardList;
     }
-//
-//    public void insertImage(String categoryName, String imageLabel, String filePath){
-//        SQLiteDatabase rdb = getReadableDatabase();
-//        SQLiteDatabase wdb = getWritableDatabase();
-//
-//        String[] projection = {"_ID"};
-//        String[] selectionArgs = {categoryName};
-//
-//        Cursor c = rdb.query(CategoryEntry.TABLE_NAME, projection, CategoryEntry.COLUMN_NAME_LABEL + " = ?", selectionArgs, null, null, null);
-//        c.moveToNext();
-//        long imgId = c.getColumnIndexOrThrow(CategoryEntry._ID);
-//
-//        /*
-//        * 1. 'CATEGORY'에서 '카테고리명(categoryName)'으로 '카테고리번호'를 조회한다
-//        * 2. 'CARD_BOOK'에 삽입할 '이미지명'이 있다면 해당 이미지의 '이미지 번호'를 조회하고
-//        *    없다면 새로운 '이미지 번호'와 1번에서 조회한 '카테고리명', '이미지명(imageLabel)', '대표이미지'로 새로운 행을 삽입한다.
-//        * 3. 'CARDS'에 2번의 '이미지 번호', '이미지 경로(filePath)'를 삽입한다
-//        * */
-//
-//        // 카드북 테이블에 해당 레이블이 없으면 삽입 후 대표 이미지 갱신
-//        selectionArgs[0] = imageLabel;
-//
-//        c = rdb.query(CardBookEntry.TABLE_NAME, projection, CategoryEntry.COLUMN_NAME_LABEL + " = ?", selectionArgs, null, null, null);
-//        c.moveToNext();
-//        long imgId = c.getColumnIndexOrThrow(CardBookEntry._ID);
-//
-//        ContentValues values = new ContentValues();
-//        values.put(CardsEntry.COLUMN_NAME_IMG, imgId);
-//        values.put(CardBookEntry.COLUMN_NAME_CATEGORY, 3);
-//        wdb.insert(CardBookEntry.TABLE_NAME, null, values);
-//    }
+
+    public void insertImage(String categoryName, String imageLabel, int catId, int labelId, String filePath){
+
+        SQLiteDatabase rdb = getReadableDatabase();
+        SQLiteDatabase wdb = getWritableDatabase();
+
+        String[] projection = {"*"};
+        String selection = CardBookEntry._ID + " = ?";
+        String[] selectionArgs = {String.valueOf(labelId)};
+
+        Cursor c = rdb.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+
+        // 카드북에 현재 레이블이 없으면 삽입
+        if( c == null ){
+            ContentValues cardBookValues = new ContentValues();
+            cardBookValues.put(CardBookEntry._ID, labelId);
+            cardBookValues.put(CardBookEntry.COLUMN_NAME_CATEGORY, catId);
+            cardBookValues.put(CardBookEntry.COLUMN_NAME_LABEL, imageLabel);
+            cardBookValues.put(CardBookEntry.COLUMN_NAME_PATH, filePath);
+            cardBookValues.put(CardBookEntry.COLUMN_NAME_COLLECT, true);
+            wdb.insert(CardBookEntry.TABLE_NAME, null, cardBookValues);
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(CardsEntry.COLUMN_NAME_IMG, labelId);
+        values.put(CardsEntry.COLUMN_NAME_LABEL, imageLabel);
+        values.put(CardsEntry.COLUMN_NAME_PATH, filePath);
+        wdb.insert(CardsEntry.TABLE_NAME, null, values);
+    }
 }

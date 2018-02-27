@@ -1,27 +1,17 @@
 package com.alphago.alphago.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
-import com.alphago.alphago.TestData;
 import com.alphago.alphago.adapter.CardBookAdapter;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CardBookListActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
     private TextView cat;
@@ -46,7 +36,7 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
         recyclerView.setHasFixedSize(true);
 
         DbHelper dbHelper = new DbHelper(getBaseContext());
-        adapter.setList(dbHelper.labelSelect(categoryId));
+        adapter.setList(dbHelper.cardbookSelect(categoryId));
     }
 
     @Override

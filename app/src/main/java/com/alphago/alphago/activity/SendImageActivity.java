@@ -62,11 +62,9 @@ public class SendImageActivity extends NoStatusBarActivity {
                     public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
                         frameLoading.setVisibility(View.GONE);
                         if (response.body() != null) {
-                            Toast.makeText(SendImageActivity.this, response.body().getResponseLabel(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SendImageActivity.this, response.body().getResponseLabel(), Toast.LENGTH_SHORT).show();
                             category = response.body().getCategory();
                             max_label = response.body().getResponseLabel();
-
-                            // 서버 응답 받는 시간 너무 느림. loading 화면 만들기
 
                             Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
                             intent.putExtra("imageFile", imageFile);
@@ -80,6 +78,7 @@ public class SendImageActivity extends NoStatusBarActivity {
                     @Override
                     public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
                         frameLoading.setVisibility(View.GONE);
+                        Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });

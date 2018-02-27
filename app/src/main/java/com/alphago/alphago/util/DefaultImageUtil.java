@@ -12,12 +12,10 @@ public class DefaultImageUtil {
             case 1:
                 return R.drawable.tmp_dog;
             case 2:
-                return R.drawable.tmp_apple;
-            case 3:
                 return R.drawable.tmp_bed;
-            case 4:
-                return R.drawable.tmp_tomato;
+            case 3:
+                return R.drawable.tmp_apple;
         }
-        return -1;
+        return R.mipmap.ic_launcher;
     }
 }
