@@ -104,6 +104,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         btn_wgame_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Show Result
                 if (result == true)
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_right);
@@ -114,6 +115,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                     img_wgame_tvqst.setImageResource(R.drawable.img_wrong);
                     Toast.makeText(getApplicationContext(), qst_index + "Wrong", Toast.LENGTH_SHORT).show();
                 }
+
+                // Change the screen after 2.5 seconds
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
