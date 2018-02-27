@@ -65,12 +65,12 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                 if (result == true)
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_right);
-                    Toast.makeText(getApplicationContext(), qcount + " Right", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), qst_num[qcount] + " Right", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_wrong);
-                    Toast.makeText(getApplicationContext(), qcount + " Wrong", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), qst_num[qcount] + " Wrong", Toast.LENGTH_SHORT).show();
                 }
 
                 // Change the screen after 2.5 seconds
@@ -100,6 +100,9 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         int d, rnum, index;
 
         for (int i = 0; i < 4; i++)
+            ex_num[i] = 0;
+
+        for (int i = 0; i < 4; i++)
         {
             d = 0;
             // data 개수만큼의 숫자 중 random number 생성
@@ -127,6 +130,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     }
 
     protected void SetQuestion(final int qcount) {
+        result = false;
+
         btn_wgame_ex1.setText(TestData.dataLabel[ex_num[0]]);
         btn_wgame_ex2.setText(TestData.dataLabel[ex_num[1]]);
         btn_wgame_ex3.setText(TestData.dataLabel[ex_num[2]]);
