@@ -10,9 +10,11 @@ import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
+import com.alphago.alphago.TestData;
 
 public class GameWordActivity2 extends NoStatusBarActivity {
 
+    private int ex_num[] = new int[4];
     private ImageButton btn_wgame_exit;
     private ImageButton btn_wgame_next;
     private Button btn_wgame_ex1;
@@ -25,12 +27,19 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_word2);
 
+        CreateQuestion(TestData.dataID.length);
+
         btn_wgame_exit = (ImageButton)findViewById(R.id.btn_wgame_exit);
         btn_wgame_next = (ImageButton)findViewById(R.id.btn_wgame_next);
         btn_wgame_ex1 = (Button)findViewById(R.id.btn_wgame_ex1);
         btn_wgame_ex2 = (Button)findViewById(R.id.btn_wgame_ex2);
         btn_wgame_ex3 = (Button)findViewById(R.id.btn_wgame_ex3);
         btn_wgame_ex4 = (Button)findViewById(R.id.btn_wgame_ex4);
+
+        btn_wgame_ex1.setText(TestData.dataLabel[ex_num[0]]);
+        btn_wgame_ex2.setText(TestData.dataLabel[ex_num[1]]);
+        btn_wgame_ex3.setText(TestData.dataLabel[ex_num[2]]);
+        btn_wgame_ex4.setText(TestData.dataLabel[ex_num[3]]);
 
         btn_wgame_exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,5 +103,29 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         btn_wgame_ex2.setOnClickListener(onClickListener);
         btn_wgame_ex3.setOnClickListener(onClickListener);
         btn_wgame_ex4.setOnClickListener(onClickListener);
+    }
+
+    protected void CreateQuestion(int dcount)
+    {
+        int d;
+
+        for (int i = 0; i < 4; i++)
+        {
+            d = 0;
+            int rnum = (int)(Math.random() * dcount);
+
+            for (int j = 0; j < i; j++)
+            {
+                if (rnum == ex_num[j])
+                {
+                    d = 1;
+                    break;
+                }
+            }
+            if (d == 1)
+                i--;
+            else
+                ex_num[i] = rnum;
+        }
     }
 }
