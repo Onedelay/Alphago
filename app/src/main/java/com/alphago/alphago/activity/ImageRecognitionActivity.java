@@ -41,7 +41,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         setContentView(R.layout.activity_image_recognition);
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
-        final Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
 
         if (imageFile.exists()) {
             ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
@@ -82,12 +81,10 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storeImageFile(bitmap, maxLabel);
+                String filePath = storeImageFile(imageFile, maxLabel);
                 Toast.makeText(getBaseContext(),"저장되었습니다!",Toast.LENGTH_SHORT).show();
 
-                
-
-                //dbHelper.insertImage(categoryName, maxLabel, catID, ID, );
+                dbHelper.insertImage(categoryName, maxLabel, catID, ID, filePath);
             }
         });
 
@@ -108,21 +105,20 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         //super.onBackPressed();
     }
 
-    private void storeImageFile(Bitmap imageFile, String imageLabel){
+    // 내부저장소 Alphago 폴더 내 사진 저장
+        private String storeImageFile(File imageFile, String imageLabel){
         String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Alphago";
         FileOutputStream outStream = null;
 
         File dirAlphago = new File(dirPath);
         if( !dirAlphago.exists() ) dirAlphago.mkdirs();
 
-        String fileName = String.format(imageLabel+".jpg");
+        String fileName = String.format(imageLabel+System.currentTimeMillis()+".jpg");
 
         File outFile = new File(dirAlphago, fileName);
 
         try{
             outStream = new FileOutputStream(outFile);
-            imageFile.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
-
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             intent.setData(Uri.fromFile(outFile));
             sendBroadcast(intent);
@@ -133,5 +129,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         } catch (Exception e){
             e.printStackTrace();
         }
+        return dirPath+"/"+fileName;
     }
 }

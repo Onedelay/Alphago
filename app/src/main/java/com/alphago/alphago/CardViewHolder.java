@@ -10,6 +10,8 @@ import com.alphago.alphago.model.Category;
 import com.alphago.alphago.util.DefaultImageUtil;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
 public class CardViewHolder extends RecyclerView.ViewHolder {
     private ImageView mImageView;
     private TextView mTextView;
@@ -31,29 +33,31 @@ public class CardViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bind(CardBook cardBook) {
-        this.data = cardBook;
-        if (cardBook.getFilePath() != null) {
-            Picasso.with(itemView.getContext())
-                    .load(cardBook.getFilePath())
-                    .fit()
-                    .into(mImageView);
-        } else {
-            mImageView.setImageResource(R.mipmap.ic_launcher);
-        }
-        mTextView.setText(cardBook.getName());
-    }
-
     public void bind(Category category) {
         this.data = category;
         if (category.getFilePath() != null) {
             Picasso.with(itemView.getContext())
-                    .load(category.getFilePath())
+                    .load(new File(category.getFilePath()))
+                    .centerInside()
                     .fit()
                     .into(mImageView); // 최신사진 받아오게하기
         } else {
             mImageView.setImageResource(DefaultImageUtil.getCategoryImage(category.getId()));
         }
         mTextView.setText(category.getLabel());
+    }
+
+    public void bind(CardBook cardBook) {
+        this.data = cardBook;
+        if (cardBook.getFilePath() != null) {
+            Picasso.with(itemView.getContext())
+                    .load(new File(cardBook.getFilePath()))
+                    .centerInside()
+                    .fit()
+                    .into(mImageView);
+        } else {
+            mImageView.setImageResource(R.mipmap.ic_launcher);
+        }
+        mTextView.setText(cardBook.getName());
     }
 }

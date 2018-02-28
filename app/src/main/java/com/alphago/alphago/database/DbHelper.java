@@ -5,7 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.alphago.alphago.activity.CardBookListActivity;
 import com.alphago.alphago.database.CardBookContract.*;
 import com.alphago.alphago.model.Card;
 import com.alphago.alphago.model.CardBook;
@@ -59,6 +62,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_CARD_BOOK);
         db.execSQL(SQL_CREATE_CATEGORY);
+        db.execSQL(SQL_CREATE_CARDS);
+
 
         /*
         * default image 초기화 부분, 서버에서 주면 좋다고함.
@@ -117,6 +122,11 @@ public class DbHelper extends SQLiteOpenHelper {
 
         cards.close();
         c.close();
+
+        for(int i=0; i<categoryList.size(); i++){
+            Log.v("alphago",categoryList.get(i).getLabel());
+        }
+
         return categoryList;
     }
 
@@ -136,6 +146,7 @@ public class DbHelper extends SQLiteOpenHelper {
             labelList.add(new CardBook(labelId, label, categoryId, String.valueOf(categoryId), path));
         }
         c.close();
+
         return labelList;
     }
 
@@ -154,6 +165,9 @@ public class DbHelper extends SQLiteOpenHelper {
             cardList.add(new Card(cardId, imgId, path));
         }
         c.close();
+
+
+
         return cardList;
     }
 
@@ -166,10 +180,18 @@ public class DbHelper extends SQLiteOpenHelper {
         String selection = CardBookEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(labelId)};
 
-        Cursor c = rdb.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        // 카테고리 - 최근 이미지로 갱신 : 아니 얘 외 않되? ㅡㅡ
+        ContentValues catValue = new ContentValues();
+        catValue.put(CategoryEntry.COLUMN_NAME_PATH, filePath);
+        String catSelection = CategoryEntry._ID + " LIKE ?";
+        String[] catSelArgs = {String.valueOf(catId)};
+        rdb.update(CategoryEntry.TABLE_NAME, catValue, catSelection, catSelArgs);
 
+        Cursor c = rdb.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         // 카드북에 현재 레이블이 없으면 삽입
-        if( c == null ){
+        if(!c.moveToNext()){
+            Log.v("alphago", categoryName+" : "+imageLabel);
+
             ContentValues cardBookValues = new ContentValues();
             cardBookValues.put(CardBookEntry._ID, labelId);
             cardBookValues.put(CardBookEntry.COLUMN_NAME_CATEGORY, catId);
