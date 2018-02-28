@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String[] CATEGORY_LIST = {"animal", "furniture", "food", "school", "kitchen", "electronics", "bathroom", "room", "clothes", "ETC" };
     private static final String[][] IMAGE_LIST = {
             {"animal","cat","1","1"}, {"animal","dog","1","2"}, {"animal","lion","1","3"},
-            {"food","apple","3","3"}, {"food","potato","3","13"},
+            {"food","apple","3","9"}, {"food","potato","3","13"},
             {"furniture","bed","2","20"}, {"furniture","chair","2","21"}, {"furniture","desk","2","22"}
     };
 
@@ -100,13 +100,22 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {"*"};
         Cursor c = db.query(CategoryEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        String selection = CardBookEntry.COLUMN_NAME_CATEGORY + " = ?";
         List<Category> categoryList = new ArrayList<>();
+
+        Cursor cards = null;
 
         while (c.moveToNext()) {
             long categoryId = c.getLong(c.getColumnIndexOrThrow(CategoryEntry._ID));
             String category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_LABEL));
-            categoryList.add(new Category(categoryId, category, null));
+
+            String[] selectionArgs = {String.valueOf(categoryId)};
+            cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+            if(cards.moveToNext()) categoryList.add(new Category(categoryId, category, null));
         }
+
+        cards.close();
         c.close();
         return categoryList;
     }

@@ -7,6 +7,8 @@ package com.alphago.alphago.dto;
 public class ResponeImageLabel {
     private String category;
     private String max_label;
+    private int ID;
+    private int cate_ID;
 
     public String getCategory() {
         return category;
@@ -22,5 +24,13 @@ public class ResponeImageLabel {
 
     public void setResponseLabel(String max_label) {
         this.max_label = max_label;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public int getCate_ID() {
+        return cate_ID;
     }
 }

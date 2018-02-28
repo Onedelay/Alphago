@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,10 +18,13 @@ import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
+import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 
 
 public class ImageRecognitionActivity extends NoStatusBarActivity {
@@ -36,6 +41,8 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         setContentView(R.layout.activity_image_recognition);
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
+        final Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
         if (imageFile.exists()) {
             ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
             Picasso.with(getBaseContext())
@@ -45,8 +52,15 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
                     .into(myImage);
         }
 
+        final String categoryName = getIntent().getStringExtra("category");
+        final String maxLabel = getIntent().getStringExtra("max_label");
+        final int catID = getIntent().getIntExtra("cate_ID", 0);
+        final int ID = getIntent().getIntExtra("ID", 0);
+
         TextView textView = (TextView)findViewById(R.id.result_recog);
-        textView.setText(getIntent().getStringExtra("max_label"));
+        textView.setText(maxLabel);
+
+        final DbHelper dbHelper = new DbHelper(getBaseContext());
 
         btnPronon = (ImageButton) findViewById(R.id.btn_pronounce);
         btnPronon.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +74,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         btnRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"다시하기 버튼 클릭",Toast.LENGTH_SHORT).show();
                 new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
             }
         });
@@ -69,7 +82,12 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"저장 버튼 클릭",Toast.LENGTH_SHORT).show();
+                storeImageFile(bitmap, maxLabel);
+                Toast.makeText(getBaseContext(),"저장되었습니다!",Toast.LENGTH_SHORT).show();
+
+                
+
+                //dbHelper.insertImage(categoryName, maxLabel, catID, ID, );
             }
         });
 
@@ -83,5 +101,37 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
+    private void storeImageFile(Bitmap imageFile, String imageLabel){
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Alphago";
+        FileOutputStream outStream = null;
+
+        File dirAlphago = new File(dirPath);
+        if( !dirAlphago.exists() ) dirAlphago.mkdirs();
+
+        String fileName = String.format(imageLabel+".jpg");
+
+        File outFile = new File(dirAlphago, fileName);
+
+        try{
+            outStream = new FileOutputStream(outFile);
+            imageFile.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            intent.setData(Uri.fromFile(outFile));
+            sendBroadcast(intent);
+
+            outStream.flush();
+            outStream.close();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

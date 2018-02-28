@@ -30,6 +30,8 @@ public class SendImageActivity extends NoStatusBarActivity {
     private File imageFile;
     private String category;
     private String max_label;
+    private int ID;
+    private int cate_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +67,15 @@ public class SendImageActivity extends NoStatusBarActivity {
                             //Toast.makeText(SendImageActivity.this, response.body().getResponseLabel(), Toast.LENGTH_SHORT).show();
                             category = response.body().getCategory();
                             max_label = response.body().getResponseLabel();
+                            ID = response.body().getID();
+                            cate_ID = response.body().getCate_ID();
 
                             Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
                             intent.putExtra("imageFile", imageFile);
                             intent.putExtra("category", category);
                             intent.putExtra("max_label", max_label);
+                            intent.putExtra("ID", ID);
+                            intent.putExtra("cate_ID",cate_ID);
                             startActivity(intent);
                             finish();
                         }

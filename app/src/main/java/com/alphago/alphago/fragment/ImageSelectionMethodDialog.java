@@ -54,7 +54,6 @@ public class ImageSelectionMethodDialog extends DialogFragment {
         btnImageCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "사진 촬영 버튼 선택", Toast.LENGTH_SHORT).show();
                 EasyImage.openCamera(ImageSelectionMethodDialog.this, TYPE_CAMERA);
             }
         });
@@ -69,6 +68,8 @@ public class ImageSelectionMethodDialog extends DialogFragment {
 
         // 상태바 숨김
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
 
         return builder.create();
     }
@@ -86,7 +87,7 @@ public class ImageSelectionMethodDialog extends DialogFragment {
 
             @Override
             public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
-                Toast.makeText(getContext(), "onImagePicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "onImagePicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(), SendImageActivity.class);
                 intent.putExtra("sendImage", imageFiles.get(0));
                 startActivity(intent);
@@ -96,6 +97,10 @@ public class ImageSelectionMethodDialog extends DialogFragment {
             @Override
             public void onCanceled(EasyImage.ImageSource source, int type) {
                 Toast.makeText(getContext(), "onCanceld", Toast.LENGTH_SHORT).show();
+                if (source == EasyImage.ImageSource.CAMERA) {
+                    File photoFile = EasyImage.lastlyTakenButCanceledPhoto(getContext());
+                    if (photoFile != null) photoFile.delete();
+                }
             }
         });
     }
