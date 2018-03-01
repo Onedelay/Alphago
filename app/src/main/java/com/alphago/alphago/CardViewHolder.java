@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alphago.alphago.model.Card;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 import com.alphago.alphago.util.DefaultImageUtil;
@@ -35,29 +36,29 @@ public class CardViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Category category) {
         this.data = category;
-        if (category.getFilePath() != null) {
-            Picasso.with(itemView.getContext())
-                    .load(new File(category.getFilePath()))
-                    .centerInside()
-                    .fit()
-                    .into(mImageView); // 최신사진 받아오게하기
-        } else {
-            mImageView.setImageResource(DefaultImageUtil.getCategoryImage(category.getId()));
-        }
-        mTextView.setText(category.getLabel());
+        setView(category.getFilePath(), category.getLabel());
     }
 
     public void bind(CardBook cardBook) {
         this.data = cardBook;
-        if (cardBook.getFilePath() != null) {
+        setView(cardBook.getFilePath(), cardBook.getName());
+    }
+
+    public void bind(Card card) {
+        this.data = card;
+        setView(card.getFilePath(),"");
+    }
+
+    private void setView(String path, String name) {
+        if (path != null) {
             Picasso.with(itemView.getContext())
-                    .load(new File(cardBook.getFilePath()))
+                    .load(new File(path))
                     .centerInside()
                     .fit()
                     .into(mImageView);
         } else {
             mImageView.setImageResource(R.mipmap.ic_launcher);
         }
-        mTextView.setText(cardBook.getName());
+        mTextView.setText(name);
     }
 }

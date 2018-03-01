@@ -146,11 +146,11 @@ public class DbHelper extends SQLiteOpenHelper {
         return labelList;
     }
 
-    public List<Card> cardsSelect(long imgId){
+    public List<Card> cardsSelect(long labelId){
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {"*"};
         String selection = CardsEntry.COLUMN_NAME_IMG + " = ?";
-        String[] selectionArgs = {String.valueOf(imgId)};
+        String[] selectionArgs = {String.valueOf(labelId)};
 
         Cursor c = db.query(CardsEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         List<Card> cardList = new ArrayList<>();
@@ -158,7 +158,7 @@ public class DbHelper extends SQLiteOpenHelper {
         while (c.moveToNext()) {
             long cardId = c.getLong(c.getColumnIndexOrThrow(CardsEntry._ID));
             String path = c.getString(c.getColumnIndexOrThrow(CardsEntry.COLUMN_NAME_PATH));
-            cardList.add(new Card(cardId, imgId, path));
+            cardList.add(new Card(cardId, labelId, path));
         }
         c.close();
 

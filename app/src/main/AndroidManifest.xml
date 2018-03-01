@@ -39,7 +39,7 @@
             android:name=".activity.CardBookListActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.SelectImageDetail"
+            android:name=".activity.CardListActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SendImageActivity"
