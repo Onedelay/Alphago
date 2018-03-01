@@ -20,7 +20,7 @@ import com.alphago.alphago.TestData;
 public class GameImageActivity extends NoStatusBarActivity {
 
     private int qst_num[] = new int[10];
-    private int ex_num[] = new int[4];
+    private int ex_num[][] = new int[10][4];
     private int qcount = 0;
     private boolean res[] = new boolean[10];
     private boolean result = false;
@@ -53,7 +53,7 @@ public class GameImageActivity extends NoStatusBarActivity {
         img_igame_qst = (TextView)findViewById(R.id.img_igame_qst);
 
         if (qcount == 0) {
-            qst_num[qcount] = CreateQuestion(TestData.dataID.length);
+            CreateQuestion(TestData.dataID.length);
             img_igame_qst.setText(TestData.dataLabel[qst_num[qcount]]);
             SetQuestion(qcount);
             qcount++;
@@ -96,7 +96,6 @@ public class GameImageActivity extends NoStatusBarActivity {
                             startActivity(intent);
                         }
                         else {
-                            qst_num[qcount] = CreateQuestion(TestData.dataID.length);
                             tv_igame_tvqst.setText("Q" + (qcount + 1));
                             img_igame_qst.setText(TestData.dataLabel[qst_num[qcount]]);
                             SetQuestion(qcount);
@@ -109,23 +108,18 @@ public class GameImageActivity extends NoStatusBarActivity {
         });
     }
 
-    protected int CreateQuestion(int dcount)
+    protected void CreateQuestion(int dcount)
     {
-        int d, rnum, index;
+        int d, rnum;
 
-        for (int i = 0; i < 4; i++)
-            ex_num[i] = 0;
-
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 10; i++)
         {
             d = 0;
-            // data 개수만큼의 숫자 중 random number 생성
             rnum = (int)(Math.random() * dcount);
 
-            // 중복 검사
             for (int j = 0; j < i; j++)
             {
-                if (rnum == ex_num[j])
+                if (rnum == qst_num[j])
                 {
                     d = 1;
                     break;
@@ -134,22 +128,50 @@ public class GameImageActivity extends NoStatusBarActivity {
             if (d == 1)
                 i--;
             else
-                ex_num[i] = rnum;
+            {
+                qst_num[i] = rnum;
+                CreateExample(dcount, i);
+            }
         }
-        // select index of question among index of example
-        index = (int)(Math.random() * 4);
 
-        // return index of question among index of data
-        return ex_num[index];
+    }
+
+    protected void CreateExample(int dcount, int qindex)
+    {
+        int d, rnum;
+        int qrnum = (int)(Math.random() * 4);
+        ex_num[qindex][qrnum] = qst_num[qindex];
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == qrnum)
+                continue;
+
+            d = 0;
+            rnum = (int)(Math.random() * dcount);
+
+            for (int j = 0; j < i; j++)
+            {
+                if (rnum == ex_num[qindex][j] || rnum == qrnum)
+                {
+                    d = 1;
+                    break;
+                }
+            }
+            if (d == 1)
+                i--;
+            else
+                ex_num[qindex][i] = rnum;
+        }
     }
 
     protected void SetQuestion(final int qcount) {
         result = false;
 
-        btn_igame_ex1.setText(TestData.dataLabel[ex_num[0]]);
-        btn_igame_ex2.setText(TestData.dataLabel[ex_num[1]]);
-        btn_igame_ex3.setText(TestData.dataLabel[ex_num[2]]);
-        btn_igame_ex4.setText(TestData.dataLabel[ex_num[3]]);
+        btn_igame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
+        btn_igame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
+        btn_igame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
+        btn_igame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]);
 
         img_igame_tvqst.setImageResource(R.drawable.tv_qst);
 
@@ -159,22 +181,22 @@ public class GameImageActivity extends NoStatusBarActivity {
                 switch (v.getId()) {
                     case R.id.btn_igame_ex1 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex1.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[0] == qst_num[qcount]);
+                        if (ex_num[qcount][0] == qst_num[qcount]);
                             result = true;
                         break;
                     case R.id.btn_igame_ex2 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex2.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[1] == qst_num[qcount]);
+                        if (ex_num[qcount][1] == qst_num[qcount]);
                             result = true;
                         break;
                     case R.id.btn_igame_ex3 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex3.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[2] == qst_num[qcount]);
+                        if (ex_num[qcount][2] == qst_num[qcount]);
                             result = true;
                         break;
                     case R.id.btn_igame_ex4 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex4.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[3] == qst_num[qcount]);
+                        if (ex_num[qcount][3] == qst_num[qcount]);
                             result = true;
                         break;
                 }
