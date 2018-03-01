@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 
@@ -108,7 +109,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
     // 내부저장소 Alphago 폴더 내 사진 저장
         private String storeImageFile(File imageFile, String imageLabel){
         String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Alphago";
-        FileOutputStream outStream = null;
 
         File dirAlphago = new File(dirPath);
         if( !dirAlphago.exists() ) dirAlphago.mkdirs();
@@ -118,11 +118,16 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         File outFile = new File(dirAlphago, fileName);
 
         try{
-            outStream = new FileOutputStream(outFile);
+            FileOutputStream outStream = new FileOutputStream(outFile);
+            FileInputStream inputStream = new FileInputStream(imageFile);
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             intent.setData(Uri.fromFile(outFile));
             sendBroadcast(intent);
 
+            byte[] buff = new byte[1024];
+            while(inputStream.read(buff) > 0) {
+                outStream.write(buff);
+            }
             outStream.flush();
             outStream.close();
 

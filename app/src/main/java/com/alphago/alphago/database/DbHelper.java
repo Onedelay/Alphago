@@ -47,7 +47,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     CardsEntry.COLUMN_NAME_PATH + " TEXT)";
 
     // Default images
-    private static final String[] CATEGORY_LIST = {"animal", "furniture", "food", "school", "kitchen", "electronics", "bathroom", "room", "clothes", "ETC" };
+    private static final String[] CATEGORY_LIST = {"Animal", "Furniture", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room", "Clothes", "ETC" };
     private static final String[][] IMAGE_LIST = {
             {"animal","cat","1","1"}, {"animal","dog","1","2"}, {"animal","lion","1","3"},
             {"food","apple","3","9"}, {"food","potato","3","13"},
@@ -63,11 +63,6 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_CARD_BOOK);
         db.execSQL(SQL_CREATE_CATEGORY);
         db.execSQL(SQL_CREATE_CARDS);
-
-
-        /*
-        * default image 초기화 부분, 서버에서 주면 좋다고함.
-        * */
 
         // 카테고리 초기화
         for (String category : CATEGORY_LIST) {
@@ -114,10 +109,11 @@ public class DbHelper extends SQLiteOpenHelper {
         while (c.moveToNext()) {
             long categoryId = c.getLong(c.getColumnIndexOrThrow(CategoryEntry._ID));
             String category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_LABEL));
+            String filePath = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_PATH));
 
             String[] selectionArgs = {String.valueOf(categoryId)};
             cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-            if(cards.moveToNext()) categoryList.add(new Category(categoryId, category, null));
+            if(cards.moveToNext()) categoryList.add(new Category(categoryId, category, filePath));
         }
 
         cards.close();
@@ -176,16 +172,16 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase rdb = getReadableDatabase();
         SQLiteDatabase wdb = getWritableDatabase();
 
+        // 카테고리 - 최근 이미지로 갱신
+        ContentValues catValue = new ContentValues();
+        catValue.put(CategoryEntry.COLUMN_NAME_PATH, filePath);
+        String catSelection = CategoryEntry._ID + " = ?";
+        String[] catSelArgs = {String.valueOf(catId)};
+        rdb.update(CategoryEntry.TABLE_NAME, catValue, catSelection, catSelArgs);
+
         String[] projection = {"*"};
         String selection = CardBookEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(labelId)};
-
-        // 카테고리 - 최근 이미지로 갱신 : 아니 얘 외 않되? ㅡㅡ
-        ContentValues catValue = new ContentValues();
-        catValue.put(CategoryEntry.COLUMN_NAME_PATH, filePath);
-        String catSelection = CategoryEntry._ID + " LIKE ?";
-        String[] catSelArgs = {String.valueOf(catId)};
-        rdb.update(CategoryEntry.TABLE_NAME, catValue, catSelection, catSelArgs);
 
         Cursor c = rdb.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         // 카드북에 현재 레이블이 없으면 삽입
@@ -199,6 +195,12 @@ public class DbHelper extends SQLiteOpenHelper {
             cardBookValues.put(CardBookEntry.COLUMN_NAME_PATH, filePath);
             cardBookValues.put(CardBookEntry.COLUMN_NAME_COLLECT, true);
             wdb.insert(CardBookEntry.TABLE_NAME, null, cardBookValues);
+        } else {
+            ContentValues bookValue = new ContentValues();
+            bookValue.put(CardBookEntry.COLUMN_NAME_PATH, filePath);
+            String bookSelection = CardBookEntry._ID + " = ?";
+            String[] bookSelArgs = {String.valueOf(labelId)};
+            rdb.update(CardBookEntry.TABLE_NAME, bookValue, bookSelection, bookSelArgs);
         }
 
         ContentValues values = new ContentValues();

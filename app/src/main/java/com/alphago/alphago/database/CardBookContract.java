@@ -17,8 +17,9 @@ public final class CardBookContract {
         public static final String COLUMN_NAME_PATH = "img_path";
     }
 
-    public static class CardBookEntry implements BaseColumns {
+    public static class CardBookEntry {
         public static final String TABLE_NAME = "card_book";
+        public static final String _ID = "id";
         public static final String COLUMN_NAME_CATEGORY = "category_id"; // 카테고리 기본키
         public static final String COLUMN_NAME_LABEL = "card_book_label";
         public static final String COLUMN_NAME_PATH = "img_path";
