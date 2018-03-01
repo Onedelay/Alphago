@@ -1,13 +1,8 @@
 package com.alphago.alphago.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,9 +15,9 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
+import com.alphago.alphago.util.TTSHelper;
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,6 +30,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
     private Button btnRetry;
     private Button btnSave;
     private Button btnHome;
+    private TTSHelper tts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +57,12 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         textView.setText(maxLabel);
 
         final DbHelper dbHelper = new DbHelper(getBaseContext());
-
+        tts = new TTSHelper(this);
         btnPronon = (ImageButton) findViewById(R.id.btn_pronounce);
         btnPronon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"발음 듣기 버튼 클릭",Toast.LENGTH_SHORT).show();
+                tts.speak(maxLabel);
             }
         });
 
@@ -93,7 +89,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"홈 버튼 클릭",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ImageRecognitionActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -135,5 +130,11 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             e.printStackTrace();
         }
         return dirPath+"/"+fileName;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tts.shutdown();
     }
 }
