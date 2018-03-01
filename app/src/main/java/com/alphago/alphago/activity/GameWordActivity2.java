@@ -147,7 +147,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
 
             for (int j = 0; j < i; j++)
             {
-                if (rnum == ex_num[qindex][j] || rnum == qrnum)
+                if (rnum == ex_num[qindex][j] || rnum == ex_num[qindex][qrnum])
                 {
                     d = 1;
                     break;
@@ -183,8 +183,10 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                         btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);
                         btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
                         btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
-                        if (ex_num[qcount][0] == qst_num[qcount]);
+                        if (ex_num[qcount][0] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                     case R.id.btn_wgame_ex2 :
                         btn_wgame_ex2.setBackgroundResource(R.drawable.button_ans);
@@ -193,6 +195,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                         btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
                         if (ex_num[qcount][1] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                     case R.id.btn_wgame_ex3 :
                         btn_wgame_ex3.setBackgroundResource(R.drawable.button_ans);
@@ -201,6 +205,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                         btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
                         if (ex_num[qcount][2] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                     case R.id.btn_wgame_ex4 :
                         btn_wgame_ex4.setBackgroundResource(R.drawable.button_ans);
@@ -209,6 +215,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                         btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
                         if (ex_num[qcount][3] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                 }
             }

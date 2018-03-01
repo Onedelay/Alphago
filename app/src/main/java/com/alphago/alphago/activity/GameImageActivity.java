@@ -152,7 +152,7 @@ public class GameImageActivity extends NoStatusBarActivity {
 
             for (int j = 0; j < i; j++)
             {
-                if (rnum == ex_num[qindex][j] || rnum == qrnum)
+                if (rnum == ex_num[qindex][j] || rnum == ex_num[qindex][qrnum])
                 {
                     d = 1;
                     break;
@@ -181,23 +181,31 @@ public class GameImageActivity extends NoStatusBarActivity {
                 switch (v.getId()) {
                     case R.id.btn_igame_ex1 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex1.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[qcount][0] == qst_num[qcount]);
+                        if (ex_num[qcount][0] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                     case R.id.btn_igame_ex2 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex2.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[qcount][1] == qst_num[qcount]);
+                        if (ex_num[qcount][1] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                     case R.id.btn_igame_ex3 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex3.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[qcount][2] == qst_num[qcount]);
+                        if (ex_num[qcount][2] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                     case R.id.btn_igame_ex4 :
                         Toast.makeText(GameImageActivity.this, btn_igame_ex4.getText(), Toast.LENGTH_SHORT).show();
-                        if (ex_num[qcount][3] == qst_num[qcount]);
+                        if (ex_num[qcount][3] == qst_num[qcount])
                             result = true;
+                        else
+                            result = false;
                         break;
                 }
             }
