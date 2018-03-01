@@ -13,10 +13,12 @@ import com.alphago.alphago.R;
 
 public class GameResultActivity extends NoStatusBarActivity {
 
+    private final int WORD_GAME = 0;
+    private final int IMAGE_GAME = 1;
+
     private Button btn_rgame_ret;
     private Button btn_rgame_home;
     private ImageView img_rgame_result;
-    // private int right = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,25 +28,22 @@ public class GameResultActivity extends NoStatusBarActivity {
         btn_rgame_ret = (Button)findViewById(R.id.btn_rgame_ret);
         btn_rgame_home = (Button)findViewById(R.id.btn_rgame_home);
 
-        /*if (right > 8 && right <= 10)
-            img_rgame_result.setBackgroundResource(R.drawable.bg_result1);
-        else if (right > 4 && right <= 8)
-            img_rgame_result.setBackgroundResource(R.drawable.bg_result2);
-        else if (right <= 4 && right >= 0)
-            img_rgame_result.setBackgroundResource(R.drawable.bg_result3); */
-
         Button.OnClickListener onClickListener = new View.OnClickListener() {
             Intent intent;
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.btn_rgame_ret :
-                        intent = new Intent(getApplicationContext(), GameWordActivity2.class);
-                        // Intent intent = new Intent(getApplicationContext(), GameImageActivity.class);
+                        intent = getIntent();
+                        int type = intent.getIntExtra("type", 0);
+                        if (type == WORD_GAME)
+                            intent = new Intent(getApplicationContext(), GameWordActivity2.class);
+                        else if (type == IMAGE_GAME)
+                            intent = new Intent(getApplicationContext(), GameImageActivity.class);
                         startActivity(intent);
                         finish();
                         break;
-                    case R.id.btn_rgame_home:
+                    case R.id.btn_rgame_home :
                         intent = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();

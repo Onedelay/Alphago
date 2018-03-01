@@ -85,6 +85,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                     {
                         if (qcount == 10) {
                             Intent intent = new Intent(GameWordActivity2.this, GameResultActivity.class);
+                            intent.putExtra("result", res);
+                            intent.putExtra("type", 0);
                             startActivity(intent);
                         }
                         else {
