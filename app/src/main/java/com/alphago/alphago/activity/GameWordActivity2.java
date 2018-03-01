@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
@@ -28,6 +29,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     private Button btn_wgame_ex3;
     private Button btn_wgame_ex4;
     private ImageView img_wgame_tvqst;
+    private TextView tv_wgame_tvqst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         btn_wgame_ex4 = (Button)findViewById(R.id.btn_wgame_ex4);
 
         img_wgame_tvqst = (ImageView)findViewById(R.id.img_wgame_tvqst);
+        tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
 
         if (qcount == 0) {
             qst_num[qcount] = CreateQuestion(TestData.dataID.length);
@@ -65,12 +68,10 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                 if (result == true)
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_right);
-                    Toast.makeText(getApplicationContext(), qst_num[qcount] + " Right", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_wrong);
-                    Toast.makeText(getApplicationContext(), qst_num[qcount] + " Wrong", Toast.LENGTH_SHORT).show();
                 }
 
                 // Change the screen after 2.5 seconds
@@ -85,6 +86,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                         }
                         else {
                             qst_num[qcount] = CreateQuestion(TestData.dataID.length);
+                            tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + TestData.dataLabel[qst_num[qcount]]);
                             SetQuestion(qcount);
                             qcount++;
                         }
