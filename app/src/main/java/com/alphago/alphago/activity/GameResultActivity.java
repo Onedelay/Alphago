@@ -16,6 +16,9 @@ public class GameResultActivity extends NoStatusBarActivity {
     private final int WORD_GAME = 0;
     private final int IMAGE_GAME = 1;
 
+    private int type;
+    private int res[] = new int[10];
+
     private Button btn_rgame_ret;
     private Button btn_rgame_home;
     private ImageView img_rgame_result;
@@ -28,6 +31,9 @@ public class GameResultActivity extends NoStatusBarActivity {
         btn_rgame_ret = (Button)findViewById(R.id.btn_rgame_ret);
         btn_rgame_home = (Button)findViewById(R.id.btn_rgame_home);
 
+        Intent intent = getIntent();
+        res = intent.getIntArrayExtra("result");
+
         Button.OnClickListener onClickListener = new View.OnClickListener() {
             Intent intent;
             @Override
@@ -35,7 +41,7 @@ public class GameResultActivity extends NoStatusBarActivity {
                 switch (v.getId()) {
                     case R.id.btn_rgame_ret :
                         intent = getIntent();
-                        int type = intent.getIntExtra("type", 0);
+                        type = intent.getIntExtra("type", 0);
                         if (type == WORD_GAME)
                             intent = new Intent(getApplicationContext(), GameWordActivity2.class);
                         else if (type == IMAGE_GAME)
