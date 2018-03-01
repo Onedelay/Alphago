@@ -65,11 +65,10 @@ public class GameResultActivity extends NoStatusBarActivity {
                 img_result[i].setImageResource(R.drawable.img_game_res);
                 count++;
             }
-            else {
+            else
                 img_result[i].setImageResource(R.drawable.img_game_res2);
-            }
         }
-        
+
         if (count > 7 && count <= 10)
             img_rgame_result.setImageResource(R.drawable.bg_result1);
         else if (count > 4 && count <= 7)

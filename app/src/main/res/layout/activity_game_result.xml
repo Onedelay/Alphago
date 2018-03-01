@@ -53,11 +53,11 @@
         android:layout_width="0dp"
         android:layout_height="75dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/bg_result1"
         app:layout_constraintBottom_toBottomOf="@+id/img_rgame_bgqst"
         app:layout_constraintLeft_toLeftOf="@+id/img_rgame_bgqst"
         app:layout_constraintRight_toRightOf="@+id/img_rgame_bgqst"
-        app:layout_constraintTop_toTopOf="@+id/img_rgame_bgqst" />
+        app:layout_constraintTop_toTopOf="@+id/img_rgame_bgqst"
+        app:srcCompat="@drawable/bg_result1" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_game_result"
