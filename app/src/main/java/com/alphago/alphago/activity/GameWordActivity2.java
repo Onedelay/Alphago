@@ -19,6 +19,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     private int qst_num[] = new int[10];
     private int ex_num[] = new int[4];
     private int qcount = 0;
+    private boolean res[] = new boolean[10];
     private boolean result = false;
 
     private ImageButton btn_wgame_exit;
@@ -68,10 +69,12 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                 if (result == true)
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_right);
+                    res[qcount-1] = true;
                 }
                 else
                 {
                     img_wgame_tvqst.setImageResource(R.drawable.img_wrong);
+                    res[qcount-1] = false;
                 }
 
                 // Change the screen after 2.5 seconds
