@@ -146,7 +146,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
             rnum = (int)(Math.random() * dcount);
             if (rnum == ex_num[qindex][qrnum])
                 d = 1;
-            
+
             for (int j = 0; j < i; j++)
             {
                 if (rnum == ex_num[qindex][j])
