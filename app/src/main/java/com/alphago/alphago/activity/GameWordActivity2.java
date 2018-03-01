@@ -14,6 +14,8 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
 
+import org.w3c.dom.Text;
+
 public class GameWordActivity2 extends NoStatusBarActivity {
 
     private int qst_num[] = new int[10];
