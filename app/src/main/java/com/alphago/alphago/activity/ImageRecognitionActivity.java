@@ -24,12 +24,9 @@ import java.io.FileOutputStream;
 
 
 public class ImageRecognitionActivity extends NoStatusBarActivity {
-
     private File imageFile;
-    private Button btnRetry;
-    private Button btnSave;
-    private Button btnHome;
     private TTSHelper tts;
+    private Button saveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +49,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         final int catID = getIntent().getIntExtra("cate_ID", 0);
         final int ID = getIntent().getIntExtra("ID", 0);
 
-        TextView textView = (TextView)findViewById(R.id.result_recog);
+        TextView textView = (TextView) findViewById(R.id.result_recog);
         textView.setText(maxLabel);
 
         final DbHelper dbHelper = new DbHelper(getBaseContext());
@@ -64,27 +61,31 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             }
         });
 
-        btnRetry = (Button) findViewById(R.id.btn_retry);
-        btnRetry.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_retry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
             }
         });
 
-        btnSave = (Button) findViewById(R.id.btn_save);
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        saveBtn = (Button) findViewById(R.id.btn_save);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filePath = storeImageFile(imageFile, maxLabel);
-                Toast.makeText(getBaseContext(),"저장되었습니다!",Toast.LENGTH_SHORT).show();
+                if(!v.isSelected()){
+                    saveBtn.setText("SAVED");
+                    v.setSelected(true);
+                    String filePath = storeImageFile(imageFile, maxLabel);
+                    Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
+                    dbHelper.insertImage(categoryName, maxLabel, catID, ID, filePath);
+                } else {
+                    Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                }
 
-                dbHelper.insertImage(categoryName, maxLabel, catID, ID, filePath);
             }
         });
 
-        btnHome = (Button) findViewById(R.id.btn_home);
-        btnHome.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ImageRecognitionActivity.this, MainActivity.class);
@@ -100,17 +101,17 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
     }
 
     // 내부저장소 Alphago 폴더 내 사진 저장
-        private String storeImageFile(File imageFile, String imageLabel){
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath()+"/Alphago";
+    private String storeImageFile(File imageFile, String imageLabel) {
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Alphago";
 
         File dirAlphago = new File(dirPath);
-        if( !dirAlphago.exists() ) dirAlphago.mkdirs();
+        if (!dirAlphago.exists()) dirAlphago.mkdirs();
 
-        String fileName = String.format(imageLabel+System.currentTimeMillis()+".jpg");
+        String fileName = String.format(imageLabel + System.currentTimeMillis() + ".jpg");
 
         File outFile = new File(dirAlphago, fileName);
 
-        try{
+        try {
             FileOutputStream outStream = new FileOutputStream(outFile);
             FileInputStream inputStream = new FileInputStream(imageFile);
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -118,16 +119,16 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             sendBroadcast(intent);
 
             byte[] buff = new byte[1024];
-            while(inputStream.read(buff) > 0) {
+            while (inputStream.read(buff) > 0) {
                 outStream.write(buff);
             }
             outStream.flush();
             outStream.close();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return dirPath+"/"+fileName;
+        return dirPath + "/" + fileName;
     }
 
     @Override
