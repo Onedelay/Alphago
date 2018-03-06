@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 /**
- * Created by su_me on 2018-03-01.
+ * # 사용하려는 액티비티에 꼭 onDestroy 메소드 오버라이드 필요 (shutdown() 넣어주기).
  */
 
 public class TTSHelper {

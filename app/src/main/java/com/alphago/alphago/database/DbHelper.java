@@ -72,21 +72,21 @@ public class DbHelper extends SQLiteOpenHelper {
         }
 
         // 카드북 초기화
-        for(int i=0; i<IMAGE_LIST.length; i++){
-            ContentValues values = new ContentValues();
-            values.put(CardBookEntry._ID, IMAGE_LIST[i][3]);
-            values.put(CardBookEntry.COLUMN_NAME_LABEL, IMAGE_LIST[i][1]);
-            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, IMAGE_LIST[i][2]);
-            db.insert(CardBookEntry.TABLE_NAME, null, values);
-        }
+//        for(int i=0; i<IMAGE_LIST.length; i++){
+//            ContentValues values = new ContentValues();
+//            values.put(CardBookEntry._ID, IMAGE_LIST[i][3]);
+//            values.put(CardBookEntry.COLUMN_NAME_LABEL, IMAGE_LIST[i][1]);
+//            values.put(CardBookEntry.COLUMN_NAME_CATEGORY, IMAGE_LIST[i][2]);
+//            db.insert(CardBookEntry.TABLE_NAME, null, values);
+//        }
 
         // 카드 초기화
-        for(int i=0; i<IMAGE_LIST.length; i++){
-            ContentValues values = new ContentValues();
-            values.put(CardsEntry.COLUMN_NAME_IMG, IMAGE_LIST[i][3]);
-            values.put(CardsEntry.COLUMN_NAME_LABEL, IMAGE_LIST[i][1]);
-            db.insert(CardsEntry.TABLE_NAME, null, values);
-        }
+//        for(int i=0; i<IMAGE_LIST.length; i++){
+//            ContentValues values = new ContentValues();
+//            values.put(CardsEntry.COLUMN_NAME_IMG, IMAGE_LIST[i][3]);
+//            values.put(CardsEntry.COLUMN_NAME_LABEL, IMAGE_LIST[i][1]);
+//            db.insert(CardsEntry.TABLE_NAME, null, values);
+//        }
 
         // 같은 레이블 가진 다른 사진들
     }

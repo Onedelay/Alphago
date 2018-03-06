@@ -1,52 +1,135 @@
 package com.alphago.alphago.activity;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
+import com.alphago.alphago.database.DbHelper;
+import com.alphago.alphago.model.Card;
+import com.alphago.alphago.model.CardBook;
+import com.alphago.alphago.model.Category;
+import com.alphago.alphago.util.TTSHelper;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static com.alphago.alphago.R.id.btn_learn_exit;
+import static com.alphago.alphago.fragment.LearningSelectionMethodDialog.TYPE_ALBUM;
+import static com.alphago.alphago.fragment.LearningSelectionMethodDialog.TYPE_ALL;
 
 public class WordLearningActivity extends NoStatusBarActivity {
 
-    private ImageButton btnLearnExit;
-    private ImageButton btnLearnPre;
-    private ImageButton btnLearnNext;
+    private TTSHelper tts;
+    private ImageView learnImage;
+    private TextView learnLabel;
+
+    List<CardBook> cards; // 학습 할 카드들
+    String label = "";
+    String filePath = "";
+    int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_learning);
 
-        btnLearnExit = (ImageButton)findViewById(btn_learn_exit);
-        btnLearnPre = (ImageButton)findViewById(R.id.btn_learn_pre);
-        btnLearnNext = (ImageButton)findViewById(R.id.btn_learn_next);
+        learnImage = (ImageView) findViewById(R.id.learn_image);
+        learnLabel = (TextView) findViewById(R.id.learn_label);
 
-        btnLearnExit.setOnClickListener(new View.OnClickListener() {
+        final DbHelper dbHelper = new DbHelper(getBaseContext());
+        tts = new TTSHelper(this);
+
+        findViewById(btn_learn_exit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(getBaseContext(), CardBookActivity.class);
                 finish();
             }
         });
 
-        btnLearnPre.setOnClickListener(new View.OnClickListener() {
+        final int type = getIntent().getIntExtra("learing_type", 0);
+        cards = new ArrayList<>();
+
+        if (type == TYPE_ALL) {
+            List<Category> categories = dbHelper.categorySelect();
+            List<CardBook> cardBooks;
+
+            // 현재 카드북으로 되어있지만, 카드에서 중복 제거 후 구현해야함.
+            for (Category category : categories) {
+                cardBooks = dbHelper.cardbookSelect(category.getId());
+                for (CardBook cardBook : cardBooks) {
+                    cards.add(cardBook);
+                }
+            }
+
+        } else if (type == TYPE_ALBUM) {
+
+        } else {
+            Toast.makeText(this, "TYPE ERROR", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        Collections.shuffle(cards);
+        setWord(index);
+
+        findViewById(R.id.btn_learn_pre).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WordLearningActivity.this, "Previous", Toast.LENGTH_SHORT).show();
+                index--;
+                if (index < 0) {
+                    Toast.makeText(WordLearningActivity.this, "This is the first problem.", Toast.LENGTH_SHORT).show();
+                    index++;
+                    return;
+                }
+                setWord(index);
             }
         });
 
-        btnLearnNext.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_learn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WordLearningActivity.this, "Next", Toast.LENGTH_SHORT).show();
+                index++;
+                if (index >= cards.size()) {
+                    Toast.makeText(WordLearningActivity.this, "This is the last problem.", Toast.LENGTH_SHORT).show();
+                    index--;
+                    return;
+                }
+                setWord(index);
             }
         });
+
+        findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tts.speak(label);
+            }
+        });
+    }
+
+
+    public void setWord(int index) {
+        filePath = cards.get(index).getFilePath();
+        label = cards.get(index).getName();
+
+        Picasso.with(getBaseContext())
+                .load(new File(filePath))
+                .centerInside()
+                .fit()
+                .into(learnImage);
+
+        learnLabel.setText(label);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tts.shutdown();
     }
 }

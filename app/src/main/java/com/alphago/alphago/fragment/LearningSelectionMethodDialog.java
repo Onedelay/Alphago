@@ -46,23 +46,28 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         method2 = (TextView) rootView.findViewById(R.id.btn_img_album_select);
 
         method.setText("학습 방법을 선택하세요.");
-        method1.setText("앨범 학습하기");
-        method2.setText("전체 학습하기");
+        method1.setText("카테고리 학습");
+        method2.setText("전체 학습 ");
 
         intent = new Intent(getActivity(), WordLearningActivity.class);
 
+        // 카테고리 학습
         rootView.findViewById(R.id.btn_img_capture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                intent.putExtra("learning_type", TYPE_ALBUM);
                 startActivity(intent);
                 getActivity().finish();
             }
         });
 
+        // 전체 학습
         rootView.findViewById(R.id.btn_img_album_select).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                intent.putExtra("learning_type", TYPE_ALL);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

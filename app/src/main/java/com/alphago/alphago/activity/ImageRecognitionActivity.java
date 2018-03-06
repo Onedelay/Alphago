@@ -26,7 +26,6 @@ import java.io.FileOutputStream;
 public class ImageRecognitionActivity extends NoStatusBarActivity {
 
     private File imageFile;
-    private ImageButton btnPronon;
     private Button btnRetry;
     private Button btnSave;
     private Button btnHome;
@@ -58,8 +57,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
 
         final DbHelper dbHelper = new DbHelper(getBaseContext());
         tts = new TTSHelper(this);
-        btnPronon = (ImageButton) findViewById(R.id.btn_pronounce);
-        btnPronon.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tts.speak(maxLabel);
