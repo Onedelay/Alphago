@@ -58,6 +58,12 @@ public class LearningSelectionMethodDialog extends DialogFragment {
                 intent.putExtra("learning_type", TYPE_ALBUM);
                 startActivity(intent);
                 getActivity().finish();
+
+                 /* 다이얼로그 창 닫고
+                * 인터페이스 전달
+                * listener.onClickAll()
+                * CardViewHolder를 참고하면서 인터페이스를 만들어보장
+                * */
             }
         });
 

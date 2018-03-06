@@ -68,7 +68,6 @@ public class WordLearningActivity extends NoStatusBarActivity {
                     cards.add(cardBook);
                 }
             }
-
         } else if (type == TYPE_ALBUM) {
 
         } else {
@@ -76,41 +75,46 @@ public class WordLearningActivity extends NoStatusBarActivity {
             finish();
         }
 
-        Collections.shuffle(cards);
-        setWord(index);
+        if (!cards.isEmpty()) {
+            Collections.shuffle(cards);
+            setWord(index);
 
-        findViewById(R.id.btn_learn_pre).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                index--;
-                if (index < 0) {
-                    Toast.makeText(WordLearningActivity.this, "This is the first problem.", Toast.LENGTH_SHORT).show();
-                    index++;
-                    return;
-                }
-                setWord(index);
-            }
-        });
-
-        findViewById(R.id.btn_learn_next).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                index++;
-                if (index >= cards.size()) {
-                    Toast.makeText(WordLearningActivity.this, "This is the last problem.", Toast.LENGTH_SHORT).show();
+            findViewById(R.id.btn_learn_pre).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     index--;
-                    return;
+                    if (index < 0) {
+                        Toast.makeText(WordLearningActivity.this, "This is the first problem.", Toast.LENGTH_SHORT).show();
+                        index++;
+                        return;
+                    }
+                    setWord(index);
                 }
-                setWord(index);
-            }
-        });
+            });
 
-        findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tts.speak(label);
-            }
-        });
+            findViewById(R.id.btn_learn_next).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    index++;
+                    if (index >= cards.size()) {
+                        Toast.makeText(WordLearningActivity.this, "This is the last problem.", Toast.LENGTH_SHORT).show();
+                        index--;
+                        return;
+                    }
+                    setWord(index);
+                }
+            });
+
+            findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tts.speak(label);
+                }
+            });
+        } else {
+            Toast.makeText(WordLearningActivity.this, "학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 
