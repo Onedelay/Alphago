@@ -71,7 +71,7 @@ public class LearningSelectionMethodDialog extends DialogFragment {
             public void onClick(View v) {
                 intent.putExtra("learning_type", TYPE_ALL);
                 startActivity(intent);
-                getActivity().finish();
+                dismiss();
             }
         });
 

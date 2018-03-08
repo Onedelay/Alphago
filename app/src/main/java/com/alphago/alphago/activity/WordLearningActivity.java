@@ -144,4 +144,9 @@ public class WordLearningActivity extends NoStatusBarActivity {
         super.onDestroy();
         tts.shutdown();
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }

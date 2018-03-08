@@ -27,17 +27,28 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     private CategoryAdapter adapter;
     private boolean isSelecteMode = false;
     private ArrayList<Long> selectList = new ArrayList<Long>();
+    DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_book);
 
+        final Intent intent = new Intent(this, WordLearningActivity.class);
+        dbHelper = new DbHelper(getBaseContext());
+
         btnLearning = (Button) findViewById(R.id.btn_learning);
         btnLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LearningSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
+                if(!isSelecteMode){
+                    new LearningSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
+                } else {
+                    intent.putExtra("category_select_list", selectList);
+                    intent.putExtra("learning_type", LearningSelectionMethodDialog.TYPE_ALBUM);
+                    startActivity(intent);
+                    cancelLearning(dbHelper);
+                }
             }
         });
 
@@ -46,8 +57,6 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-
-        DbHelper dbHelper = new DbHelper(getBaseContext());
         adapter.setList(dbHelper.categorySelect());
     }
 
@@ -76,16 +85,22 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     @Override
     public void onLearningCategory() {
         isSelecteMode = true;
-        final Intent intent = new Intent(this, WordLearningActivity.class);
         btnLearning.setText("선택완료★");
-        btnLearning.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent.putExtra("category_select_list", selectList);
-                intent.putExtra("learning_type", LearningSelectionMethodDialog.TYPE_ALBUM);
-                startActivity(intent);
-                finish();
-            }
-        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isSelecteMode){
+            cancelLearning(dbHelper);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void cancelLearning(DbHelper dbHelper){
+        isSelecteMode = false;
+        btnLearning.setText("학습하기");
+        adapter.setList(dbHelper.categorySelect());
+        adapter.notifyDataSetChanged();
     }
 }
