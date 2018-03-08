@@ -7,13 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
-import com.alphago.alphago.TestData;
 import com.alphago.alphago.adapter.CardBookAdapter;
 import com.alphago.alphago.adapter.CategoryAdapter;
 import com.alphago.alphago.database.DbHelper;
@@ -22,12 +20,13 @@ import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CardBookActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
+public class CardBookActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener, LearningSelectionMethodDialog.OnLearningCategoryListener {
     private Button btnLearning;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
+    private boolean isSelecteMode = false;
+    private ArrayList<Long> selectList = new ArrayList<Long>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +54,38 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     @Override
     public void onCardClick(Object data) {
         if (data instanceof Category) {
-            Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
-            intent.putExtra("categoryId", ((Category) data).getId());
-            intent.putExtra("category", ((Category) data).getLabel());
-            startActivity(intent);
+            long catId = ((Category) data).getId();
+            if (!isSelecteMode) {
+                Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
+                intent.putExtra("categoryId", catId);
+                intent.putExtra("category", ((Category) data).getLabel());
+                startActivity(intent);
+            } else {
+                if(!selectList.contains(catId)){
+                    selectList.add(catId);
+                    ((Category) data).setSelect(true);
+                } else {
+                    selectList.remove(catId);
+                    ((Category) data).setSelect(false);
+                }
+                adapter.notifyDataSetChanged();
+            }
         }
+    }
+
+    @Override
+    public void onLearningCategory() {
+        isSelecteMode = true;
+        final Intent intent = new Intent(this, WordLearningActivity.class);
+        btnLearning.setText("선택완료★");
+        btnLearning.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.putExtra("category_select_list", selectList);
+                intent.putExtra("learning_type", LearningSelectionMethodDialog.TYPE_ALBUM);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

@@ -1,6 +1,7 @@
 package com.alphago.alphago.fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -25,12 +26,16 @@ import com.alphago.alphago.activity.WordLearningActivity;
 public class LearningSelectionMethodDialog extends DialogFragment {
     public static final int TYPE_ALL = 0;
     public static final int TYPE_ALBUM = 1;
-
     private TextView method;
     private TextView method1;
     private TextView method2;
+    private LearningSelectionMethodDialog.OnLearningCategoryListener listener;
 
     Intent intent;
+
+    public interface OnLearningCategoryListener{
+        void onLearningCategory();
+    }
 
     @NonNull
     @Override
@@ -55,15 +60,8 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         rootView.findViewById(R.id.btn_img_capture).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("learning_type", TYPE_ALBUM);
-                startActivity(intent);
-                getActivity().finish();
-
-                 /* 다이얼로그 창 닫고
-                * 인터페이스 전달
-                * listener.onClickAll()
-                * CardViewHolder를 참고하면서 인터페이스를 만들어보장
-                * */
+                listener.onLearningCategory();
+                dismiss();
             }
         });
 
@@ -83,4 +81,13 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         return builder.create();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try{
+            listener = (OnLearningCategoryListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString()+" must implement OnLearningCategoryListener");
+        }
+    }
 }

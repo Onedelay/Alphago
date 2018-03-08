@@ -54,7 +54,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
             }
         });
 
-        final int type = getIntent().getIntExtra("learing_type", 0);
+        final int type = getIntent().getIntExtra("learning_type", 0);
         cards = new ArrayList<>();
 
         if (type == TYPE_ALL) {
@@ -69,6 +69,14 @@ public class WordLearningActivity extends NoStatusBarActivity {
                 }
             }
         } else if (type == TYPE_ALBUM) {
+            ArrayList<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("category_select_list");
+
+            for (int i = 0; i < list.size(); i++) {
+                List<CardBook> cardBooks = dbHelper.cardbookSelect(list.get(i));
+                for (CardBook cardBook : cardBooks) {
+                    cards.add(cardBook);
+                }
+            }
 
         } else {
             Toast.makeText(this, "TYPE ERROR", Toast.LENGTH_SHORT).show();
@@ -112,7 +120,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
                 }
             });
         } else {
-            Toast.makeText(WordLearningActivity.this, "학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WordLearningActivity.this, "더 이상 학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
         }
 
     }

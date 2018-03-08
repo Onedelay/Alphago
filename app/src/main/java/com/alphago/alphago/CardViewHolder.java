@@ -1,5 +1,6 @@
 package com.alphago.alphago;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +38,11 @@ public class CardViewHolder extends RecyclerView.ViewHolder {
     public void bind(Category category) {
         this.data = category;
         setView(category.getFilePath(), category.getLabel());
+        if(category.isSelect()){
+            itemView.setSelected(true);
+        } else {
+            itemView.setSelected(false);
+        }
     }
 
     public void bind(CardBook cardBook) {
