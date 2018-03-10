@@ -16,15 +16,17 @@ import com.alphago.alphago.TestData;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameWordActivity2 extends NoStatusBarActivity {
 
-    private List<CardBook> cardBookList = new ArrayList<CardBook>();
+    private List<CardBook> cardBookList = new ArrayList<>();
     private DbHelper dbHelper = new DbHelper(this);
 
     private int qst_num[] = new int[10];        // cardBookList.get(qst_num[i])
@@ -42,13 +44,14 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     private Button btn_wgame_ex4;
     private ImageView img_wgame_tvqst;
     private TextView tv_wgame_tvqst;
+    private ImageView questionImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_word2);
 
-        cardBookList = dbHelper.cardbookSelect(1); // animal
+        cardBookList = dbHelper.cardbookSelect(1L); // animal
 
         btn_wgame_exit = (ImageButton)findViewById(R.id.btn_wgame_exit);
         btn_wgame_next = (ImageButton)findViewById(R.id.btn_wgame_next);
@@ -59,6 +62,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
 
         img_wgame_tvqst = (ImageView)findViewById(R.id.img_wgame_tvqst);
         tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
+
+        questionImage = (ImageView) findViewById(R.id.img_wgame_qst);
 
         if (qcount == 0) {
             // CreateQuestion(TestData.dataID.length);
@@ -181,6 +186,12 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         // btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
         // btn_wgame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
         // btn_wgame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]);
+
+        Picasso.with(getBaseContext())
+                .load(new File(cardBookList.get(qst_num[qcount]).getFilePath()))
+                .centerInside()
+                .fit()
+                .into(questionImage);
 
         btn_wgame_ex1.setText(cardBookList.get(ex_num[qcount][0]).getName());
         btn_wgame_ex2.setText(cardBookList.get(ex_num[qcount][1]).getName());
