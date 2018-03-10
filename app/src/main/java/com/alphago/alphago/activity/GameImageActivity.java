@@ -28,10 +28,10 @@ public class GameImageActivity extends NoStatusBarActivity {
     private ImageButton btn_igame_exit;
     private ImageButton btn_igame_next;
 
-    private Button btn_igame_ex1;
-    private Button btn_igame_ex2;
-    private Button btn_igame_ex3;
-    private Button btn_igame_ex4;
+    private ImageButton btn_igame_ex1;
+    private ImageButton btn_igame_ex2;
+    private ImageButton btn_igame_ex3;
+    private ImageButton btn_igame_ex4;
     private ImageView img_igame_tvqst;
     private TextView tv_igame_tvqst;
     private TextView img_igame_qst;
@@ -43,10 +43,10 @@ public class GameImageActivity extends NoStatusBarActivity {
 
         btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
         btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
-        btn_igame_ex1 = (Button)findViewById(R.id.btn_igame_ex1);
-        btn_igame_ex2 = (Button)findViewById(R.id.btn_igame_ex2);
-        btn_igame_ex3 = (Button)findViewById(R.id.btn_igame_ex3);
-        btn_igame_ex4 = (Button)findViewById(R.id.btn_igame_ex4);
+        btn_igame_ex1 = (ImageButton)findViewById(R.id.btn_igame_ex1);
+        btn_igame_ex2 = (ImageButton)findViewById(R.id.btn_igame_ex2);
+        btn_igame_ex3 = (ImageButton)findViewById(R.id.btn_igame_ex3);
+        btn_igame_ex4 = (ImageButton)findViewById(R.id.btn_igame_ex4);
 
         img_igame_tvqst = (ImageView)findViewById(R.id.img_igame_tvqst);
         tv_igame_tvqst = (TextView)findViewById(R.id.tv_igame_tvqst);
@@ -168,10 +168,15 @@ public class GameImageActivity extends NoStatusBarActivity {
     protected void SetQuestion(final int qcount) {
         result = false;
 
-        btn_igame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
+        /* btn_igame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
         btn_igame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
         btn_igame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
-        btn_igame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]);
+        btn_igame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]); */
+
+        btn_igame_ex1.setBackgroundResource(0);
+        btn_igame_ex2.setBackgroundResource(0);
+        btn_igame_ex3.setBackgroundResource(0);
+        btn_igame_ex4.setBackgroundResource(0);
 
         img_igame_tvqst.setImageResource(R.drawable.tv_qst);
 
@@ -180,28 +185,40 @@ public class GameImageActivity extends NoStatusBarActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.btn_igame_ex1 :
-                        Toast.makeText(GameImageActivity.this, btn_igame_ex1.getText(), Toast.LENGTH_SHORT).show();
+                        btn_igame_ex1.setBackgroundResource(R.drawable.game_right_border);
+                        btn_igame_ex2.setBackgroundResource(0);
+                        btn_igame_ex3.setBackgroundResource(0);
+                        btn_igame_ex4.setBackgroundResource(0);
                         if (ex_num[qcount][0] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
                     case R.id.btn_igame_ex2 :
-                        Toast.makeText(GameImageActivity.this, btn_igame_ex2.getText(), Toast.LENGTH_SHORT).show();
+                        btn_igame_ex1.setBackgroundResource(0);
+                        btn_igame_ex2.setBackgroundResource(R.drawable.game_right_border);
+                        btn_igame_ex3.setBackgroundResource(0);
+                        btn_igame_ex4.setBackgroundResource(0);
                         if (ex_num[qcount][1] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
                     case R.id.btn_igame_ex3 :
-                        Toast.makeText(GameImageActivity.this, btn_igame_ex3.getText(), Toast.LENGTH_SHORT).show();
+                        btn_igame_ex1.setBackgroundResource(0);
+                        btn_igame_ex2.setBackgroundResource(0);
+                        btn_igame_ex3.setBackgroundResource(R.drawable.game_right_border);
+                        btn_igame_ex4.setBackgroundResource(0);
                         if (ex_num[qcount][2] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
                     case R.id.btn_igame_ex4 :
-                        Toast.makeText(GameImageActivity.this, btn_igame_ex4.getText(), Toast.LENGTH_SHORT).show();
+                        btn_igame_ex1.setBackgroundResource(0);
+                        btn_igame_ex2.setBackgroundResource(0);
+                        btn_igame_ex3.setBackgroundResource(0);
+                        btn_igame_ex4.setBackgroundResource(R.drawable.game_right_border);
                         if (ex_num[qcount][3] == qst_num[qcount])
                             result = true;
                         else

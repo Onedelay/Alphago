@@ -27,44 +27,56 @@
 
     <Button
         android:id="@+id/btn_recognition"
+        style="@style/CardBookFont"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/button_wooden"
-        android:text="Recognition"
+        android:text="RECOGNITION"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_card_book"
         app:layout_constraintRight_toLeftOf="@id/guideline" />
 
     <Button
         android:id="@+id/btn_game"
+        style="@style/CardBookFont"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:background="@drawable/button_wooden"
-        android:text="Game"
+        android:text="GAME"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/btn_collection"
         app:layout_constraintLeft_toLeftOf="@id/guideline" />
 
     <Button
         android:id="@+id/btn_card_book"
+        style="@style/CardBookFont"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/button_wooden"
-        android:text="Card book"
+        android:text="CARD BOOK"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/btn_collection"
         app:layout_constraintRight_toLeftOf="@id/guideline" />
 
     <Button
         android:id="@+id/btn_collection"
+        style="@style/CardBookFont"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:background="@drawable/button_wooden"
-        android:text="Collections"
+        android:text="COLLECTIONS"
+        android:textSize="17sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/guideline" />
 

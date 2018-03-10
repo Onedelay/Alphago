@@ -13,13 +13,22 @@ import android.widget.Toast;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
+import com.alphago.alphago.database.DbHelper;
+import com.alphago.alphago.model.CardBook;
+import com.alphago.alphago.model.Category;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameWordActivity2 extends NoStatusBarActivity {
 
-    private int qst_num[] = new int[10];
-    private int ex_num[][] = new int[10][4];
+    private List<CardBook> cardBookList = new ArrayList<CardBook>();
+    private DbHelper dbHelper = new DbHelper(this);
+
+    private int qst_num[] = new int[10];        // cardBookList.get(qst_num[i])
+    private int ex_num[][] = new int[10][4];    // cardBookList.get(ex_num[i][j])
     private int qcount = 0;
     private boolean res[] = new boolean[10];
     private boolean result = false;
@@ -39,6 +48,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_word2);
 
+        cardBookList = dbHelper.cardbookSelect(1); // animal
+
         btn_wgame_exit = (ImageButton)findViewById(R.id.btn_wgame_exit);
         btn_wgame_next = (ImageButton)findViewById(R.id.btn_wgame_next);
         btn_wgame_ex1 = (Button)findViewById(R.id.btn_wgame_ex1);
@@ -50,7 +61,8 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
 
         if (qcount == 0) {
-            CreateQuestion(TestData.dataID.length);
+            // CreateQuestion(TestData.dataID.length);
+            CreateQuestion(cardBookList.size());
             SetQuestion(qcount);
             qcount++;
         }
@@ -92,7 +104,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                             startActivity(intent);
                         }
                         else {
-                            tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + TestData.dataLabel[qst_num[qcount]]);
+                            tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + cardBookList.get(qst_num[qcount]).getName());
                             SetQuestion(qcount);
                             qcount++;
                         }
@@ -165,10 +177,15 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     protected void SetQuestion(final int qcount) {
         result = false;
 
-        btn_wgame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
-        btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
-        btn_wgame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
-        btn_wgame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]);
+        // btn_wgame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
+        // btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
+        // btn_wgame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
+        // btn_wgame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]);
+
+        btn_wgame_ex1.setText(cardBookList.get(ex_num[qcount][0]).getName());
+        btn_wgame_ex2.setText(cardBookList.get(ex_num[qcount][1]).getName());
+        btn_wgame_ex3.setText(cardBookList.get(ex_num[qcount][2]).getName());
+        btn_wgame_ex4.setText(cardBookList.get(ex_num[qcount][3]).getName());
 
         img_wgame_tvqst.setImageResource(R.drawable.tv_qst);
         btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);

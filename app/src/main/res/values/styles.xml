@@ -17,7 +17,7 @@
         <item name="android:shadowColor">#FF000000</item>
         <item name="android:shadowDx">3</item>
         <item name="android:shadowDy">3</item>
-        <item name="android:shadowRadius">1.0</item>
+        <item name="android:shadowRadius">8.0</item>
     </style>
 
 </resources>
