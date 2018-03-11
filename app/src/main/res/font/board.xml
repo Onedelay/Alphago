@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<font-family xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
-    <font
-        android:fontStyle="bold"
-        android:font="@font/board_label"
-        app:fontStyle="normal"
-        app:font="@font/board_label" />
-</font-family>
