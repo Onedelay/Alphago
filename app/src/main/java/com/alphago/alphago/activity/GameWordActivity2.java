@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
@@ -44,7 +43,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     private Button btn_wgame_ex4;
     private ImageView img_wgame_tvqst;
     private TextView tv_wgame_tvqst;
-    private ImageView questionImage;
+    private ImageView img_wgame_qst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +61,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
 
         img_wgame_tvqst = (ImageView)findViewById(R.id.img_wgame_tvqst);
         tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
-
-        questionImage = (ImageView) findViewById(R.id.img_wgame_qst);
+        img_wgame_qst = (ImageView) findViewById(R.id.img_wgame_qst);
 
         if (qcount == 0) {
             // CreateQuestion(TestData.dataID.length);
@@ -182,22 +180,24 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     protected void SetQuestion(final int qcount) {
         result = false;
 
-        // btn_wgame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
-        // btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
-        // btn_wgame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
-        // btn_wgame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]);
-
+        // 문제용 이미지 불러오기
         Picasso.with(getBaseContext())
                 .load(new File(cardBookList.get(qst_num[qcount]).getFilePath()))
                 .centerInside()
                 .fit()
-                .into(questionImage);
+                .into(img_wgame_qst);
 
+        // Set Examples
+        /* btn_wgame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
+        btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
+        btn_wgame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
+        btn_wgame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]); */
         btn_wgame_ex1.setText(cardBookList.get(ex_num[qcount][0]).getName());
         btn_wgame_ex2.setText(cardBookList.get(ex_num[qcount][1]).getName());
         btn_wgame_ex3.setText(cardBookList.get(ex_num[qcount][2]).getName());
         btn_wgame_ex4.setText(cardBookList.get(ex_num[qcount][3]).getName());
 
+        // 말풍선 및 Example 선택 표시 초기화
         img_wgame_tvqst.setImageResource(R.drawable.tv_qst);
         btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);
         btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);

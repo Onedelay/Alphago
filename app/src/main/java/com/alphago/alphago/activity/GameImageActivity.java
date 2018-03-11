@@ -16,8 +16,18 @@ import android.widget.Toast;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
+import com.alphago.alphago.database.DbHelper;
+import com.alphago.alphago.model.CardBook;
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameImageActivity extends NoStatusBarActivity {
+
+    private List<CardBook> cardBookList = new ArrayList<>();
+    private DbHelper dbHelper = new DbHelper(this);
 
     private int qst_num[] = new int[10];
     private int ex_num[][] = new int[10][4];
@@ -41,6 +51,8 @@ public class GameImageActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_image);
 
+        cardBookList = dbHelper.cardbookSelect(1L); // animal
+
         btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
         btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
         btn_igame_ex1 = (ImageButton)findViewById(R.id.btn_igame_ex1);
@@ -53,8 +65,9 @@ public class GameImageActivity extends NoStatusBarActivity {
         img_igame_qst = (TextView)findViewById(R.id.img_igame_qst);
 
         if (qcount == 0) {
-            CreateQuestion(TestData.dataID.length);
-            img_igame_qst.setText(TestData.dataLabel[qst_num[qcount]]);
+            // CreateQuestion(TestData.dataID.length);
+            CreateQuestion(cardBookList.size());
+            img_igame_qst.setText(cardBookList.get(qst_num[qcount]).getName()); // TestData.dataLabel[qst_num[qcount]]
             SetQuestion(qcount);
             qcount++;
         }
@@ -97,7 +110,6 @@ public class GameImageActivity extends NoStatusBarActivity {
                         }
                         else {
                             tv_igame_tvqst.setText("Q" + (qcount + 1));
-                            img_igame_qst.setText(TestData.dataLabel[qst_num[qcount]]);
                             SetQuestion(qcount);
                             qcount++;
                         }
@@ -168,17 +180,41 @@ public class GameImageActivity extends NoStatusBarActivity {
     protected void SetQuestion(final int qcount) {
         result = false;
 
+        // 문제용 Label
+        img_igame_qst.setText(cardBookList.get(qst_num[qcount]).getName()); // TestData.dataLabel[qst_num[qcount]]
+
+        // Set Examples
         /* btn_igame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
         btn_igame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
         btn_igame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
         btn_igame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]); */
+        Picasso.with(getBaseContext())
+                .load(new File(cardBookList.get(ex_num[qcount][0]).getFilePath()))
+                .centerInside()
+                .fit()
+                .into(btn_igame_ex1);
+        Picasso.with(getBaseContext())
+                .load(new File(cardBookList.get(ex_num[qcount][1]).getFilePath()))
+                .centerInside()
+                .fit()
+                .into(btn_igame_ex2);
+        Picasso.with(getBaseContext())
+                .load(new File(cardBookList.get(ex_num[qcount][2]).getFilePath()))
+                .centerInside()
+                .fit()
+                .into(btn_igame_ex3);
+        Picasso.with(getBaseContext())
+                .load(new File(cardBookList.get(ex_num[qcount][3]).getFilePath()))
+                .centerInside()
+                .fit()
+                .into(btn_igame_ex4);
 
+        // Example 선택 표시(game_right_border) 초기화
+        img_igame_tvqst.setImageResource(R.drawable.tv_qst);
         btn_igame_ex1.setBackgroundResource(0);
         btn_igame_ex2.setBackgroundResource(0);
         btn_igame_ex3.setBackgroundResource(0);
         btn_igame_ex4.setBackgroundResource(0);
-
-        img_igame_tvqst.setImageResource(R.drawable.tv_qst);
 
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
