@@ -10,13 +10,13 @@
 
     <TextView
         android:id="@+id/cardbook_list_main_label"
-        style="@style/CardBookFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/board_title"
         android:text="label"
         android:textAllCaps="true"
+        android:textColor="@android:color/white"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/cardbook_grid"

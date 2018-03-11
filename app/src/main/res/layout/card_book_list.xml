@@ -19,7 +19,6 @@
 
     <TextView
         android:id="@+id/cardbook_list_label"
-        style="@style/CardBookFont"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/board_title"
