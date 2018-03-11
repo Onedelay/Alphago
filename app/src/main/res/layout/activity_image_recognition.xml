@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_cardbook"
+    android:background="@drawable/bg_cardbook2"
     tools:context="com.alphago.alphago.activity.ImageRecognitionActivity">
 
     <ImageView
@@ -24,7 +24,7 @@
         android:id="@+id/btn_pronounce"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/bg_pronounce_white"
+        android:background="@drawable/bg_pronounce_white2"
         app:layout_constraintRight_toRightOf="@+id/result_recog"
         app:layout_constraintTop_toTopOf="@id/image_recognition" />
 
