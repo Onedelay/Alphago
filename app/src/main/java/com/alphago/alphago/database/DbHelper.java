@@ -13,6 +13,7 @@ import com.alphago.alphago.database.CardBookContract.*;
 import com.alphago.alphago.model.Card;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
+import com.alphago.alphago.model.Collection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 public class DbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "CARD_BOOK.db";
+    private Context context;
 
     private static final String SQL_CREATE_CATEGORY =
             "CREATE TABLE " + CategoryEntry.TABLE_NAME + " (" +
@@ -46,16 +48,40 @@ public class DbHelper extends SQLiteOpenHelper {
                     CardsEntry.COLUMN_NAME_LABEL + " TEXT ," +
                     CardsEntry.COLUMN_NAME_PATH + " TEXT)";
 
-    // Default images
-    private static final String[] CATEGORY_LIST = {"Animal", "Furniture", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room", "Clothes", "ETC" };
+    private static final String SQL_CREATE_COLLECTION =
+            "CREATE TABLE " + CollectionEntry.TABLE_NAME + " (" +
+                    CollectionEntry._ID + " INTEGER PRIMARY KEY," +
+                    CollectionEntry.COLUMN_NAME_LABEL + " TEXT ,"+
+                    CollectionEntry.COLUMN_NAME_CAT_ID + " INTEGER ," +
+                    CollectionEntry.COLUMN_NAME_LABEL_ID + " INTEGER ,"+
+                    CollectionEntry.COLUMN_NAME_PATH + " TEXT ,"+
+                    CollectionEntry.COLUMN_NAME_COLLECT+" INTEGER)";
+
+    private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room", "Clothes", "ETC" };
+
+    // Default images - 사용안함
     private static final String[][] IMAGE_LIST = {
             {"animal","cat","1","1"}, {"animal","dog","1","2"}, {"animal","lion","1","3"},
             {"food","apple","3","9"}, {"food","potato","3","13"},
             {"furniture","bed","2","20"}, {"furniture","chair","2","21"}, {"furniture","desk","2","22"}
     };
 
+    // Collection list
+    private static final String[][][] COLLECTION_LIST = {
+            {{"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"}}, // 1 - Animal
+            //{{"Car"},{"Bicycle"},{"Bench"},{"Sign"},{"Stair"},  {"Bus"},{"Train"},{"Airplane"},{""},{""}}, // 2 - Outdoor
+            //{{"Apple","9"},{"Banana","10"},{"Cucumber","11"},{"Lemon","12"},{"Potato","13"},  {"Strawberry","15"},{"Pumpkin","16"},{"Grape"},{"Watermelon"},{"Melon"}}, // 3 - Food
+            //{{"Chair","21"},{"Desk","22"},{"Pen","23"},{"Pencil","24"},{"Eraser","28"},  {"Chalk"},{"Broom"},{"Mop"},{""},{""}}, // 4 - School
+            //{{"Cup","17"},{"Knife","18"},{"Scissor","19"},{"Tumbler","25"},{"Bottle","29"},  {"Chopping board"},{"Spoon"},{"Chopsticks"},{""},{""}}, // 5 - Kitchen
+            //{{"Toilet","45"},{"Washstand",""},{"Tub","46"},{"Towel",""},{"Soap",""},  {"Toothbrush","48"},{"",""},{"Basin","49"},{"shampoo",""},{""}}, // 6 - Bathroom
+            //{{"Laptop","5"},{"Mike","6"},{"Monitor","7"},{"Usb","8"},{"Cellphone","26"},  {"Television","27"},{"Mouse","31"},{"Keyboard","32"},{"Fan",""},{"",""}}, // 7 - Electronics
+            //{{"Bed","20"},{"Umbrella","30"},{"Clock"},{"Sofa"},{"Rug"},  {"Curtain"},{"Cabinet"},{""},{""},{""}}, // 8 - Room
+            //{{"Shoes"},{"Hat"},{"Scarf"},{"Glasses"},{"Socks"},  {"Gloves"},{""},{""},{""},{""}} // 9 - Clothes
+    };
+
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context;
     }
 
     @Override
@@ -63,6 +89,7 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_CARD_BOOK);
         db.execSQL(SQL_CREATE_CATEGORY);
         db.execSQL(SQL_CREATE_CARDS);
+        db.execSQL(SQL_CREATE_COLLECTION);
 
         // 카테고리 초기화
         for (String category : CATEGORY_LIST) {
@@ -88,12 +115,48 @@ public class DbHelper extends SQLiteOpenHelper {
 //            db.insert(CardsEntry.TABLE_NAME, null, values);
 //        }
 
-        // 같은 레이블 가진 다른 사진들
+        // 컬렉션 초기화
+        for(int i=0; i<COLLECTION_LIST.length; i++){
+            for(int j=0; j<COLLECTION_LIST[i].length; j++){
+                ContentValues values = new ContentValues();
+                values.put(CollectionEntry.COLUMN_NAME_CAT_ID, i+1);
+                values.put(CollectionEntry.COLUMN_NAME_LABEL, COLLECTION_LIST[i][j][0]);
+                values.put(CollectionEntry.COLUMN_NAME_LABEL_ID, COLLECTION_LIST[i][j][1]);
+                values.put(CollectionEntry.COLUMN_NAME_COLLECT, 0);
+                db.insert(CollectionEntry.TABLE_NAME, null, values);
+            }
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public List<Category> categoryAllSelect() {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {"*"};
+        Cursor c = db.query(CategoryEntry.TABLE_NAME, projection, null, null, null, null, null);
+
+        String selection = CardBookEntry.COLUMN_NAME_CATEGORY + " = ?";
+        List<Category> categoryList = new ArrayList<>();
+
+        Cursor cards = null;
+
+        while (c.moveToNext()) {
+            long categoryId = c.getLong(c.getColumnIndexOrThrow(CategoryEntry._ID));
+            String category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_LABEL));
+            String filePath = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_PATH));
+
+            String[] selectionArgs = {String.valueOf(categoryId)};
+            cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+            categoryList.add(new Category(categoryId, category, filePath));
+        }
+
+        cards.close();
+        c.close();
+
+        return categoryList;
     }
 
     public List<Category> categorySelect() {
@@ -118,10 +181,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
         cards.close();
         c.close();
-
-        for(int i=0; i<categoryList.size(); i++){
-            Log.v("alphago",categoryList.get(i).getLabel());
-        }
 
         return categoryList;
     }
@@ -161,14 +220,37 @@ public class DbHelper extends SQLiteOpenHelper {
             cardList.add(new Card(cardId, labelId, path));
         }
         c.close();
-
-
-
         return cardList;
     }
 
-    public void insertImage(String categoryName, String imageLabel, int catId, int labelId, String filePath){
+    public List<Collection> collectionSelect(long cateId){
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {"*"};
+        String selection = CollectionEntry.COLUMN_NAME_CAT_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(cateId)};
 
+        Cursor c = db.query(CollectionEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        List<Collection> collections = new ArrayList<>();
+
+        while(c.moveToNext()){
+            String label = c.getString(c.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_LABEL));
+            long labelId = c.getLong(c.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_LABEL_ID));
+            String filePath = c.getString(c.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_PATH));
+            int collected = c.getInt(c.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_COLLECT));
+            collections.add(new Collection(label, labelId, filePath, collected));
+        }
+        c.close();
+        return collections;
+    }
+
+    public int achievementRate(long catId){
+        List<Collection> collections = collectionSelect(catId);
+        int length = collections.size();
+
+        return length;
+    }
+
+    public void insertImage(String imageLabel, int catId, int labelId, String filePath){
         SQLiteDatabase rdb = getReadableDatabase();
         SQLiteDatabase wdb = getWritableDatabase();
 
@@ -179,15 +261,36 @@ public class DbHelper extends SQLiteOpenHelper {
         String[] catSelArgs = {String.valueOf(catId)};
         rdb.update(CategoryEntry.TABLE_NAME, catValue, catSelection, catSelArgs);
 
+        // 컬렉션 - collect 체크
+        // 이미 1이 되어있을 때를 대비해 분기를 추가해야할까? - 했는데 맞는건지 모름
+
         String[] projection = {"*"};
+        String colSelection = CollectionEntry.COLUMN_NAME_LABEL_ID + " = ?";
+        String[] colSelArgs = {String.valueOf(labelId)};
+
+        Cursor collection = rdb.query(CollectionEntry.TABLE_NAME, projection, colSelection, colSelArgs, null, null, null);
+
+        ContentValues colValue = new ContentValues();
+        if(collection.moveToNext()) { // 컬렉션 테이블에 존재하지 않을 경우 갱신 안함
+            if (collection.getInt(collection.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_COLLECT)) == 0) {
+                colValue.put(CollectionEntry.COLUMN_NAME_COLLECT, 1);
+                colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
+                rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
+                Toast.makeText(context, "컬렉션에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
+                rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
+                Toast.makeText(context, "컬렉션 이미지가 변경되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         String selection = CardBookEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(labelId)};
 
         Cursor c = rdb.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
         // 카드북에 현재 레이블이 없으면 삽입
         if(!c.moveToNext()){
-            Log.v("alphago", categoryName+" : "+imageLabel);
-
+            //Log.v("alphago", categoryName+" : "+imageLabel);
             ContentValues cardBookValues = new ContentValues();
             cardBookValues.put(CardBookEntry._ID, labelId);
             cardBookValues.put(CardBookEntry.COLUMN_NAME_CATEGORY, catId);

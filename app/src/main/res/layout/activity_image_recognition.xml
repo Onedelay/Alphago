@@ -25,6 +25,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/bg_pronounce_white2"
+        android:layout_marginRight="15dp"
         app:layout_constraintRight_toRightOf="@+id/result_recog"
         app:layout_constraintTop_toTopOf="@id/image_recognition" />
 

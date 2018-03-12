@@ -32,4 +32,13 @@ public final class CardBookContract {
         public static final String COLUMN_NAME_LABEL = "card_book_label"; // 나중에 문제 내기 쉽게
         public static final String COLUMN_NAME_PATH = "img_path";
     }
+
+    public static class CollectionEntry implements BaseColumns{
+        public static final String TABLE_NAME = "collection";
+        public static final String COLUMN_NAME_LABEL = "label";
+        public static final String COLUMN_NAME_CAT_ID = "category_id";
+        public static final String COLUMN_NAME_LABEL_ID = "label_id";
+        public static final String COLUMN_NAME_PATH = "img_path";
+        public static final String COLUMN_NAME_COLLECT = "collect";
+    }
 }

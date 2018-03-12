@@ -93,4 +93,9 @@ public class SendImageActivity extends NoStatusBarActivity {
 
         frameLoading = (FrameLayout) findViewById(R.id.frame_loading);
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
 }

@@ -177,6 +177,11 @@ public class GameImageActivity extends NoStatusBarActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
     protected void SetQuestion(final int qcount) {
         result = false;
 

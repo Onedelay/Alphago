@@ -14,6 +14,7 @@ import com.alphago.alphago.model.Card;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 import com.alphago.alphago.util.TTSHelper;
+import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -133,6 +134,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
         Picasso.with(getBaseContext())
                 .load(new File(filePath))
                 .centerInside()
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                 .fit()
                 .into(learnImage);
 

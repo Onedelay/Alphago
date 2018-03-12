@@ -1,22 +1,17 @@
 package com.alphago.alphago.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
-import com.alphago.alphago.adapter.CardBookAdapter;
 import com.alphago.alphago.adapter.CategoryAdapter;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.fragment.LearningSelectionMethodDialog;
-import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 
 import java.util.ArrayList;
@@ -25,7 +20,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     private Button btnLearning;
     private RecyclerView recyclerView;
     private CategoryAdapter adapter;
-    private boolean isSelecteMode = false;
+    private boolean isSelectMode = false;
     private ArrayList<Long> selectList = new ArrayList<Long>();
     DbHelper dbHelper;
 
@@ -41,7 +36,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         btnLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isSelecteMode){
+                if(!isSelectMode){
                     new LearningSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
                 } else {
                     intent.putExtra("category_select_list", selectList);
@@ -64,7 +59,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     public void onCardClick(Object data) {
         if (data instanceof Category) {
             long catId = ((Category) data).getId();
-            if (!isSelecteMode) {
+            if (!isSelectMode) {
                 Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
                 intent.putExtra("categoryId", catId);
                 intent.putExtra("category", ((Category) data).getLabel());
@@ -84,13 +79,13 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
 
     @Override
     public void onLearningCategory() {
-        isSelecteMode = true;
+        isSelectMode = true;
         btnLearning.setText("선택완료★");
     }
 
     @Override
     public void onBackPressed() {
-        if(isSelecteMode){
+        if(isSelectMode){
             cancelLearning(dbHelper);
         } else {
             super.onBackPressed();
@@ -98,7 +93,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     }
 
     public void cancelLearning(DbHelper dbHelper){
-        isSelecteMode = false;
+        isSelectMode = false;
         btnLearning.setText("학습하기");
         adapter.setList(dbHelper.categorySelect());
         adapter.notifyDataSetChanged();

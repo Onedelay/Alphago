@@ -34,6 +34,11 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     private boolean res[] = new boolean[10];
     private boolean result = false;
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
     private ImageButton btn_wgame_exit;
     private ImageButton btn_wgame_next;
 
@@ -105,9 +110,11 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                             intent.putExtra("result", res);
                             intent.putExtra("type", 0);
                             startActivity(intent);
+                            finish();
                         }
                         else {
-                            tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + cardBookList.get(qst_num[qcount]).getName());
+                            //tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + cardBookList.get(qst_num[qcount]).getName());
+                            tv_wgame_tvqst.setText("Q" + (qcount + 1) + " ");
                             SetQuestion(qcount);
                             qcount++;
                         }

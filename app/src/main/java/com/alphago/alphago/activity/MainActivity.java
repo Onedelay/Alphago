@@ -18,6 +18,7 @@ import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.alphago.alphago.handler.BackPressCloseHandler;
+import com.alphago.alphago.model.Collection;
 import com.alphago.alphago.util.PermissionUtils;
 
 import java.util.ArrayList;
@@ -64,6 +65,14 @@ public class MainActivity extends NoStatusBarActivity {
                 startActivity(intent); */
             }
         });
+
+        findViewById(R.id.btn_collection).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CollectionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -71,9 +80,9 @@ public class MainActivity extends NoStatusBarActivity {
         if (requestCode == REQUEST_PERMISSONS) {
             for (int i=0; i<permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
                 }
             }
         }

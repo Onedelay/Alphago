@@ -45,7 +45,7 @@ public class GameModeSelectionDialog extends DialogFragment {
         rootView.findViewById(R.id.btn_word_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
                 gameMode = GAME_MODE_WORD;
                 Intent intent = new Intent(getContext(), GameWordActivity2.class);
                 startActivity(intent);
@@ -56,7 +56,7 @@ public class GameModeSelectionDialog extends DialogFragment {
         rootView.findViewById(R.id.btn_img_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "그림 맞추기 선택", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "그림 맞추기 선택", Toast.LENGTH_SHORT).show();
                 gameMode = GAME_MODE_PICTURE;
                 Intent intent = new Intent(getContext(), GameImageActivity.class);
                 startActivity(intent);
