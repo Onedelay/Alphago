@@ -114,7 +114,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                             qcount++;
                         }
                     }
-                }, 2500);
+                }, 2000);
                 // finish();
             }
         });
