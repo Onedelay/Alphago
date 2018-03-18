@@ -7,9 +7,11 @@ import android.support.annotation.NonNull;
 import com.alphago.alphago.dto.ResponeImageLabel;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,9 +34,14 @@ public class AlphagoServer {
     }
 
     private AlphagoServer() {
+        final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://52.79.52.192:3002/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build();
         alphagoService = retrofit.create(AlphagoService.class);
     }
