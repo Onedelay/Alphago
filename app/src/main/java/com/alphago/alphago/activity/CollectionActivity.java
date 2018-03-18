@@ -3,14 +3,13 @@ package com.alphago.alphago.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.alphago.alphago.CollectionViewHolder;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.adapter.CollectionCatAdapter;
 import com.alphago.alphago.database.DbHelper;
-import com.alphago.alphago.model.Category;
+import com.alphago.alphago.model.CollectCategory;
 
 public class CollectionActivity extends NoStatusBarActivity implements CollectionViewHolder.OnCategoryClickListener {
     private RecyclerView recyclerView;
@@ -32,8 +31,8 @@ public class CollectionActivity extends NoStatusBarActivity implements Collectio
 
     @Override
     public void onCategoryClick(Object data) {
-        if(data instanceof Category){
-            long catId = ((Category) data).getId();
+        if(data instanceof CollectCategory){
+            long catId = ((CollectCategory) data).getId();
             Intent intent = new Intent(getBaseContext(), CollectionListActivity.class);
             intent.putExtra("categoryId", catId);
             startActivity(intent);

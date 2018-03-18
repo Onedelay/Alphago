@@ -7,7 +7,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphago.alphago.model.Category;
+import com.alphago.alphago.model.CollectCategory;
 import com.alphago.alphago.model.Collection;
+import com.budiyev.android.circularprogressbar.CircularProgressBar;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.io.File;
 public class CollectionViewHolder extends RecyclerView.ViewHolder {
     private ImageView mImageView;
     private TextView mTextView;
+    private CircularProgressBar circularProgressBar;
     private Object data;
 
     public interface OnCategoryClickListener {
@@ -29,6 +32,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mImageView = (ImageView) itemView.findViewById(R.id.collection_list_img);
         mTextView = (TextView) itemView.findViewById(R.id.collection_list_label);
+        circularProgressBar = (CircularProgressBar) itemView.findViewById(R.id.progress_bar);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +41,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void bind(Category category) {
+    public void bind(CollectCategory category) {
         this.data = category;
         int cat = (int) category.getId();
         switch (cat) {
@@ -69,6 +73,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
                 Picasso.with(itemView.getContext()).load(R.mipmap.ic_launcher).into(mImageView);
         }
         mTextView.setText(category.getLabel());
+        circularProgressBar.setProgress(category.getAchievementRate());
     }
 
     public void bind(Collection collection){

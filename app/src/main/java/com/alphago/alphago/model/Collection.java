@@ -10,7 +10,7 @@ public class Collection {
     private String filePath;
     private int collected;
 
-    public Collection(String name, long labelId, String filePath, int collected) {
+    public Collection( String name, long labelId, String filePath, int collected) {
         this.name = name;
         this.labelId = labelId;
         this.filePath = filePath;

@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 
 import com.alphago.alphago.CollectionViewHolder;
 import com.alphago.alphago.R;
-import com.alphago.alphago.model.Category;
-import com.alphago.alphago.model.Collection;
+import com.alphago.alphago.model.CollectCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 
 public class CollectionCatAdapter extends RecyclerView.Adapter<CollectionViewHolder> {
-    private List<Category> list = new ArrayList<>();
+    private List<CollectCategory> list = new ArrayList<>();
     private CollectionViewHolder.OnCategoryClickListener listener;
 
     public CollectionCatAdapter(CollectionViewHolder.OnCategoryClickListener listener) {
@@ -42,7 +41,7 @@ public class CollectionCatAdapter extends RecyclerView.Adapter<CollectionViewHol
         return list.size();
     }
 
-    public void setList(List<Category> list){
+    public void setList(List<CollectCategory> list) {
         this.list = list;
         notifyDataSetChanged();
     }
