@@ -85,11 +85,14 @@
 
         <Button
             android:id="@+id/btn_wgame_ex4"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/button_ex"
             android:text="label4"
+            android:textAllCaps="false"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btn_wgame_ex3"
             app:layout_constraintLeft_toLeftOf="@+id/btn_wgame_ex2"
             app:layout_constraintRight_toRightOf="@+id/btn_wgame_ex2"
@@ -97,13 +100,16 @@
 
         <Button
             android:id="@+id/btn_wgame_ex3"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/button_ex"
             android:text="label3"
+            android:textAllCaps="false"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/btn_wgame_ex1"
             app:layout_constraintRight_toRightOf="@+id/btn_wgame_ex1"
@@ -111,13 +117,16 @@
 
         <Button
             android:id="@+id/btn_wgame_ex2"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/button_ex"
             android:text="label2"
+            android:textAllCaps="false"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btn_wgame_ex1"
             app:layout_constraintLeft_toLeftOf="@+id/wgame_guideline3"
             app:layout_constraintRight_toRightOf="parent"
@@ -125,6 +134,7 @@
 
         <Button
             android:id="@+id/btn_wgame_ex1"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
@@ -133,7 +143,9 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/button_ex"
             android:text="label1"
+            android:textAllCaps="false"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/wgame_guideline4"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/wgame_guideline3"
