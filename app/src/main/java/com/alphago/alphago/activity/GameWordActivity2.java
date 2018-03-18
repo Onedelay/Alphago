@@ -25,6 +25,7 @@ import java.util.List;
 
 public class GameWordActivity2 extends NoStatusBarActivity {
 
+    private List<Category> categoryList = new ArrayList<>();
     private List<CardBook> cardBookList = new ArrayList<>();
     private DbHelper dbHelper = new DbHelper(this);
 
@@ -55,7 +56,16 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_word2);
 
-        cardBookList = dbHelper.cardbookSelect(1L); // animal
+        // Load CardBook in Database
+        // cardBookList = dbHelper.cardbookSelect(1L);
+        int catSize = categoryList.size();
+        long catId = 0;
+
+        for (int i = 0; i < catSize; i++) {
+            catId = categoryList.get(i).getId();
+            List<CardBook> tmpList = dbHelper.cardbookSelect(catId);
+            cardBookList.addAll(tmpList);
+        }
 
         btn_wgame_exit = (ImageButton)findViewById(R.id.btn_wgame_exit);
         btn_wgame_next = (ImageButton)findViewById(R.id.btn_wgame_next);
@@ -68,6 +78,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
         img_wgame_qst = (ImageView) findViewById(R.id.img_wgame_qst);
 
+        // First Question
         if (qcount == 0) {
             // CreateQuestion(TestData.dataID.length);
             CreateQuestion(cardBookList.size());
@@ -99,7 +110,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                     res[qcount-1] = false;
                 }
 
-                // Change the screen after 2.5 seconds
+                // Change the screen after 2.0 seconds
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override

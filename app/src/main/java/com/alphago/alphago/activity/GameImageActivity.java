@@ -18,6 +18,7 @@ import com.alphago.alphago.R;
 import com.alphago.alphago.TestData;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
+import com.alphago.alphago.model.Category;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class GameImageActivity extends NoStatusBarActivity {
 
+    private List<Category> categoryList = new ArrayList<>();
     private List<CardBook> cardBookList = new ArrayList<>();
     private DbHelper dbHelper = new DbHelper(this);
 
@@ -51,7 +53,16 @@ public class GameImageActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_image);
 
-        cardBookList = dbHelper.cardbookSelect(1L); // animal
+        // Load CardBook in Database
+        // cardBookList = dbHelper.cardbookSelect(1L);
+        int catSize = categoryList.size();
+        long catId = 0;
+
+        for (int i = 0; i < catSize; i++) {
+            catId = categoryList.get(i).getId();
+            List<CardBook> tmpList = dbHelper.cardbookSelect(catId);
+            cardBookList.addAll(tmpList);
+        }
 
         btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
         btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
@@ -64,6 +75,7 @@ public class GameImageActivity extends NoStatusBarActivity {
         tv_igame_tvqst = (TextView)findViewById(R.id.tv_igame_tvqst);
         img_igame_qst = (TextView)findViewById(R.id.img_igame_qst);
 
+        // First Question
         if (qcount == 0) {
             // CreateQuestion(TestData.dataID.length);
             CreateQuestion(cardBookList.size());
