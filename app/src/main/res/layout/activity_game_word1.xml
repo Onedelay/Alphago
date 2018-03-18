@@ -100,13 +100,15 @@
 
         <Button
             android:id="@+id/btn_wgame1_ex2"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/button_ex"
             android:text="X"
-            android:textSize="35sp"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/btn_wgame1_ex1"
             app:layout_constraintLeft_toLeftOf="@+id/wgame1_guideline3"
             app:layout_constraintRight_toRightOf="parent"
@@ -114,6 +116,7 @@
 
         <Button
             android:id="@+id/btn_wgame1_ex1"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="5dp"
@@ -122,7 +125,8 @@
             android:layout_marginTop="2dp"
             android:background="@drawable/button_ex"
             android:text="O"
-            android:textSize="35sp"
+            android:textSize="25sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/wgame1_guideline3"
