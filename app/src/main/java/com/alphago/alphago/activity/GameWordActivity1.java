@@ -2,6 +2,7 @@ package com.alphago.alphago.activity;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,26 +12,23 @@ import android.widget.TextView;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
-import com.alphago.alphago.TestData;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameWordActivity2 extends NoStatusBarActivity {
+public class GameWordActivity1 extends NoStatusBarActivity {
 
     private List<Category> categoryList = new ArrayList<>();
     private List<CardBook> cardBookList = new ArrayList<>();
     private DbHelper dbHelper = new DbHelper(this);
 
     private int qst_num[] = new int[10];        // cardBookList.get(qst_num[i])
-    private int ex_num[][] = new int[10][4];    // cardBookList.get(ex_num[i][j])
+    private int ex_num[][] = new int[10][2];    // cardBookList.get(ex_num[i][j])
     private int qcount = 0;
     private boolean res[] = new boolean[10];
     private boolean result = false;
@@ -40,21 +38,20 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         //super.onBackPressed();
     }
 
-    private ImageButton btn_wgame_exit;
-    private ImageButton btn_wgame_next;
+    private ImageButton btn_wgame1_exit;
+    private ImageButton btn_wgame1_next;
 
-    private Button btn_wgame_ex1;
-    private Button btn_wgame_ex2;
-    private Button btn_wgame_ex3;
-    private Button btn_wgame_ex4;
-    private ImageView img_wgame_tvqst;
-    private TextView tv_wgame_tvqst;
-    private ImageView img_wgame_qst;
+    private Button btn_wgame1_ex1;
+    private Button btn_wgame1_ex2;
+    private ImageView img_wgame1_tvqst;
+    private TextView tv_wgame1_tvqst;
+    private ImageView img_wgame1_qst;
+    private TextView img_wgame1_lqst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_word2);
+        setContentView(R.layout.activity_game_word1);
 
         // Load CardBook in Database
         cardBookList = dbHelper.cardbookSelect(1L);
@@ -67,16 +64,15 @@ public class GameWordActivity2 extends NoStatusBarActivity {
             cardBookList.addAll(tmpList);
         } */
 
-        btn_wgame_exit = (ImageButton)findViewById(R.id.btn_wgame_exit);
-        btn_wgame_next = (ImageButton)findViewById(R.id.btn_wgame_next);
-        btn_wgame_ex1 = (Button)findViewById(R.id.btn_wgame_ex1);
-        btn_wgame_ex2 = (Button)findViewById(R.id.btn_wgame_ex2);
-        btn_wgame_ex3 = (Button)findViewById(R.id.btn_wgame_ex3);
-        btn_wgame_ex4 = (Button)findViewById(R.id.btn_wgame_ex4);
+        btn_wgame1_exit = (ImageButton)findViewById(R.id.btn_wgame1_exit);
+        btn_wgame1_next = (ImageButton)findViewById(R.id.btn_wgame1_next);
+        btn_wgame1_ex1 = (Button)findViewById(R.id.btn_wgame1_ex1);
+        btn_wgame1_ex2 = (Button)findViewById(R.id.btn_wgame1_ex2);
 
-        img_wgame_tvqst = (ImageView)findViewById(R.id.img_wgame_tvqst);
-        tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
-        img_wgame_qst = (ImageView) findViewById(R.id.img_wgame_qst);
+        img_wgame1_tvqst = (ImageView)findViewById(R.id.img_wgame1_tvqst);
+        tv_wgame1_tvqst = (TextView)findViewById(R.id.tv_wgame1_tvqst);
+        img_wgame1_qst = (ImageView) findViewById(R.id.img_wgame1_qst);
+        img_wgame1_lqst = (TextView)findViewById(R.id.img_wgame1_lqst);
 
         // First Question
         if (qcount == 0) {
@@ -86,27 +82,27 @@ public class GameWordActivity2 extends NoStatusBarActivity {
             qcount++;
         }
 
-        btn_wgame_exit.setOnClickListener(new View.OnClickListener() {
+        btn_wgame1_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GameWordActivity2.this, MainActivity.class);
+                Intent intent = new Intent(GameWordActivity1.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
-        btn_wgame_next.setOnClickListener(new View.OnClickListener() {
+        btn_wgame1_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Show Result
                 if (result == true)
                 {
-                    img_wgame_tvqst.setImageResource(R.drawable.img_right);
+                    img_wgame1_tvqst.setImageResource(R.drawable.img_right);
                     res[qcount-1] = true;
                 }
                 else
                 {
-                    img_wgame_tvqst.setImageResource(R.drawable.img_wrong);
+                    img_wgame1_tvqst.setImageResource(R.drawable.img_wrong);
                     res[qcount-1] = false;
                 }
 
@@ -117,7 +113,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                     public void run()
                     {
                         if (qcount == 10) {
-                            Intent intent = new Intent(GameWordActivity2.this, GameResultActivity.class);
+                            Intent intent = new Intent(GameWordActivity1.this, GameResultActivity.class);
                             intent.putExtra("result", res);
                             intent.putExtra("type", 0);
                             startActivity(intent);
@@ -125,7 +121,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                         }
                         else {
                             //tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + cardBookList.get(qst_num[qcount]).getName());
-                            tv_wgame_tvqst.setText("Q" + (qcount + 1) + " ");
+                            tv_wgame1_tvqst.setText("Q" + (qcount + 1) + " ");
                             SetQuestion(qcount);
                             qcount++;
                         }
@@ -167,10 +163,10 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     protected void CreateExample(int dcount, int qindex)
     {
         int d, rnum;
-        int qrnum = (int)(Math.random() * 4);
+        int qrnum = (int)(Math.random() * 2);
         ex_num[qindex][qrnum] = qst_num[qindex];
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (i == qrnum)
                 continue;
@@ -203,65 +199,34 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                 .load(new File(cardBookList.get(qst_num[qcount]).getFilePath()))
                 .centerInside()
                 .fit()
-                .into(img_wgame_qst);
+                .into(img_wgame1_qst);
+        img_wgame1_lqst.setText(cardBookList.get(ex_num[qcount][0]).getName());
 
         // Set Examples
         /* btn_wgame_ex1.setText(TestData.dataLabel[ex_num[qcount][0]]);
-        btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]);
-        btn_wgame_ex3.setText(TestData.dataLabel[ex_num[qcount][2]]);
-        btn_wgame_ex4.setText(TestData.dataLabel[ex_num[qcount][3]]); */
-        btn_wgame_ex1.setText(cardBookList.get(ex_num[qcount][0]).getName());
-        btn_wgame_ex2.setText(cardBookList.get(ex_num[qcount][1]).getName());
-        btn_wgame_ex3.setText(cardBookList.get(ex_num[qcount][2]).getName());
-        btn_wgame_ex4.setText(cardBookList.get(ex_num[qcount][3]).getName());
+        btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]); */
 
         // 말풍선 및 Example 선택 표시 초기화
-        img_wgame_tvqst.setImageResource(R.drawable.tv_qst);
-        btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);
-        btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);
-        btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
-        btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
+        img_wgame1_tvqst.setImageResource(R.drawable.tv_qst);
+        btn_wgame1_ex1.setBackgroundResource(R.drawable.button_ex);
+        btn_wgame1_ex2.setBackgroundResource(R.drawable.button_ex);
 
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.btn_wgame_ex1 :
-                        btn_wgame_ex1.setBackgroundResource(R.drawable.button_ans);
-                        btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
+                    case R.id.btn_wgame1_ex1 :
+                        btn_wgame1_ex1.setBackgroundResource(R.drawable.button_ans);
+                        btn_wgame1_ex2.setBackgroundResource(R.drawable.button_ex);
                         if (ex_num[qcount][0] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
-                    case R.id.btn_wgame_ex2 :
-                        btn_wgame_ex2.setBackgroundResource(R.drawable.button_ans);
-                        btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
+                    case R.id.btn_wgame1_ex2 :
+                        btn_wgame1_ex2.setBackgroundResource(R.drawable.button_ans);
+                        btn_wgame1_ex1.setBackgroundResource(R.drawable.button_ex);
                         if (ex_num[qcount][1] == qst_num[qcount])
-                            result = true;
-                        else
-                            result = false;
-                        break;
-                    case R.id.btn_wgame_ex3 :
-                        btn_wgame_ex3.setBackgroundResource(R.drawable.button_ans);
-                        btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex4.setBackgroundResource(R.drawable.button_ex);
-                        if (ex_num[qcount][2] == qst_num[qcount])
-                            result = true;
-                        else
-                            result = false;
-                        break;
-                    case R.id.btn_wgame_ex4 :
-                        btn_wgame_ex4.setBackgroundResource(R.drawable.button_ans);
-                        btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);
-                        btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
-                        if (ex_num[qcount][3] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
@@ -269,9 +234,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
                 }
             }
         };
-        btn_wgame_ex1.setOnClickListener(onClickListener);
-        btn_wgame_ex2.setOnClickListener(onClickListener);
-        btn_wgame_ex3.setOnClickListener(onClickListener);
-        btn_wgame_ex4.setOnClickListener(onClickListener);
+        btn_wgame1_ex1.setOnClickListener(onClickListener);
+        btn_wgame1_ex2.setOnClickListener(onClickListener);
     }
 }
