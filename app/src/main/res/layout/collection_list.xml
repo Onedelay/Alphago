@@ -14,6 +14,7 @@
         android:id="@+id/collection_list_img"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:padding="8dp"
         android:src="@drawable/a_img_collect_anm"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -30,4 +31,18 @@
         app:layout_constraintLeft_toLeftOf="@id/collection_list_img"
         app:layout_constraintRight_toRightOf="@id/collection_list_img"
         app:layout_constraintTop_toBottomOf="@id/collection_list_img" />
+
+    <com.budiyev.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:foregroundStrokeColor="#30b05f"
+        app:foregroundStrokeWidth="6dp"
+        app:maximum="100"
+        app:progress="50"
+        app:startAngle="270"
+        app:layout_constraintLeft_toLeftOf="@id/collection_list_img"
+        app:layout_constraintRight_toRightOf="@id/collection_list_img"
+        app:layout_constraintTop_toTopOf="@id/collection_list_img"
+        app:layout_constraintBottom_toBottomOf="@id/collection_list_img"/>
 </android.support.constraint.ConstraintLayout>

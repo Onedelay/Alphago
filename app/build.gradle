@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.alphago.alphago"
         minSdkVersion 19
@@ -33,4 +33,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.budiyev.android:circular-progress-bar:1.1.8'
 }

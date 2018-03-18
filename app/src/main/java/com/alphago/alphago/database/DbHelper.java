@@ -243,12 +243,6 @@ public class DbHelper extends SQLiteOpenHelper {
         return collections;
     }
 
-    public int achievementRate(long catId){
-        List<Collection> collections = collectionSelect(catId);
-        int length = collections.size();
-
-        return length;
-    }
 
     public void insertImage(String imageLabel, int catId, int labelId, String filePath){
         SQLiteDatabase rdb = getReadableDatabase();

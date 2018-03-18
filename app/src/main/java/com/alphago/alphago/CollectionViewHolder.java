@@ -74,6 +74,8 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
     public void bind(Collection collection){
         this.data = collection;
 
+        itemView.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+
         if(collection.getCollected() == 1 && collection.getFilePath() != null){
             Picasso.with(itemView.getContext())
                     .load(new File(collection.getFilePath()))
