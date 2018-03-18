@@ -81,7 +81,7 @@
             style="@style/GameFont"
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:hint="label"
+            android:hint="touch here"
             android:textSize="30sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"

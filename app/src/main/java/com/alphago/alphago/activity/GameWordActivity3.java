@@ -74,7 +74,7 @@ public class GameWordActivity3 extends AppCompatActivity {
             // CreateQuestion(TestData.dataID.length);
             CreateQuestion(cardBookList.size());
             SetQuestion(qcount);
-            qcount++;
+            // qcount++;
         }
 
         btn_wgame3_exit.setOnClickListener(new View.OnClickListener() {
@@ -89,16 +89,26 @@ public class GameWordActivity3 extends AppCompatActivity {
         btn_wgame3_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 답 확인
+                String answer = cardBookList.get(qst_num[qcount]).getName();
+                String input = img_wgame3_lqst.getText().toString();
+                if (input.equals(answer))
+                    result = true;
+                else
+                    result = false;
+
                 // Show Result
                 if (result == true)
                 {
                     img_wgame3_tvqst.setImageResource(R.drawable.img_right);
-                    res[qcount-1] = true;
+                    res[qcount] = true;
+                    qcount++;
                 }
                 else
                 {
                     img_wgame3_tvqst.setImageResource(R.drawable.img_wrong);
-                    res[qcount-1] = false;
+                    res[qcount] = false;
+                    qcount++;
                 }
 
                 // Change the screen after 2.0 seconds
@@ -118,7 +128,7 @@ public class GameWordActivity3 extends AppCompatActivity {
                             //tv_wgame_tvqst.setText("Q" + (qcount + 1) + " " + cardBookList.get(qst_num[qcount]).getName());
                             tv_wgame3_tvqst.setText("Q" + (qcount + 1) + " ");
                             SetQuestion(qcount);
-                            qcount++;
+                            // qcount++;
                         }
                     }
                 }, 2000);
@@ -166,13 +176,6 @@ public class GameWordActivity3 extends AppCompatActivity {
 
         // 말풍선 초기화
         img_wgame3_tvqst.setImageResource(R.drawable.tv_qst2);
-
-        // 답 확인
-        String answer = cardBookList.get(qst_num[qcount]).getName();
-        String input = img_wgame3_lqst.getText().toString();
-        if (input.equals(answer))
-            result = true;
-        else
-            result = false;
+        img_wgame3_lqst.setText("");
     }
 }
