@@ -161,10 +161,12 @@ public class GameImageActivity extends NoStatusBarActivity {
 
             d = 0;
             rnum = (int)(Math.random() * dcount);
+            if (rnum == ex_num[qindex][qrnum])
+                d = 1;
 
             for (int j = 0; j < i; j++)
             {
-                if (rnum == ex_num[qindex][j] || rnum == ex_num[qindex][qrnum])
+                if (rnum == ex_num[qindex][j])
                 {
                     d = 1;
                     break;
