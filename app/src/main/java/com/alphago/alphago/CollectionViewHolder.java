@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.alphago.alphago.model.Category;
 import com.alphago.alphago.model.CollectCategory;
 import com.alphago.alphago.model.Collection;
+import com.alphago.alphago.util.DefaultImageUtil;
 import com.budiyev.android.circularprogressbar.CircularProgressBar;
 import com.squareup.picasso.Picasso;
 
@@ -43,35 +44,9 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(CollectCategory category) {
         this.data = category;
-        int cat = (int) category.getId();
-        switch (cat) {
-            case 1:
-                Picasso.with(itemView.getContext()).load(R.drawable.a_img_collect_anm).into(mImageView);
-                break;
-            case 2:
-                Picasso.with(itemView.getContext()).load(R.drawable.b_img_collect_fur).into(mImageView);
-                break;
-            case 3:
-                Picasso.with(itemView.getContext()).load(R.drawable.c_img_collect_food).into(mImageView);
-                break;
-            case 4:
-                Picasso.with(itemView.getContext()).load(R.drawable.d_img_collect_sch).into(mImageView);
-                break;
-            case 5:
-                Picasso.with(itemView.getContext()).load(R.drawable.e_img_collect_kch).into(mImageView);
-                break;
-            case 6:
-                Picasso.with(itemView.getContext()).load(R.drawable.f_img_collect_bth).into(mImageView);
-                break;
-            case 7:
-                Picasso.with(itemView.getContext()).load(R.drawable.g_img_collect_elec).into(mImageView);
-                break;
-            case 8:
-                Picasso.with(itemView.getContext()).load(R.drawable.h_img_collect_room).into(mImageView);
-                break;
-            default:
-                Picasso.with(itemView.getContext()).load(R.mipmap.ic_launcher).into(mImageView);
-        }
+        Picasso.with(itemView.getContext())
+                .load(DefaultImageUtil.getCollectionImage(category.getId()))
+                .into(mImageView);
         mTextView.setText(category.getLabel());
         circularProgressBar.setProgress(category.getAchievementRate());
     }
