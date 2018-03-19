@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
@@ -21,7 +22,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameWordActivity3 extends AppCompatActivity {
+public class GameWordActivity3 extends NoStatusBarActivity {
 
     private List<Category> categoryList = new ArrayList<>();
     private List<CardBook> cardBookList = new ArrayList<>();
@@ -51,15 +52,22 @@ public class GameWordActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_game_word3);
 
         // Load CardBook in Database
-        cardBookList = dbHelper.cardbookSelect(1L);
-        /* int catSize = categoryList.size();
+        categoryList = dbHelper.categorySelect();
+        int catSize = categoryList.size();
         long catId = 0;
+        int carSize = 0;
 
         for (int i = 0; i < catSize; i++) {
             catId = categoryList.get(i).getId();
+            // 해당 카테고리의 카드북 반환
             List<CardBook> tmpList = dbHelper.cardbookSelect(catId);
-            cardBookList.addAll(tmpList);
-        } */
+            // 카드북의 사이즈 반환
+            carSize = tmpList.size();
+            // 사이즈만큼 돌면서 카드북에 추가
+            for (int j = 0; j < carSize; j++) {
+                cardBookList.add(tmpList.get(j));
+            }
+        }
 
         btn_wgame3_exit = (ImageButton)findViewById(R.id.btn_wgame3_exit);
         btn_wgame3_next = (ImageButton)findViewById(R.id.btn_wgame3_next);

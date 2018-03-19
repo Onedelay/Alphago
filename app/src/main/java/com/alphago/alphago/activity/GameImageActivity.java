@@ -54,15 +54,22 @@ public class GameImageActivity extends NoStatusBarActivity {
         setContentView(R.layout.activity_game_image);
 
         // Load CardBook in Database
-        cardBookList = dbHelper.cardbookSelect(1L);
-        /* int catSize = categoryList.size();
+        categoryList = dbHelper.categorySelect();
+        int catSize = categoryList.size();
         long catId = 0;
+        int carSize = 0;
 
         for (int i = 0; i < catSize; i++) {
             catId = categoryList.get(i).getId();
+            // 해당 카테고리의 카드북 반환
             List<CardBook> tmpList = dbHelper.cardbookSelect(catId);
-            cardBookList.addAll(tmpList);
-        } */
+            // 카드북의 사이즈 반환
+            carSize = tmpList.size();
+            // 사이즈만큼 돌면서 카드북에 추가
+            for (int j = 0; j < carSize; j++) {
+                cardBookList.add(tmpList.get(j));
+            }
+        }
 
         btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
         btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
