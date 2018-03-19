@@ -147,7 +147,6 @@ public class DbHelper extends SQLiteOpenHelper {
         String selection = CardBookEntry.COLUMN_NAME_CATEGORY + " = ?";
         List<CollectCategory> categoryList = new ArrayList<>();
 
-        Cursor cards = null;
 
         while (c.moveToNext()) {
             long categoryId = c.getLong(c.getColumnIndexOrThrow(CategoryEntry._ID));
@@ -155,11 +154,11 @@ public class DbHelper extends SQLiteOpenHelper {
             String filePath = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_PATH));
 
             String[] selectionArgs = {String.valueOf(categoryId)};
-            cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+            Cursor cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
             categoryList.add(new CollectCategory(categoryId, category, filePath, getAchievementRate(categoryId)));
+            cards.close();
         }
 
-        cards.close();
         c.close();
 
         return categoryList;
@@ -173,19 +172,17 @@ public class DbHelper extends SQLiteOpenHelper {
         String selection = CardBookEntry.COLUMN_NAME_CATEGORY + " = ?";
         List<Category> categoryList = new ArrayList<>();
 
-        Cursor cards = null;
-
         while (c.moveToNext()) {
             long categoryId = c.getLong(c.getColumnIndexOrThrow(CategoryEntry._ID));
             String category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_LABEL));
             String filePath = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_PATH));
 
             String[] selectionArgs = {String.valueOf(categoryId)};
-            cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+            Cursor cards = db.query(CardBookEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
             if(cards.moveToNext()) categoryList.add(new Category(categoryId, category, filePath));
+            cards.close();
         }
 
-        cards.close();
         c.close();
 
         return categoryList;
@@ -292,6 +289,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 Toast.makeText(context, "컬렉션 이미지가 변경되었습니다.", Toast.LENGTH_SHORT).show();
             }
         }
+        collection.close();
 
         String selection = CardBookEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(labelId)};
@@ -314,6 +312,7 @@ public class DbHelper extends SQLiteOpenHelper {
             String[] bookSelArgs = {String.valueOf(labelId)};
             rdb.update(CardBookEntry.TABLE_NAME, bookValue, bookSelection, bookSelArgs);
         }
+        c.close();
 
         ContentValues values = new ContentValues();
         values.put(CardsEntry.COLUMN_NAME_IMG, labelId);
