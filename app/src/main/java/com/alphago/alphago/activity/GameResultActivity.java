@@ -16,6 +16,10 @@ public class GameResultActivity extends NoStatusBarActivity {
     private final int WORD_GAME = 0;
     private final int IMAGE_GAME = 1;
 
+    public static final int GAME_DIFFICULTY_EASY = 0;
+    public static final int GAME_DIFFICULTY_NORMAL = 1;
+    public static final int GAME_DIFFICULTY_HARD = 2;
+
     private int type;
     private boolean res[] = new boolean[10];
     private int count = 0;
@@ -78,14 +82,27 @@ public class GameResultActivity extends NoStatusBarActivity {
 
         Button.OnClickListener onClickListener = new View.OnClickListener() {
             Intent intent;
+            int difficulty=0;
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.btn_rgame_ret :
-                        intent = getIntent();
-                        type = intent.getIntExtra("type", 0);
-                        if (type == WORD_GAME)
-                            intent = new Intent(getApplicationContext(), GameWordActivity2.class);
+                        type = getIntent().getIntExtra("type", 0);
+                        difficulty = getIntent().getIntExtra("gameDifficulty",0);
+                        if (type == WORD_GAME){
+                            switch (difficulty){
+                                case GAME_DIFFICULTY_EASY:
+                                    intent = new Intent(getApplicationContext(), GameWordActivity1.class);
+                                    break;
+
+                                case GAME_DIFFICULTY_NORMAL:
+                                    intent = new Intent(getApplicationContext(), GameWordActivity2.class);
+                                    break;
+
+                                case GAME_DIFFICULTY_HARD:
+                                    intent = new Intent(getApplicationContext(), GameWordActivity3.class);
+                            }
+                        }
                         else if (type == IMAGE_GAME)
                             intent = new Intent(getApplicationContext(), GameImageActivity.class);
                         startActivity(intent);

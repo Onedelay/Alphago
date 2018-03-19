@@ -129,6 +129,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
                             Intent intent = new Intent(GameWordActivity3.this, GameResultActivity.class);
                             intent.putExtra("result", res);
                             intent.putExtra("type", 0);
+                            intent.putExtra("gameDifficulty",getIntent().getIntExtra("gameDifficulty",0));
                             startActivity(intent);
                             finish();
                         }

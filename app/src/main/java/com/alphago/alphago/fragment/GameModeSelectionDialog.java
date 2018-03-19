@@ -52,9 +52,6 @@ public class GameModeSelectionDialog extends DialogFragment {
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
                 gameMode = GAME_MODE_WORD;
-                Intent intent = new Intent(getContext(), GameWordActivity3.class);
-                startActivity(intent);
-                // selectDifficultyGrade(rootView);
                 setDifficultyGrade(rootView);
                 selectDifficultyGrade(rootView);
             }
@@ -95,6 +92,7 @@ public class GameModeSelectionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getContext(), GameWordActivity1.class);
+                intent.putExtra("gameDifficulty",GAME_DIFFICULTY_EASY);
                 startActivity(intent);
             }
         });
@@ -103,6 +101,7 @@ public class GameModeSelectionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getContext(), GameWordActivity2.class);
+                intent.putExtra("gameDifficulty",GAME_DIFFICULTY_NORMAL);
                 startActivity(intent);
             }
         });
@@ -111,6 +110,7 @@ public class GameModeSelectionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getContext(), GameWordActivity3.class);
+                intent.putExtra("gameDifficulty",GAME_DIFFICULTY_HARD);
                 startActivity(intent);
             }
         });
