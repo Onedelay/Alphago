@@ -96,7 +96,7 @@ public class ImageSelectionMethodDialog extends DialogFragment {
 
             @Override
             public void onCanceled(EasyImage.ImageSource source, int type) {
-                Toast.makeText(getContext(), "onCanceld", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "onCanceld", Toast.LENGTH_SHORT).show();
                 if (source == EasyImage.ImageSource.CAMERA) {
                     File photoFile = EasyImage.lastlyTakenButCanceledPhoto(getContext());
                     if (photoFile != null) photoFile.delete();

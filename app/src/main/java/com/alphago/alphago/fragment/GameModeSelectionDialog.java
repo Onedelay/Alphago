@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.alphago.alphago.R;
 import com.alphago.alphago.activity.GameImageActivity;
@@ -35,6 +34,10 @@ public class GameModeSelectionDialog extends DialogFragment {
     private int gameMode = -1;
     private int gameDifficulty = -1;
 
+    Intent intent;
+
+    int grade;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -48,10 +51,8 @@ public class GameModeSelectionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
-                gameMode = GAME_MODE_WORD;
-                Intent intent = new Intent(getContext(), GameWordActivity3.class);
-                startActivity(intent);
-                // selectDifficultyGrade(rootView);
+                setDifficultyGrade(rootView);
+                selectDifficultyGrade(rootView);
             }
         });
 
@@ -59,10 +60,8 @@ public class GameModeSelectionDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "그림 맞추기 선택", Toast.LENGTH_SHORT).show();
-                gameMode = GAME_MODE_PICTURE;
-                Intent intent = new Intent(getContext(), GameImageActivity.class);
+                intent = new Intent(getContext(), GameImageActivity.class);
                 startActivity(intent);
-                // selectDifficultyGrade(rootView);
             }
         });
 
@@ -82,8 +81,34 @@ public class GameModeSelectionDialog extends DialogFragment {
         }
     }
 
-    private void selectDifficultyGrade(View rootView){
+    private void setDifficultyGrade(View rootView){
         rootView.findViewById(R.id.select_mode_text).setVisibility(View.GONE);
         rootView.findViewById(R.id.select_difficulty_display).setVisibility(View.VISIBLE);
+    }
+
+    private void selectDifficultyGrade(View rootView){
+        rootView.findViewById(R.id.btn_easy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getContext(), GameWordActivity1.class);
+                startActivity(intent);
+            }
+        });
+
+        rootView.findViewById(R.id.btn_normal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getContext(), GameWordActivity2.class);
+                startActivity(intent);
+            }
+        });
+
+        rootView.findViewById(R.id.btn_hard).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getContext(), GameWordActivity3.class);
+                startActivity(intent);
+            }
+        });
     }
 }
