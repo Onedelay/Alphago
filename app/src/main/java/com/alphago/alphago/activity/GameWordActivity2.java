@@ -57,25 +57,32 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         setContentView(R.layout.activity_game_word2);
 
         // Load CardBook in Database
-        cardBookList = dbHelper.cardbookSelect(1L);
-        /* int catSize = categoryList.size();
+        categoryList = dbHelper.categorySelect();
+        int catSize = categoryList.size();
         long catId = 0;
+        int carSize = 0;
 
         for (int i = 0; i < catSize; i++) {
             catId = categoryList.get(i).getId();
+            // 해당 카테고리의 카드북 반환
             List<CardBook> tmpList = dbHelper.cardbookSelect(catId);
-            cardBookList.addAll(tmpList);
-        } */
+            // 카드북의 사이즈 반환
+            carSize = tmpList.size();
+            // 사이즈만큼 돌면서 카드북에 추가
+            for (int j = 0; j < carSize; j++) {
+                cardBookList.add(tmpList.get(j));
+            }
+        }
 
-        btn_wgame_exit = (ImageButton)findViewById(R.id.btn_wgame_exit);
-        btn_wgame_next = (ImageButton)findViewById(R.id.btn_wgame_next);
-        btn_wgame_ex1 = (Button)findViewById(R.id.btn_wgame_ex1);
-        btn_wgame_ex2 = (Button)findViewById(R.id.btn_wgame_ex2);
-        btn_wgame_ex3 = (Button)findViewById(R.id.btn_wgame_ex3);
-        btn_wgame_ex4 = (Button)findViewById(R.id.btn_wgame_ex4);
+        btn_wgame_exit = (ImageButton) findViewById(R.id.btn_wgame_exit);
+        btn_wgame_next = (ImageButton) findViewById(R.id.btn_wgame_next);
+        btn_wgame_ex1 = (Button) findViewById(R.id.btn_wgame_ex1);
+        btn_wgame_ex2 = (Button) findViewById(R.id.btn_wgame_ex2);
+        btn_wgame_ex3 = (Button) findViewById(R.id.btn_wgame_ex3);
+        btn_wgame_ex4 = (Button) findViewById(R.id.btn_wgame_ex4);
 
-        img_wgame_tvqst = (ImageView)findViewById(R.id.img_wgame_tvqst);
-        tv_wgame_tvqst = (TextView)findViewById(R.id.tv_wgame_tvqst);
+        img_wgame_tvqst = (ImageView) findViewById(R.id.img_wgame_tvqst);
+        tv_wgame_tvqst = (TextView) findViewById(R.id.tv_wgame_tvqst);
         img_wgame_qst = (ImageView) findViewById(R.id.img_wgame_qst);
 
         // First Question

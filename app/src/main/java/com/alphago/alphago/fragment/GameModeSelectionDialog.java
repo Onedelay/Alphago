@@ -49,7 +49,7 @@ public class GameModeSelectionDialog extends DialogFragment {
             public void onClick(View v) {
                 //Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
                 gameMode = GAME_MODE_WORD;
-                Intent intent = new Intent(getContext(), GameWordActivity3.class);
+                Intent intent = new Intent(getContext(), GameWordActivity2.class);
                 startActivity(intent);
                 // selectDifficultyGrade(rootView);
             }
