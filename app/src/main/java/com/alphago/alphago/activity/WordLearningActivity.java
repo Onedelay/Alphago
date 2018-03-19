@@ -32,10 +32,8 @@ public class WordLearningActivity extends NoStatusBarActivity {
     private ImageView learnImage;
     private TextView learnLabel;
 
-    List<CardBook> cards; // 학습 할 카드들
-    String label = "";
-    String filePath = "";
-    int index = 0;
+    private List<CardBook> cards = new ArrayList<>(); // 학습 할 카드들
+    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +42,6 @@ public class WordLearningActivity extends NoStatusBarActivity {
 
         learnImage = (ImageView) findViewById(R.id.learn_image);
         learnLabel = (TextView) findViewById(R.id.learn_label);
-
-        final DbHelper dbHelper = new DbHelper(getBaseContext());
         tts = new TTSHelper(this);
 
         findViewById(btn_learn_exit).setOnClickListener(new View.OnClickListener() {
@@ -55,8 +51,40 @@ public class WordLearningActivity extends NoStatusBarActivity {
             }
         });
 
-        final int type = getIntent().getIntExtra("learning_type", 0);
-        cards = new ArrayList<>();
+        findViewById(R.id.btn_learn_pre).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (index > 0) {
+                    index--;
+                    setWord(index);
+                } else {
+                    Toast.makeText(WordLearningActivity.this, "This is the first problem.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        findViewById(R.id.btn_learn_next).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (index < cards.size() - 1) {
+                    index++;
+                    setWord(index);
+                } else {
+                    Toast.makeText(WordLearningActivity.this, "This is the last problem.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tts.speak(learnLabel.getText().toString());
+            }
+        });
+
+        DbHelper dbHelper = new DbHelper(getBaseContext());
+
+        int type = getIntent().getIntExtra("learning_type", 0);
 
         if (type == TYPE_ALL) {
             List<Category> categories = dbHelper.categorySelect();
@@ -65,20 +93,15 @@ public class WordLearningActivity extends NoStatusBarActivity {
             // 현재 카드북으로 되어있지만, 카드에서 중복 제거 후 구현해야함.
             for (Category category : categories) {
                 cardBooks = dbHelper.cardbookSelect(category.getId());
-                for (CardBook cardBook : cardBooks) {
-                    cards.add(cardBook);
-                }
+                cards.addAll(cardBooks);
             }
         } else if (type == TYPE_ALBUM) {
             ArrayList<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("category_select_list");
 
-            for (int i = 0; i < list.size(); i++) {
-                List<CardBook> cardBooks = dbHelper.cardbookSelect(list.get(i));
-                for (CardBook cardBook : cardBooks) {
-                    cards.add(cardBook);
-                }
+            for (Long id : list) {
+                List<CardBook> cardBooks = dbHelper.cardbookSelect(id);
+                cards.addAll(cardBooks);
             }
-
         } else {
             Toast.makeText(this, "TYPE ERROR", Toast.LENGTH_SHORT).show();
             finish();
@@ -87,49 +110,15 @@ public class WordLearningActivity extends NoStatusBarActivity {
         if (!cards.isEmpty()) {
             Collections.shuffle(cards);
             setWord(index);
-
-            findViewById(R.id.btn_learn_pre).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    index--;
-                    if (index < 0) {
-                        Toast.makeText(WordLearningActivity.this, "This is the first problem.", Toast.LENGTH_SHORT).show();
-                        index++;
-                        return;
-                    }
-                    setWord(index);
-                }
-            });
-
-            findViewById(R.id.btn_learn_next).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    index++;
-                    if (index >= cards.size()) {
-                        Toast.makeText(WordLearningActivity.this, "This is the last problem.", Toast.LENGTH_SHORT).show();
-                        index--;
-                        return;
-                    }
-                    setWord(index);
-                }
-            });
-
-            findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    tts.speak(label);
-                }
-            });
         } else {
-            Toast.makeText(WordLearningActivity.this, "더 이상 학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WordLearningActivity.this, "학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
     public void setWord(int index) {
-        filePath = cards.get(index).getFilePath();
-        label = cards.get(index).getName();
+        String filePath = cards.get(index).getFilePath();
+        String label = cards.get(index).getName();
 
         Picasso.with(getBaseContext())
                 .load(new File(filePath))
