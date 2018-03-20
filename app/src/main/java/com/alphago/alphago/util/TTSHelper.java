@@ -29,11 +29,13 @@ public class TTSHelper {
 
     public void speak(String label){
         String id = String.valueOf(context.hashCode());
+        String volume = String.valueOf(1);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             tts.speak(label, TextToSpeech.QUEUE_FLUSH, null, id);
         } else {
             HashMap<String, String> map = new HashMap<>();
             map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, id);
+            map.put(TextToSpeech.Engine.KEY_PARAM_VOLUME, volume);
             tts.speak(label, TextToSpeech.QUEUE_FLUSH, map);
         }
     }
