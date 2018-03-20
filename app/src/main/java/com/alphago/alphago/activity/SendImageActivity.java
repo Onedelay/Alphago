@@ -18,6 +18,7 @@ import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
 import com.alphago.alphago.dto.ResponeImageLabel;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
+import com.alphago.alphago.handler.BitmapToFileTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SendImageActivity extends NoStatusBarActivity {
+public class SendImageActivity extends NoStatusBarActivity implements BitmapToFileTask.OnCompleteListener {
     private FrameLayout frameLoading;
     private File imageFile;
     private String category;
@@ -46,13 +47,67 @@ public class SendImageActivity extends NoStatusBarActivity {
 
         imageFile = (File) getIntent().getSerializableExtra("sendImage");
 
-        cropImageView = (CropImageView) findViewById(R.id.cropImageView);
+        cropImageView = findViewById(R.id.cropImageView);
         cropImageView.setImageUriAsync(Uri.fromFile(imageFile));
         cropImageView.setAspectRatio(1, 1);
         cropImageView.setFixedAspectRatio(true);
         cropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
         cropImageView.setAutoZoomEnabled(false);
         cropImageView.setCropRect(new Rect(1000, 1000, 1000, 1000));
+
+        cropImageView.setOnCropImageCompleteListener(new CropImageView.OnCropImageCompleteListener() {
+            @Override
+            public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
+                Bitmap bitmap = result.getBitmap();
+                if (bitmap != null) {
+                    try {
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+                        byte[] bitmapData = bos.toByteArray();
+
+                        FileOutputStream fos = new FileOutputStream(imageFile);
+                        fos.write(bitmapData);
+                        fos.flush();
+                        fos.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                //onComplete(imageFile);
+                //new BitmapToFileTask(imageFile, SendImageActivity.this)
+                //        .execute(bitmap);
+
+                AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
+                    @Override
+                    public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
+                        if (response.body() != null) {
+                            category = response.body().getCategory();
+                            max_label = response.body().getResponseLabel();
+                            ID = response.body().getID();
+                            cate_ID = response.body().getCate_ID();
+
+                            Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
+                            intent.putExtra("imageFile", imageFile);
+                            intent.putExtra("category", category);
+                            intent.putExtra("max_label", max_label);
+                            intent.putExtra("ID", ID);
+                            intent.putExtra("cate_ID", cate_ID);
+                            frameLoading.setVisibility(View.GONE);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
+                        frameLoading.setVisibility(View.GONE);
+                        Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
+                        t.printStackTrace();
+                    }
+                });
+            }
+        });
 
         findViewById(R.id.crop_image_menu_rotate_right).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,68 +127,7 @@ public class SendImageActivity extends NoStatusBarActivity {
             @Override
             public void onClick(View v) {
                 frameLoading.setVisibility(View.VISIBLE);
-
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        frameLoading.post(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                frameLoading.setVisibility(View.VISIBLE);
-//                            }
-//                        });
-//                    }
-//                }).start();
-
-                cropImageView.setOnCropImageCompleteListener(new CropImageView.OnCropImageCompleteListener() {
-                    @Override
-                    public void onCropImageComplete(CropImageView view, CropImageView.CropResult result) {
-                    }
-                });
                 cropImageView.getCroppedImageAsync();
-
-                Bitmap bitmap = cropImageView.getCroppedImage();
-                try{
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-                    byte[] bitmapData = bos.toByteArray();
-
-                    FileOutputStream fos = new FileOutputStream(imageFile);
-                    fos.write(bitmapData);
-                    fos.flush();
-                    fos.close();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
-                    @Override
-                    public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
-                        frameLoading.setVisibility(View.GONE);
-                        if (response.body() != null) {
-                            category = response.body().getCategory();
-                            max_label = response.body().getResponseLabel();
-                            ID = response.body().getID();
-                            cate_ID = response.body().getCate_ID();
-
-                            Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
-                            intent.putExtra("imageFile", imageFile);
-                            intent.putExtra("category", category);
-                            intent.putExtra("max_label", max_label);
-                            intent.putExtra("ID", ID);
-                            intent.putExtra("cate_ID",cate_ID);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
-                        frameLoading.setVisibility(View.GONE);
-                        Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
-                        t.printStackTrace();
-                    }
-                });
             }
         });
 
@@ -143,5 +137,43 @@ public class SendImageActivity extends NoStatusBarActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+        // 똑같은딩 서버 전송도 안되는딩 서버 연결 안됨 나와쏩
+    }
+
+    @Override
+    public void onComplete(File file) {
+        // 다를게 없는뎅 ektlgoqhkq다시해봡
+        if (file == null) {
+            return;
+        }
+        this.imageFile = file;
+        AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
+            @Override
+            public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
+                if (response.body() != null) {
+                    category = response.body().getCategory();
+                    max_label = response.body().getResponseLabel();
+                    ID = response.body().getID();
+                    cate_ID = response.body().getCate_ID();
+
+                    Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
+                    intent.putExtra("imageFile", imageFile);
+                    intent.putExtra("category", category);
+                    intent.putExtra("max_label", max_label);
+                    intent.putExtra("ID", ID);
+                    intent.putExtra("cate_ID", cate_ID);
+                    frameLoading.setVisibility(View.GONE);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
+                frameLoading.setVisibility(View.GONE);
+                Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
+                t.printStackTrace();
+            }
+        });
     }
 }
