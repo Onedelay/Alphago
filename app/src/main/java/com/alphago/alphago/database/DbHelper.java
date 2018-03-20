@@ -220,7 +220,8 @@ public class DbHelper extends SQLiteOpenHelper {
         while (c.moveToNext()) {
             long cardId = c.getLong(c.getColumnIndexOrThrow(CardsEntry._ID));
             String path = c.getString(c.getColumnIndexOrThrow(CardsEntry.COLUMN_NAME_PATH));
-            cardList.add(new Card(cardId, labelId, path));
+            String label = c.getString(c.getColumnIndexOrThrow(CardsEntry.COLUMN_NAME_LABEL));
+            cardList.add(new Card(cardId, labelId, path, label));
         }
         c.close();
         return cardList;

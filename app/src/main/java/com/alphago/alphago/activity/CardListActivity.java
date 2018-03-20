@@ -1,22 +1,16 @@
 package com.alphago.alphago.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.adapter.CardAdapter;
-import com.alphago.alphago.adapter.CardBookAdapter;
 import com.alphago.alphago.database.DbHelper;
-import com.alphago.alphago.model.CardBook;
-
-import org.w3c.dom.Text;
+import com.alphago.alphago.model.Card;
 
 public class CardListActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
     private TextView cat;
@@ -46,6 +40,11 @@ public class CardListActivity extends NoStatusBarActivity implements CardViewHol
 
     @Override
     public void onCardClick(Object data) {
-        // Do nothing.
+        if (data instanceof Card) {
+            Intent intent = new Intent(this, WordDetailActivity.class);
+            intent.putExtra("label", ((Card) data).getLabel());
+            intent.putExtra("filePath", ((Card) data).getFilePath());
+            startActivity(intent);
+        }
     }
 }

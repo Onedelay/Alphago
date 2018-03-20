@@ -66,6 +66,8 @@
         <activity
             android:name=".activity.GameWordActivity3"
             android:screenOrientation="sensorLandscape" />
+        <activity android:name=".activity.WordDetailActivity"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>
