@@ -49,7 +49,8 @@ public class WordDetailActivity extends NoStatusBarActivity {
         findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tts.speak(learnLabel.getText().toString());
+                if(learnLabel.getText().toString().equals("usb")) tts.speak("U.S.B");
+                else tts.speak(learnLabel.getText().toString());
             }
         });
     }
