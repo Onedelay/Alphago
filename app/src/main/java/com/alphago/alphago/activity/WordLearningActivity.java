@@ -58,7 +58,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
                     index--;
                     setWord(index);
                 } else {
-                    Toast.makeText(WordLearningActivity.this, "This is the first problem.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WordLearningActivity.this, "First card.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -70,7 +70,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
                     index++;
                     setWord(index);
                 } else {
-                    Toast.makeText(WordLearningActivity.this, "This is the last problem.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WordLearningActivity.this, "Last card.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
