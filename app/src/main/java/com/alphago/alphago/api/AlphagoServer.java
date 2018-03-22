@@ -13,6 +13,7 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -51,5 +52,9 @@ public class AlphagoServer {
         RequestBody requestBody = RequestBody.create(MediaType.parse("image"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("userfile", imageFile.getName(), requestBody);
         alphagoService.sendImage(multipartBody).enqueue(callback);
+    }
+
+    public void fileDownload(@NonNull Context context, Callback<ResponseBody> callback){
+        alphagoService.downloadFile().enqueue(callback);
     }
 }
