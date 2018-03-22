@@ -11,13 +11,10 @@ import android.widget.TextView;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
-import com.alphago.alphago.TestData;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;

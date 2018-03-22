@@ -3,25 +3,16 @@ package com.alphago.alphago.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.alphago.alphago.handler.BackPressCloseHandler;
-import com.alphago.alphago.model.Collection;
 import com.alphago.alphago.util.PermissionUtils;
-
-import java.util.ArrayList;
 
 public class MainActivity extends NoStatusBarActivity {
     private static final int REQUEST_PERMISSONS = 1;
