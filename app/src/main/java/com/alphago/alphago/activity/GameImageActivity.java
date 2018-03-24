@@ -1,8 +1,10 @@
 package com.alphago.alphago.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -77,6 +79,8 @@ public class GameImageActivity extends NoStatusBarActivity {
         tv_igame_tvqst = (TextView)findViewById(R.id.tv_igame_tvqst);
         img_igame_qst = (TextView)findViewById(R.id.img_igame_qst);
 
+        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
         // First Question
         if (qcount == 0) {
             // CreateQuestion(TestData.dataID.length);
@@ -106,11 +110,12 @@ public class GameImageActivity extends NoStatusBarActivity {
                 }
                 else
                 {
+                    vibe.vibrate(500);
                     img_igame_tvqst.setImageResource(R.drawable.img_wrong);
                     res[qcount-1] = false;
                 }
 
-                // Change the screen after 2.5 seconds
+                // Change the screen after 1.5 seconds
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -128,7 +133,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                             qcount++;
                         }
                     }
-                }, 2000);
+                }, 1500);
                 // finish();
             }
         });

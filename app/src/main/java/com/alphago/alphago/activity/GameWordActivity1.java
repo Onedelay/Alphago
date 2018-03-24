@@ -1,8 +1,10 @@
 package com.alphago.alphago.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -80,6 +82,8 @@ public class GameWordActivity1 extends NoStatusBarActivity {
         img_wgame1_qst = (ImageView) findViewById(R.id.img_wgame1_qst);
         img_wgame1_lqst = (TextView)findViewById(R.id.img_wgame1_lqst);
 
+        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+
         // First Question
         if (qcount == 0) {
             // CreateQuestion(TestData.dataID.length);
@@ -108,11 +112,12 @@ public class GameWordActivity1 extends NoStatusBarActivity {
                 }
                 else
                 {
+                    vibe.vibrate(500);
                     img_wgame1_tvqst.setImageResource(R.drawable.img_wrong);
                     res[qcount-1] = false;
                 }
 
-                // Change the screen after 2.0 seconds
+                // Change the screen after 1.5 seconds
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -133,7 +138,7 @@ public class GameWordActivity1 extends NoStatusBarActivity {
                             qcount++;
                         }
                     }
-                }, 2000);
+                }, 1500);
                 // finish();
             }
         });

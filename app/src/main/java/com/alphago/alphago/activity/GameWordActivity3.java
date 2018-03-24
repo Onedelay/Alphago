@@ -1,8 +1,10 @@
 package com.alphago.alphago.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -74,6 +76,9 @@ public class GameWordActivity3 extends NoStatusBarActivity {
         tv_wgame3_tvqst = (TextView)findViewById(R.id.tv_wgame3_tvqst);
         img_wgame3_qst = (ImageView) findViewById(R.id.img_wgame3_qst);
         img_wgame3_lqst = (EditText)findViewById(R.id.img_wgame3_lqst);
+        img_wgame3_lqst.setPrivateImeOptions("defaultInputmode=english;");
+
+        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         // First Question
         if (qcount == 0) {
@@ -98,6 +103,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
                 // 답 확인
                 String answer = cardBookList.get(qst_num[qcount]).getName();
                 String input = img_wgame3_lqst.getText().toString();
+                input = input.toLowerCase();
                 if (input.equals(answer))
                     result = true;
                 else
@@ -112,12 +118,13 @@ public class GameWordActivity3 extends NoStatusBarActivity {
                 }
                 else
                 {
+                    vibe.vibrate(500);
                     img_wgame3_tvqst.setImageResource(R.drawable.img_wrong);
                     res[qcount] = false;
                     qcount++;
                 }
 
-                // Change the screen after 2.0 seconds
+                // Change the screen after 1.5 seconds
                 new Handler().postDelayed(new Runnable()
                 {
                     @Override
@@ -138,7 +145,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
                             // qcount++;
                         }
                     }
-                }, 2000);
+                }, 1500);
                 // finish();
             }
         });
