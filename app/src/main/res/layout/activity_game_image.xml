@@ -150,6 +150,46 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_igame_check4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_igame_ex4"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_igame_ex4"
+            app:layout_constraintRight_toRightOf="@+id/btn_igame_ex4"
+            app:layout_constraintTop_toTopOf="@+id/btn_igame_ex4"
+            app:srcCompat="@drawable/img_check" />
+
+        <ImageView
+            android:id="@+id/img_igame_check3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_igame_ex3"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_igame_ex3"
+            app:layout_constraintRight_toRightOf="@+id/btn_igame_ex3"
+            app:layout_constraintTop_toTopOf="@+id/btn_igame_ex3"
+            app:srcCompat="@drawable/img_check" />
+
+        <ImageView
+            android:id="@+id/img_igame_check2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_igame_ex2"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_igame_ex2"
+            app:layout_constraintRight_toRightOf="@+id/btn_igame_ex2"
+            app:layout_constraintTop_toTopOf="@+id/btn_igame_ex2"
+            app:srcCompat="@drawable/img_check" />
+
+        <ImageView
+            android:id="@+id/img_igame_check1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_igame_ex1"
+            app:layout_constraintLeft_toLeftOf="@+id/btn_igame_ex1"
+            app:layout_constraintRight_toRightOf="@+id/btn_igame_ex1"
+            app:layout_constraintTop_toTopOf="@+id/btn_igame_ex1"
+            app:srcCompat="@drawable/img_check" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.Guideline

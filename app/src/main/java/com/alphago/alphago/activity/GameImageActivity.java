@@ -37,6 +37,11 @@ public class GameImageActivity extends NoStatusBarActivity {
     private ImageButton btn_igame_exit;
     private ImageButton btn_igame_next;
 
+    private ImageView img_igame_check1;
+    private ImageView img_igame_check2;
+    private ImageView img_igame_check3;
+    private ImageView img_igame_check4;
+
     private ImageButton btn_igame_ex1;
     private ImageButton btn_igame_ex2;
     private ImageButton btn_igame_ex3;
@@ -67,6 +72,11 @@ public class GameImageActivity extends NoStatusBarActivity {
                 cardBookList.add(tmpList.get(j));
             }
         }
+
+        img_igame_check1 = (ImageView)findViewById(R.id.img_igame_check1);
+        img_igame_check2 = (ImageView)findViewById(R.id.img_igame_check2);
+        img_igame_check3 = (ImageView)findViewById(R.id.img_igame_check3);
+        img_igame_check4 = (ImageView)findViewById(R.id.img_igame_check4);
 
         btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
         btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
@@ -237,50 +247,70 @@ public class GameImageActivity extends NoStatusBarActivity {
 
         // Example 선택 표시(game_right_border) 초기화
         img_igame_tvqst.setImageResource(R.drawable.tv_qst);
-        btn_igame_ex1.setBackgroundResource(0);
+        img_igame_check1.setVisibility(View.GONE);
+        img_igame_check2.setVisibility(View.GONE);
+        img_igame_check3.setVisibility(View.GONE);
+        img_igame_check4.setVisibility(View.GONE);
+        /* btn_igame_ex1.setBackgroundResource(0);
         btn_igame_ex2.setBackgroundResource(0);
         btn_igame_ex3.setBackgroundResource(0);
-        btn_igame_ex4.setBackgroundResource(0);
+        btn_igame_ex4.setBackgroundResource(0); */
 
         Button.OnClickListener onClickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.btn_igame_ex1 :
-                        btn_igame_ex1.setBackgroundResource(R.drawable.game_right_border);
+                        img_igame_check1.setVisibility(View.VISIBLE);
+                        img_igame_check2.setVisibility(View.GONE);
+                        img_igame_check3.setVisibility(View.GONE);
+                        img_igame_check4.setVisibility(View.GONE);
+                        /* btn_igame_ex1.setBackgroundResource(R.drawable.game_right_border);
                         btn_igame_ex2.setBackgroundResource(0);
                         btn_igame_ex3.setBackgroundResource(0);
-                        btn_igame_ex4.setBackgroundResource(0);
+                        btn_igame_ex4.setBackgroundResource(0); */
                         if (ex_num[qcount][0] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
                     case R.id.btn_igame_ex2 :
-                        btn_igame_ex1.setBackgroundResource(0);
+                        img_igame_check1.setVisibility(View.GONE);
+                        img_igame_check2.setVisibility(View.VISIBLE);
+                        img_igame_check3.setVisibility(View.GONE);
+                        img_igame_check4.setVisibility(View.GONE);
+                        /* btn_igame_ex1.setBackgroundResource(0);
                         btn_igame_ex2.setBackgroundResource(R.drawable.game_right_border);
                         btn_igame_ex3.setBackgroundResource(0);
-                        btn_igame_ex4.setBackgroundResource(0);
+                        btn_igame_ex4.setBackgroundResource(0); */
                         if (ex_num[qcount][1] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
                     case R.id.btn_igame_ex3 :
-                        btn_igame_ex1.setBackgroundResource(0);
+                        img_igame_check1.setVisibility(View.GONE);
+                        img_igame_check2.setVisibility(View.GONE);
+                        img_igame_check3.setVisibility(View.VISIBLE);
+                        img_igame_check4.setVisibility(View.GONE);
+                         /* btn_igame_ex1.setBackgroundResource(0);
                         btn_igame_ex2.setBackgroundResource(0);
                         btn_igame_ex3.setBackgroundResource(R.drawable.game_right_border);
-                        btn_igame_ex4.setBackgroundResource(0);
+                        btn_igame_ex4.setBackgroundResource(0); */
                         if (ex_num[qcount][2] == qst_num[qcount])
                             result = true;
                         else
                             result = false;
                         break;
                     case R.id.btn_igame_ex4 :
-                        btn_igame_ex1.setBackgroundResource(0);
+                        img_igame_check1.setVisibility(View.GONE);
+                        img_igame_check2.setVisibility(View.GONE);
+                        img_igame_check3.setVisibility(View.GONE);
+                        img_igame_check4.setVisibility(View.VISIBLE);
+                        /* btn_igame_ex1.setBackgroundResource(0);
                         btn_igame_ex2.setBackgroundResource(0);
                         btn_igame_ex3.setBackgroundResource(0);
-                        btn_igame_ex4.setBackgroundResource(R.drawable.game_right_border);
+                        btn_igame_ex4.setBackgroundResource(R.drawable.game_right_border); */
                         if (ex_num[qcount][3] == qst_num[qcount])
                             result = true;
                         else
