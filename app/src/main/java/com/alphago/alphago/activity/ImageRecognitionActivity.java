@@ -65,6 +65,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             @Override
             public void onClick(View v) {
                 new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
+
             }
         });
 
@@ -77,7 +78,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
                     v.setSelected(true);
                     String filePath = storeImageFile(imageFile, maxLabel);
                     Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
-                    dbHelper.insertImage(maxLabel, catID, ID, filePath);
+                    dbHelper.insertImage(maxLabel, catID, ID, filePath, true);
                 } else {
                     Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 }

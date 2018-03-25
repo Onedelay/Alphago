@@ -15,6 +15,7 @@ import com.alphago.alphago.model.CollectCategory;
 import com.alphago.alphago.model.Collection;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     CollectionEntry.COLUMN_NAME_PATH + " TEXT ,"+
                     CollectionEntry.COLUMN_NAME_COLLECT+" INTEGER)";
 
-    private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room", "ETC" };
+    private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room"};
 
     private static final String[][] ANIMAL_COLLECTION = {
             {"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"}
@@ -204,7 +205,7 @@ public class DbHelper extends SQLiteOpenHelper {
             labelList.add(new CardBook(labelId, label, categoryId, String.valueOf(categoryId), path));
         }
         c.close();
-
+        Collections.reverse(labelList);
         return labelList;
     }
 
@@ -224,6 +225,7 @@ public class DbHelper extends SQLiteOpenHelper {
             cardList.add(new Card(cardId, labelId, path, label));
         }
         c.close();
+        Collections.reverse(cardList);
         return cardList;
     }
 
@@ -258,7 +260,7 @@ public class DbHelper extends SQLiteOpenHelper {
         else return 0;
     }
 
-    public void insertImage(String imageLabel, int catId, int labelId, String filePath){
+    public void insertImage(String imageLabel, int catId, int labelId, String filePath, boolean addCollection){
         SQLiteDatabase rdb = getReadableDatabase();
         SQLiteDatabase wdb = getWritableDatabase();
 
@@ -269,28 +271,31 @@ public class DbHelper extends SQLiteOpenHelper {
         String[] catSelArgs = {String.valueOf(catId)};
         rdb.update(CategoryEntry.TABLE_NAME, catValue, catSelection, catSelArgs);
 
-        // 컬렉션 - collect 체크
-        // 이미 1이 되어있을 때를 대비해 분기를 추가해야할까? - 했는데 맞는건지 모름
         String[] projection = {"*"};
-        String colSelection = CollectionEntry.COLUMN_NAME_LABEL_ID + " = ?";
-        String[] colSelArgs = {String.valueOf(labelId)};
 
-        Cursor collection = rdb.query(CollectionEntry.TABLE_NAME, projection, colSelection, colSelArgs, null, null, null);
+        if(addCollection) {
+            // 컬렉션 - collect 체크
+            // 이미 1이 되어있을 때를 대비해 분기를 추가해야할까? - 했는데 맞는건지 모름
+            String colSelection = CollectionEntry.COLUMN_NAME_LABEL_ID + " = ?";
+            String[] colSelArgs = {String.valueOf(labelId)};
 
-        ContentValues colValue = new ContentValues();
-        if(collection.moveToNext()) { // 컬렉션 테이블에 존재하지 않을 경우 갱신 안함
-            if (collection.getInt(collection.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_COLLECT)) == 0) {
-                colValue.put(CollectionEntry.COLUMN_NAME_COLLECT, 1);
-                colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
-                rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
-                Toast.makeText(context, "컬렉션에 추가되었습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
-                rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
-                Toast.makeText(context, "컬렉션 이미지가 변경되었습니다.", Toast.LENGTH_SHORT).show();
+            Cursor collection = rdb.query(CollectionEntry.TABLE_NAME, projection, colSelection, colSelArgs, null, null, null);
+
+            ContentValues colValue = new ContentValues();
+            if (collection.moveToNext()) { // 컬렉션 테이블에 존재하지 않을 경우 갱신 안함
+                if (collection.getInt(collection.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_COLLECT)) == 0) {
+                    colValue.put(CollectionEntry.COLUMN_NAME_COLLECT, 1);
+                    colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
+                    rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
+                    Toast.makeText(context, "컬렉션에 추가되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
+                    rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
+                    Toast.makeText(context, "컬렉션 이미지가 변경되었습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
+            collection.close();
         }
-        collection.close();
 
         String selection = CardBookEntry._ID + " = ?";
         String[] selectionArgs = {String.valueOf(labelId)};

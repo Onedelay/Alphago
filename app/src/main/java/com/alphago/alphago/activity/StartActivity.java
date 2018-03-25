@@ -1,6 +1,8 @@
 package com.alphago.alphago.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
+import com.alphago.alphago.database.DbHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -29,46 +33,71 @@ import retrofit2.Response;
 public class StartActivity extends NoStatusBarActivity {
 
     private String zipFileName = "";
+    DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(StartActivity.this, MainActivity.class));
-                finish();
-            }
-        }, 2000);
+        dbHelper = new DbHelper(getBaseContext());
 
-        // downloadFile();
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        if(!sharedPreferences.getBoolean("Default",false)) {
+            downloadFile();
+        } else {
+            controlStartActivity(0);
+        }
     }
 
     private void downloadFile() {
+        final long startTime = System.currentTimeMillis();
         AlphagoServer.getInstance().fileDownload(getBaseContext(), new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     //Log.d("WJY", "Server contacted and has file");
                     boolean writtenToDisk = writeResponseBodyToDist(response.body());
-                    if (!writtenToDisk) {
-                        Toast.makeText(StartActivity.this, "Save failure", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(StartActivity.this, "Save success", Toast.LENGTH_SHORT).show();
-                    }
+//                    if (!writtenToDisk) {
+//                        Toast.makeText(StartActivity.this, "Save failure", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(StartActivity.this, "Save success", Toast.LENGTH_SHORT).show();
+//                    }
+                    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("Default", true);
+                    editor.apply();
                 } else {
                     Log.d("#### WJY ####", "Server contact failed");
                 }
+
+                final long endTime = System.currentTimeMillis();
+                controlStartActivity(endTime - startTime);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(StartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
+                final long endTime = System.currentTimeMillis();
+                controlStartActivity(endTime - startTime);
             }
         });
+    }
+
+    private void controlStartActivity(long time) {
+        if (time < 2000L) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(StartActivity.this, MainActivity.class));
+                    finish();
+                }
+            }, 2000 - time);
+        } else {
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
+            finish();
+        }
     }
 
     private void unzip(String zipFilePath, String destDir) {
@@ -85,7 +114,8 @@ public class StartActivity extends NoStatusBarActivity {
 
             while (ze != null) {
                 String fileName = ze.getName();
-                File newFile = new File(destDir + File.separator + fileName);
+                String fileDir = destDir + File.separator + fileName;
+                File newFile = new File(fileDir);
                 Log.v("WJY", "unzipping to " + newFile.getAbsolutePath());
 
                 FileOutputStream fileOutputStream = new FileOutputStream(newFile);
@@ -93,6 +123,10 @@ public class StartActivity extends NoStatusBarActivity {
                 while ((len = zis.read(buffer)) > 0) {
                     fileOutputStream.write(buffer, 0, len);
                 }
+
+                String[] result = fileName.split("_");
+                dbHelper.insertImage(result[2], Integer.parseInt(result[1]), Integer.parseInt(result[3].substring(0, result[3].length() - 4)), fileDir, false);
+
                 fileOutputStream.close();
                 zis.closeEntry();
                 ze = zis.getNextEntry();
@@ -102,9 +136,9 @@ public class StartActivity extends NoStatusBarActivity {
                 sendBroadcast(intent);
             }
 
-            if (zis != null) zis.closeEntry();
-            if (zis != null) zis.close();
-            if (fis != null) fis.close();
+            zis.closeEntry();
+            zis.close();
+            fis.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,7 +147,7 @@ public class StartActivity extends NoStatusBarActivity {
 
     private boolean writeResponseBodyToDist(ResponseBody body) {
         try {
-            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/test";
+            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Alphago";
 
             File dirFile = new File(dirPath);
             if (!dirFile.exists()) dirFile.mkdirs();

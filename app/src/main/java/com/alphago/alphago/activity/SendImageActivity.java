@@ -136,13 +136,11 @@ public class SendImageActivity extends NoStatusBarActivity implements BitmapToFi
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        // 똑같은딩 서버 전송도 안되는딩 서버 연결 안됨 나와쏩
+        super.onBackPressed();
     }
 
     @Override
     public void onComplete(File file) {
-        // 다를게 없는뎅 ektlgoqhkq다시해봡
         if (file == null) {
             return;
         }
