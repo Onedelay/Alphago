@@ -1,12 +1,15 @@
 package com.alphago.alphago.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +17,7 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
 import com.alphago.alphago.database.DbHelper;
+import com.alphago.alphago.util.PermissionUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StartActivity extends NoStatusBarActivity {
+    private static final int REQUEST_PERMISSONS = 1;
 
     private String zipFileName = "";
     DbHelper dbHelper;
@@ -41,6 +46,8 @@ public class StartActivity extends NoStatusBarActivity {
         setContentView(R.layout.activity_start);
 
         dbHelper = new DbHelper(getBaseContext());
+
+        PermissionUtils.checkPermissions(this, REQUEST_PERMISSONS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
 
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         if(!sharedPreferences.getBoolean("Default",false)) {
@@ -56,17 +63,17 @@ public class StartActivity extends NoStatusBarActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    //Log.d("WJY", "Server contacted and has file");
+                    Log.d("WJY", "Server contacted and has file");
                     boolean writtenToDisk = writeResponseBodyToDist(response.body());
-//                    if (!writtenToDisk) {
-//                        Toast.makeText(StartActivity.this, "Save failure", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(StartActivity.this, "Save success", Toast.LENGTH_SHORT).show();
-//                    }
-                    SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("Default", true);
-                    editor.apply();
+                    if (!writtenToDisk) {
+                        //Toast.makeText(StartActivity.this, "Save failure", Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Toast.makeText(StartActivity.this, "Save success", Toast.LENGTH_SHORT).show();
+                        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("Default", true);
+                        editor.apply();
+                    }
                 } else {
                     Log.d("#### WJY ####", "Server contact failed");
                 }
@@ -191,7 +198,21 @@ public class StartActivity extends NoStatusBarActivity {
                 if (outputStream != null) outputStream.close();
             }
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSONS) {
+            for (int i=0; i<permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    //Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
+                } else {
+                    //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+            }
         }
     }
 }

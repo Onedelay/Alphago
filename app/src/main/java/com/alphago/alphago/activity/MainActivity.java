@@ -15,8 +15,6 @@ import com.alphago.alphago.handler.BackPressCloseHandler;
 import com.alphago.alphago.util.PermissionUtils;
 
 public class MainActivity extends NoStatusBarActivity {
-    private static final int REQUEST_PERMISSONS = 1;
-
     private BackPressCloseHandler backPressCloseHandler;
 
     @Override
@@ -24,13 +22,11 @@ public class MainActivity extends NoStatusBarActivity {
         backPressCloseHandler.onBackPressed();
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        PermissionUtils.checkPermissions(this, REQUEST_PERMISSONS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
         backPressCloseHandler = new BackPressCloseHandler(this);
 
         findViewById(R.id.btn_recognition).setOnClickListener(new View.OnClickListener() {
@@ -62,18 +58,5 @@ public class MainActivity extends NoStatusBarActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSONS) {
-            for (int i=0; i<permissions.length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    //Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
-                } else {
-                    //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
     }
 }
