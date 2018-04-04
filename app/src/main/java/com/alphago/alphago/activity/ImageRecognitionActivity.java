@@ -1,5 +1,7 @@
 package com.alphago.alphago.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -14,6 +16,7 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
+import com.alphago.alphago.fragment.RequestImageTrainingFragment;
 import com.alphago.alphago.util.TTSHelper;
 import com.squareup.picasso.Picasso;
 
@@ -92,6 +95,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
                 Intent intent = new Intent(ImageRecognitionActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new RequestImageTrainingFragment().show(getFragmentManager(), "dialog");
             }
         });
     }
