@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.2"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.alphago.alphago"
         minSdkVersion 19
@@ -20,12 +20,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.github.jkwiecien:EasyImage:2.0.4'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -33,5 +33,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.budiyev.android:circular-progress-bar:1.1.8'
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.0' // 이놈이 27.+ 버전을 사용하고있당
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.0'
 }
