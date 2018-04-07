@@ -90,7 +90,7 @@
         app:layout_constraintTop_toTopOf="@id/btn_home" />
 
     <Button
-        android:id="@+id/btn_test"
+        android:id="@+id/btn_request"
         android:text="test"
         android:layout_width="0dp"
         android:layout_height="0dp"

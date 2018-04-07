@@ -19,9 +19,13 @@ import retrofit2.http.Part;
 public interface AlphagoService {
 
     @Multipart
-    @POST("/upload")
+    @POST("/inception/upload")
     Call<ResponeImageLabel> sendImage(@Part MultipartBody.Part multipartBody);
 
-    @GET("/18")
+    @GET("/inception/down_base")
     Call<ResponseBody> downloadFile();
+
+    @Multipart
+    @POST("/inception/train_req")
+    Call<ResponseBody> requestTrain(@Part MultipartBody.Part multipartBody);
 }

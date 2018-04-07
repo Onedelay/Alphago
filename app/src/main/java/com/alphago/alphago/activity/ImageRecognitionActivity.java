@@ -29,6 +29,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
     private File imageFile;
     private TTSHelper tts;
     private Button saveBtn;
+    private Button requestBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(maxLabel.equals("usb")) tts.speak("U.S.B");
+                if (maxLabel.equals("usb")) tts.speak("U.S.B");
                 else tts.speak(maxLabel);
             }
         });
@@ -76,7 +77,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!v.isSelected()){
+                if (!v.isSelected()) {
                     saveBtn.setText("SAVED");
                     v.setSelected(true);
                     String filePath = storeImageFile(imageFile, maxLabel);
@@ -98,12 +99,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             }
         });
 
-        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_request).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new RequestImageTrainingFragment().show(getFragmentManager(), "dialog");
+                new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
             }
         });
+
     }
 
     @Override

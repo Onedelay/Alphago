@@ -36,7 +36,7 @@ public class AlphagoServer {
 
     private AlphagoServer() {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -48,7 +48,6 @@ public class AlphagoServer {
     }
 
     public void sendImage(@NonNull Context context, File imageFile, Callback<ResponeImageLabel> callback) {
-        Uri uri = Uri.parse(imageFile.getAbsolutePath());
         RequestBody requestBody = RequestBody.create(MediaType.parse("image"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("userfile", imageFile.getName(), requestBody);
         alphagoService.sendImage(multipartBody).enqueue(callback);
@@ -56,5 +55,11 @@ public class AlphagoServer {
 
     public void fileDownload(@NonNull Context context, Callback<ResponseBody> callback){
         alphagoService.downloadFile().enqueue(callback);
+    }
+
+    public void requestTrain(@NonNull Context context, File imageFile, String fileName, Callback<ResponseBody> callBack){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image"), imageFile);
+        MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("userfile", fileName, requestBody);
+        alphagoService.requestTrain(multipartBody).enqueue(callBack);
     }
 }
