@@ -36,6 +36,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     String maxLabel;
 
     private DbHelper dbHelper;
+    Button.OnClickListener saveClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,20 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         });
 
         saveBtn = (Button) findViewById(R.id.btn_save);
+        saveClickListener = new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (!view.isSelected()) {
+                    saveBtn.setText("SAVED");
+                    view.setSelected(true);
+                    String filePath = storeImageFile(imageFile, maxLabel);
+                    Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
+                    dbHelper.insertImage(maxLabel, catID, ID, filePath, true);
+                } else {
+                    Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
 
         if(maxLabel.equals("none")){
             saveBtn.setText("REQUEST");
@@ -87,31 +102,14 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
                 @Override
                 public void onClick(View view) {
                     if (!view.isSelected()) {
-                        saveBtn.setText("REQUESTED");
-                        view.setSelected(true);
                         new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
                     } else {
-                        Toast.makeText(getBaseContext(), "이미 요청하였습니다.", Toast.LENGTH_SHORT).show();
+                        saveBtn.setOnClickListener(saveClickListener);
                     }
-
                 }
             });
         } else {
-            saveBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!v.isSelected()) {
-                        saveBtn.setText("SAVED");
-                        v.setSelected(true);
-                        String filePath = storeImageFile(imageFile, maxLabel);
-                        Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
-                        dbHelper.insertImage(maxLabel, catID, ID, filePath, true);
-                    } else {
-                        Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            });
+            saveBtn.setOnClickListener(saveClickListener);
         }
 
 
@@ -166,7 +164,8 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     public void onRequestTraining(String category, String label) {
         textView.setText(label);
         catID = dbHelper.categoryIdSelect(category);
-        Toast.makeText(this, String.valueOf(catID), Toast.LENGTH_SHORT).show();
+        saveBtn.setText("SAVE");
+        saveBtn.setOnClickListener(saveClickListener);
     }
 
     @Override
