@@ -29,6 +29,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     private File imageFile;
     private TTSHelper tts;
     private Button saveBtn;
+    private Button wrongBtn;
     private TextView textView;
     private int catID;
     private int ID;
@@ -36,7 +37,8 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     String maxLabel;
 
     private DbHelper dbHelper;
-    Button.OnClickListener saveClickListener;
+    private Button.OnClickListener saveClickListener;
+    private Button.OnClickListener requestClickListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,18 +98,23 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             }
         };
 
+        requestClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!view.isSelected()) {
+                    new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
+                } else {
+                    saveBtn.setOnClickListener(saveClickListener);
+                }
+            }
+        };
+
+        wrongBtn = findViewById(R.id.btn_wrong);
+        wrongBtn.setOnClickListener(requestClickListener);
+
         if(maxLabel.equals("none")){
             saveBtn.setText("REQUEST");
-            saveBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!view.isSelected()) {
-                        new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
-                    } else {
-                        saveBtn.setOnClickListener(saveClickListener);
-                    }
-                }
-            });
+            saveBtn.setOnClickListener(requestClickListener);
         } else {
             saveBtn.setOnClickListener(saveClickListener);
         }
@@ -166,6 +173,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         catID = dbHelper.categoryIdSelect(category);
         saveBtn.setText("SAVE");
         saveBtn.setOnClickListener(saveClickListener);
+        wrongBtn.setVisibility(View.GONE);
     }
 
     @Override
