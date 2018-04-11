@@ -189,6 +189,20 @@ public class DbHelper extends SQLiteOpenHelper {
         return categoryList;
     }
 
+    public int categoryIdSelect(String category){
+        int catId = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {CategoryEntry._ID};
+        String selection = CategoryEntry.COLUMN_NAME_LABEL + " = ?";
+        String[] selectionArgs = {category};
+        Cursor c = db.query(CategoryEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+
+        c.moveToNext();
+        catId = (int)c.getLong(c.getColumnIndexOrThrow(CategoryEntry._ID));
+        c.close();
+        return catId;
+    }
+
     public List<CardBook> cardbookSelect(long categoryId) {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {"*"};
