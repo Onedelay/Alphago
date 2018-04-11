@@ -2,6 +2,7 @@ package com.alphago.alphago.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -37,6 +38,11 @@ public class RequestImageTrainingFragment extends DialogFragment {
     private File requestImageFile;
     private Spinner spinner;
     private EditText requestImageName;
+    private OnRequestTrainingListener listener;
+
+    public interface OnRequestTrainingListener {
+        void onRequestTraining(String category, String label);
+    }
 
     @NonNull
     @Override
@@ -70,14 +76,15 @@ public class RequestImageTrainingFragment extends DialogFragment {
         rootView.findViewById(R.id.request_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String category = (String) spinner.getSelectedItem();
-                String requestLabel = requestImageName.getText().toString();
+                final String category = (String) spinner.getSelectedItem();
+                final String requestLabel = requestImageName.getText().toString();
 
                 AlphagoServer.getInstance().requestTrain(getContext(), requestImageFile, category.toLowerCase() + "_" + requestLabel, new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response != null){
                             Toast.makeText(getContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+                            listener.onRequestTraining(category, requestLabel);
                         } else {
                             Toast.makeText(getContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                         }
@@ -95,5 +102,15 @@ public class RequestImageTrainingFragment extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (OnRequestTrainingListener) context;
+        } catch(ClassCastException e){
+            throw new ClassCastException(context.toString()+" must implement OnRequestTrainingListener");
+        }
     }
 }

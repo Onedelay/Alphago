@@ -25,16 +25,24 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 
-public class ImageRecognitionActivity extends NoStatusBarActivity {
+public class ImageRecognitionActivity extends NoStatusBarActivity implements RequestImageTrainingFragment.OnRequestTrainingListener{
     private File imageFile;
     private TTSHelper tts;
     private Button saveBtn;
-    private Button requestBtn;
+    private TextView textView;
+    private int catID;
+    private int ID;
+
+    String maxLabel;
+
+    private DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_recognition);
+
+        dbHelper =  new DbHelper(getBaseContext());
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
 
@@ -47,15 +55,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
                     .into(myImage);
         }
 
-        final String categoryName = getIntent().getStringExtra("category");
-        final String maxLabel = getIntent().getStringExtra("max_label");
-        final int catID = getIntent().getIntExtra("cate_ID", 0);
-        final int ID = getIntent().getIntExtra("ID", 0);
+        maxLabel = getIntent().getStringExtra("max_label");
+        catID = getIntent().getIntExtra("cate_ID", 0);
+        ID = getIntent().getIntExtra("ID", 0);
 
-        TextView textView = (TextView) findViewById(R.id.result_recog);
+        textView = (TextView) findViewById(R.id.result_recog);
         textView.setText(maxLabel);
 
-        final DbHelper dbHelper = new DbHelper(getBaseContext());
         tts = new TTSHelper(this);
         findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,21 +80,40 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
         });
 
         saveBtn = (Button) findViewById(R.id.btn_save);
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!v.isSelected()) {
-                    saveBtn.setText("SAVED");
-                    v.setSelected(true);
-                    String filePath = storeImageFile(imageFile, maxLabel);
-                    Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
-                    dbHelper.insertImage(maxLabel, catID, ID, filePath, true);
-                } else {
-                    Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                }
 
-            }
-        });
+        if(maxLabel.equals("none")){
+            saveBtn.setText("REQUEST");
+            saveBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!view.isSelected()) {
+                        saveBtn.setText("REQUESTED");
+                        view.setSelected(true);
+                        new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
+                    } else {
+                        Toast.makeText(getBaseContext(), "이미 요청하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        } else {
+            saveBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!v.isSelected()) {
+                        saveBtn.setText("SAVED");
+                        v.setSelected(true);
+                        String filePath = storeImageFile(imageFile, maxLabel);
+                        Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
+                        dbHelper.insertImage(maxLabel, catID, ID, filePath, true);
+                    } else {
+                        Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+        }
+
 
         findViewById(R.id.btn_home).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +121,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
                 Intent intent = new Intent(ImageRecognitionActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
-            }
-        });
-
-        findViewById(R.id.btn_request).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
             }
         });
 
@@ -142,6 +160,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity {
             e.printStackTrace();
         }
         return dirPath + "/" + fileName;
+    }
+
+    @Override
+    public void onRequestTraining(String category, String label) {
+        textView.setText(label);
+        catID = dbHelper.categoryIdSelect(category);
+        Toast.makeText(this, String.valueOf(catID), Toast.LENGTH_SHORT).show();
     }
 
     @Override
