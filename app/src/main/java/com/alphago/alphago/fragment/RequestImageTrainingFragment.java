@@ -77,7 +77,7 @@ public class RequestImageTrainingFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 final String category = (String) spinner.getSelectedItem();
-                final String requestLabel = requestImageName.getText().toString();
+                final String requestLabel = requestImageName.getText().toString().toLowerCase();
 
                 AlphagoServer.getInstance().requestTrain(getContext(), requestImageFile, category.toLowerCase() + "_" + requestLabel, new Callback<ResponseBody>() {
                     @Override
