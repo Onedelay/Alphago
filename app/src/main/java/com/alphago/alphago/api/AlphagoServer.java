@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.alphago.alphago.dto.ResponeImageLabel;
+import com.alphago.alphago.dto.ResponseRequestResult;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -57,7 +58,7 @@ public class AlphagoServer {
         alphagoService.downloadFile().enqueue(callback);
     }
 
-    public void requestTrain(@NonNull Context context, File imageFile, String fileName, Callback<ResponseBody> callBack){
+    public void requestTrain(@NonNull Context context, File imageFile, String fileName, Callback<ResponseRequestResult> callBack){
         RequestBody requestBody = RequestBody.create(MediaType.parse("image"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("userfile", fileName, requestBody);
         alphagoService.requestTrain(multipartBody).enqueue(callBack);

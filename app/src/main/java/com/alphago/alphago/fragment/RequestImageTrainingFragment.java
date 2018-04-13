@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
+import com.alphago.alphago.dto.ResponeImageLabel;
+import com.alphago.alphago.dto.ResponseRequestResult;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -79,12 +81,12 @@ public class RequestImageTrainingFragment extends DialogFragment {
                 final String category = (String) spinner.getSelectedItem();
                 final String requestLabel = requestImageName.getText().toString().toLowerCase();
 
-                AlphagoServer.getInstance().requestTrain(getContext(), requestImageFile, category.toLowerCase() + "_" + requestLabel, new Callback<ResponseBody>() {
+                AlphagoServer.getInstance().requestTrain(getContext(), requestImageFile, category.toLowerCase() + "_" + requestLabel, new Callback<ResponseRequestResult>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    public void onResponse(Call<ResponseRequestResult> call, Response<ResponseRequestResult> response) {
                         if(response != null){
                             Toast.makeText(getContext(), "전송 완료", Toast.LENGTH_SHORT).show();
-                            listener.onRequestTraining(category, requestLabel);
+                            listener.onRequestTraining(response.body().getCategory(), response.body().getName(), response.body().getCate_ID(), response.body().getID());
                         } else {
                             Toast.makeText(getContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                         }
@@ -92,7 +94,7 @@ public class RequestImageTrainingFragment extends DialogFragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(Call<ResponseRequestResult> call, Throwable t) {
                         Toast.makeText(getContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                         dismiss();
                     }

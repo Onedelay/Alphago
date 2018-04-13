@@ -1,6 +1,7 @@
 package com.alphago.alphago.api;
 
 import com.alphago.alphago.dto.ResponeImageLabel;
+import com.alphago.alphago.dto.ResponseRequestResult;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -27,5 +28,5 @@ public interface AlphagoService {
 
     @Multipart
     @POST("/inception/train_req")
-    Call<ResponseBody> requestTrain(@Part MultipartBody.Part multipartBody);
+    Call<ResponseRequestResult> requestTrain(@Part MultipartBody.Part multipartBody);
 }

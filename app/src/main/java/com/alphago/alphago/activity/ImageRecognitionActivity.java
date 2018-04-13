@@ -169,20 +169,14 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     }
 
     @Override
-    public void onRequestTraining(String category, String label) {
+    public void onRequestTraining(String category, String label, int catId, int labelId) {
         maxLabel = label;
         textView.setText(maxLabel);
-        catID = dbHelper.categoryIdSelect(category);
-        ID = 0;
+        catID = catId;
+        ID = labelId;
 
         saveBtn.setText("SAVE");
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ImageRecognitionActivity.this, "레이블 ID가 없어서 저장 안됨", Toast.LENGTH_SHORT).show();
-            }
-        });
-        //saveBtn.setOnClickListener(saveClickListener);
+        saveBtn.setOnClickListener(saveClickListener);
         wrongBtn.setVisibility(View.GONE);
     }
 
