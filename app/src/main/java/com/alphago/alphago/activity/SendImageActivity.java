@@ -2,15 +2,12 @@ package com.alphago.alphago.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alphago.alphago.NoStatusBarActivity;
@@ -18,21 +15,21 @@ import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
 import com.alphago.alphago.dto.ResponeImageLabel;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
-import com.alphago.alphago.handler.BitmapToFileTask;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.Serializable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SendImageActivity extends NoStatusBarActivity implements BitmapToFileTask.OnCompleteListener {
+public class SendImageActivity extends NoStatusBarActivity {
     private FrameLayout frameLoading;
+    private View buttonRotate;
+    private View buttonRetry;
+    private View buttonSend;
     private File imageFile;
     private String category;
     private String max_label;
@@ -74,10 +71,6 @@ public class SendImageActivity extends NoStatusBarActivity implements BitmapToFi
                     }
                 }
 
-                //onComplete(imageFile);
-                //new BitmapToFileTask(imageFile, SendImageActivity.this)
-                //        .execute(bitmap);
-
                 AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
                     @Override
                     public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
@@ -93,7 +86,7 @@ public class SendImageActivity extends NoStatusBarActivity implements BitmapToFi
                             intent.putExtra("max_label", max_label);
                             intent.putExtra("ID", ID);
                             intent.putExtra("cate_ID", cate_ID);
-                            frameLoading.setVisibility(View.GONE);
+                            showLoadingView(false);
                             startActivity(intent);
                             finish();
                         }
@@ -101,7 +94,7 @@ public class SendImageActivity extends NoStatusBarActivity implements BitmapToFi
 
                     @Override
                     public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
-                        frameLoading.setVisibility(View.GONE);
+                        showLoadingView(false);
                         Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
@@ -109,29 +102,32 @@ public class SendImageActivity extends NoStatusBarActivity implements BitmapToFi
             }
         });
 
-        findViewById(R.id.crop_image_menu_rotate_right).setOnClickListener(new View.OnClickListener() {
+        buttonRotate = findViewById(R.id.crop_image_menu_rotate_right);
+        buttonRotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 cropImageView.rotateImage(90);
             }
         });
 
-        findViewById(R.id.btn_retry).setOnClickListener(new View.OnClickListener() {
+        buttonRetry = findViewById(R.id.btn_retry);
+        buttonRetry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
             }
         });
 
-        findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
+        buttonSend = findViewById(R.id.btn_send);
+        buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                frameLoading.setVisibility(View.VISIBLE);
+                showLoadingView(true);
                 cropImageView.getCroppedImageAsync();
             }
         });
 
-        frameLoading = (FrameLayout) findViewById(R.id.frame_loading);
+        frameLoading = findViewById(R.id.frame_loading);
     }
 
     @Override
@@ -139,39 +135,11 @@ public class SendImageActivity extends NoStatusBarActivity implements BitmapToFi
         super.onBackPressed();
     }
 
-    @Override
-    public void onComplete(File file) {
-        if (file == null) {
-            return;
-        }
-        this.imageFile = file;
-        AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
-            @Override
-            public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
-                if (response.body() != null) {
-                    category = response.body().getCategory();
-                    max_label = response.body().getResponseLabel();
-                    ID = response.body().getID();
-                    cate_ID = response.body().getCate_ID();
-
-                    Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
-                    intent.putExtra("imageFile", imageFile);
-                    intent.putExtra("category", category);
-                    intent.putExtra("max_label", max_label);
-                    intent.putExtra("ID", ID);
-                    intent.putExtra("cate_ID", cate_ID);
-                    frameLoading.setVisibility(View.GONE);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
-                frameLoading.setVisibility(View.GONE);
-                Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
-                t.printStackTrace();
-            }
-        });
+    private void showLoadingView(boolean show) {
+        frameLoading.setVisibility(show ? View.VISIBLE : View.GONE);
+        cropImageView.setEnabled(!show);
+        buttonRotate.setEnabled(!show);
+        buttonRetry.setEnabled(!show);
+        buttonSend.setEnabled(!show);
     }
 }
