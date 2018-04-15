@@ -1,5 +1,6 @@
 package com.alphago.alphago.activity;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -34,11 +35,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     private int catID;
     private int ID;
 
-    String maxLabel;
+    private String maxLabel;
 
     private DbHelper dbHelper;
     private Button.OnClickListener saveClickListener;
     private Button.OnClickListener requestClickListener;
+
+    private RequestImageTrainingFragment requestFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             @Override
             public void onClick(View v) {
                 new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
-
             }
         });
 
@@ -102,7 +104,8 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             @Override
             public void onClick(View view) {
                 if (!view.isSelected()) {
-                    new RequestImageTrainingFragment().show(getSupportFragmentManager(), "dialog");
+                    requestFragment = new RequestImageTrainingFragment();
+                    requestFragment.show(getSupportFragmentManager(), "dialog");
                 } else {
                     saveBtn.setOnClickListener(saveClickListener);
                 }

@@ -43,7 +43,6 @@ public class RequestImageTrainingFragment extends DialogFragment {
     private OnRequestTrainingListener listener;
 
     public interface OnRequestTrainingListener {
-        void onRequestTraining(String category, String label);
         void onRequestTraining(String category, String label, int cateId, int labelId);
     }
 
