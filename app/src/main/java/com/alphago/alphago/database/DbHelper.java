@@ -60,19 +60,21 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room"};
 
     private static final String[][] ANIMAL_COLLECTION = {
-            {"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"}
+            {"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"},
+            {"Chicken","37"},{"Alligator","38"},{"Duck","40"}
     };
 
     private static final String[][] OUTDOOR_COLLECTION = {
-
+            {"Car","52"},{"Bicycle","53"},{"Motorcycle","54"},{"Bus","55"},{"Bench","56"}
     };
 
     private static final String[][] FOOD_COLLECTION = {
-            {"Apple","9"},{"Banana","10"},{"Cucumber","11"},{"Lemon","12"},{"Potato","13"},  {"Strawberry","15"},{"Pumpkin","16"}
+            {"Apple","9"},{"Banana","10"},{"Cucumber","11"},{"Lemon","12"},{"Potato","13"},  {"Strawberry","15"},{"Pumpkin","16"},
+            {"Tomato","14"}
     };
 
     private static final String[][] SCHOOL_COLLECTION = {
-            {"Chair","21"},{"Desk","22"},{"Pen","23"},{"Pencil","24"},{"Eraser","28"}
+            {"Chair","21"},{"Desk","22"},{"Pen","23"},{"Pencil","24"},{"Eraser","28"},{"Mop","57"},{"Broom","58"}
     };
 
     private static final String[][] KITCHEN_COLLECTION = {
@@ -80,7 +82,7 @@ public class DbHelper extends SQLiteOpenHelper {
     };
 
     private static final String[][] BATHROOM_COLLECTION = {
-            {"Toilet","45"},{"Tub","46"},{"Toothbrush","48"},{"Basin","49"}
+            {"Toilet","45"},{"Tub","46"},{"Toothbrush","48"},{"Basin","49"},{"Toilet paper","47"}
     };
 
     private static final String[][] ELECTRONICS_COLLECTION = {
@@ -88,7 +90,7 @@ public class DbHelper extends SQLiteOpenHelper {
     };
 
     private static final String[][] ROOM_COLLECTION = {
-            {"Bed","20"},{"Umbrella","30"}
+            {"Bed","20"},{"Umbrella","30"},{"Sofa","50"},{"Clock","51"}
     };
 
     private static final ArrayList<String[][]> COLLECTION_LIST = new ArrayList<>();

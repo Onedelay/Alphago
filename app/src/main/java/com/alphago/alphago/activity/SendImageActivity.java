@@ -51,6 +51,7 @@ public class SendImageActivity extends NoStatusBarActivity {
         cropImageView.setCropShape(CropImageView.CropShape.RECTANGLE);
         cropImageView.setAutoZoomEnabled(false);
         cropImageView.setCropRect(new Rect(1000, 1000, 1000, 1000));
+        cropImageView.setShowProgressBar(false);
 
         cropImageView.setOnCropImageCompleteListener(new CropImageView.OnCropImageCompleteListener() {
             @Override

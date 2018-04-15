@@ -40,6 +40,8 @@ public class StartActivity extends NoStatusBarActivity {
     private String zipFileName = "";
     DbHelper dbHelper;
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +51,7 @@ public class StartActivity extends NoStatusBarActivity {
 
         PermissionUtils.checkPermissions(this, REQUEST_PERMISSONS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
 
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        if(!sharedPreferences.getBoolean("Default",false)) {
-            downloadFile();
-        } else {
-            controlStartActivity(0);
-        }
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
     }
 
     private void downloadFile() {
@@ -175,10 +172,6 @@ public class StartActivity extends NoStatusBarActivity {
                 inputStream = body.byteStream();
                 outputStream = new FileOutputStream(saveFile);
 
-//                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//                intent.setData(Uri.fromFile(saveFile));
-//                sendBroadcast(intent);
-
                 while (true) {
                     read = inputStream.read(fileReader);
                     if (read == -1) break;
@@ -209,6 +202,11 @@ public class StartActivity extends NoStatusBarActivity {
             for (int i=0; i<permissions.length; i++) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     //Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
+                    if(!sharedPreferences.getBoolean("Default",false)) {
+                        downloadFile();
+                    } else {
+                        controlStartActivity(0);
+                    }
                 } else {
                     //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
                 }

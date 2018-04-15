@@ -2,9 +2,11 @@ package com.alphago.alphago.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.NoStatusBarActivity;
@@ -51,8 +53,15 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         adapter.setList(dbHelper.categorySelect());
+
+//        findViewById(R.id.btn_management).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(CardBookActivity.this, "이 버튼 없앨까 말까~!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override
