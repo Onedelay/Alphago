@@ -52,6 +52,10 @@ public class StartActivity extends NoStatusBarActivity {
         PermissionUtils.checkPermissions(this, REQUEST_PERMISSONS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+
+        if(sharedPreferences.getBoolean("Default",true)){
+            controlStartActivity(0);
+        }
     }
 
     private void downloadFile() {
