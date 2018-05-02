@@ -43,8 +43,13 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
                 } else {
                     intent.putExtra("category_select_list", selectList);
                     intent.putExtra("learning_type", LearningSelectionMethodDialog.TYPE_ALBUM);
-                    startActivity(intent);
-                    cancelLearning(dbHelper);
+                    if(selectList.size() == 0) {
+                        Toast.makeText(CardBookActivity.this, "학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                        cancelLearning(dbHelper);
+                    } else {
+                        startActivity(intent);
+                        cancelLearning(dbHelper);
+                    }
                 }
             }
         });
