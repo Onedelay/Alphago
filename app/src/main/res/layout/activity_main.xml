@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_main2"
+    android:background="@drawable/bg_main"
     tools:context="com.alphago.alphago.activity.MainActivity">
 
     <TextView
@@ -23,61 +23,77 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.34" />
+        app:layout_constraintGuide_percent="0.5" />
+
+    <android.support.constraint.Guidline
+        android:id="@+id/main_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <Button
         android:id="@+id/btn_recognition"
         style="@style/CardBookFont"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/button_wooden"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/btn_main"
         android:text="RECOGNITION"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_card_book"
-        app:layout_constraintRight_toLeftOf="@id/guideline" />
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/img_main_titile" />
 
     <Button
         android:id="@+id/btn_game"
         style="@style/CardBookFont"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/button_wooden"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/btn_main"
         android:text="GAME"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btn_collection"
-        app:layout_constraintLeft_toLeftOf="@id/guideline" />
+        app:layout_constraintLeft_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/btn_recognition" />
 
     <Button
         android:id="@+id/btn_card_book"
         style="@style/CardBookFont"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/button_wooden"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/btn_main"
         android:text="CARD BOOK"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/btn_collection"
-        app:layout_constraintRight_toLeftOf="@id/guideline" />
+        app:layout_constraintRight_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/btn_recognition" />
 
     <Button
         android:id="@+id/btn_collection"
         style="@style/CardBookFont"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/button_wooden"
+        android:layout_width="170dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/btn_main"
         android:text="COLLECTIONS"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/guideline" />
+        app:layout_constraintLeft_toLeftOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/btn_game" />
+
+    <ImageView
+        android:id="@+id/img_main_titile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/main_guideline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/img_title2" />
 
 </android.support.constraint.ConstraintLayout>
