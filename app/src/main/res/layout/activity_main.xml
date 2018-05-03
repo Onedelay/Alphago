@@ -25,7 +25,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <android.support.constraint.Guidline
+    <android.support.constraint.Guideline
         android:id="@+id/main_guideline"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
