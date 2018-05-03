@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_cardbook2"
+    android:background="@drawable/bg_cardbook3"
     tools:context="com.alphago.alphago.activity.ImageRecognitionActivity">
 
     <ImageView
@@ -24,8 +24,8 @@
         android:id="@+id/btn_pronounce"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/bg_pronounce_white2"
         android:layout_marginRight="15dp"
+        android:background="@drawable/bg_pronounce_white2"
         app:layout_constraintRight_toRightOf="@+id/result_recog"
         app:layout_constraintTop_toTopOf="@id/image_recognition" />
 
@@ -91,12 +91,11 @@
 
     <Button
         android:id="@+id/btn_wrong"
-        android:text="wrong"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        app:layout_constraintRight_toRightOf="@id/btn_home"
+        android:text="wrong"
         app:layout_constraintLeft_toLeftOf="@id/btn_home"
-        app:layout_constraintTop_toBottomOf="@id/btn_home">
-    </Button>
+        app:layout_constraintRight_toRightOf="@id/btn_home"
+        app:layout_constraintTop_toBottomOf="@id/btn_home"></Button>
 
 </android.support.constraint.ConstraintLayout>
