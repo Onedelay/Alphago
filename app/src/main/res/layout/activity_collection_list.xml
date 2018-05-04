@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_collection"
+    android:background="@drawable/bg_collection3"
     tools:context="com.alphago.alphago.activity.CollectionListActivity">
 
     <android.support.v7.widget.RecyclerView
