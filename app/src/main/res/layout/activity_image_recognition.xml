@@ -53,49 +53,52 @@
         android:id="@+id/btn_home"
         android:layout_width="85dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="2dp"
         android:background="@drawable/button_learn"
         android:text="home"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/image_recognition"
-        app:layout_constraintLeft_toRightOf="@+id/btn_save"
-        app:layout_constraintRight_toRightOf="@id/result_recog"
-        app:layout_constraintTop_toBottomOf="@id/result_recog" />
+        app:layout_constraintLeft_toLeftOf="@+id/btn_save"
+        app:layout_constraintRight_toRightOf="@id/btn_save"
+        app:layout_constraintTop_toBottomOf="@id/btn_save" />
 
     <Button
         android:id="@+id/btn_save"
         android:layout_width="85dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="120dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
         android:background="@drawable/button_learn"
         android:text="save"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/btn_home"
-        app:layout_constraintLeft_toLeftOf="@id/result_recog"
+        app:layout_constraintBottom_toBottomOf="@+id/image_recognition"
+        app:layout_constraintLeft_toRightOf="@id/btn_retry"
         app:layout_constraintRight_toRightOf="@id/result_recog"
-        app:layout_constraintTop_toTopOf="@id/btn_home" />
+        app:layout_constraintTop_toBottomOf="@id/result_recog" />
 
     <Button
         android:id="@+id/btn_retry"
         android:layout_width="85dp"
         android:layout_height="40dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="40dp"
         android:background="@drawable/button_learn"
         android:text="retry"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/btn_home"
+        app:layout_constraintBottom_toBottomOf="@id/image_recognition"
         app:layout_constraintLeft_toLeftOf="@id/result_recog"
         app:layout_constraintRight_toLeftOf="@id/btn_save"
-        app:layout_constraintTop_toTopOf="@id/btn_home" />
+        app:layout_constraintTop_toBottomOf="@id/result_recog" />
 
     <Button
         android:id="@+id/btn_wrong"
         android:layout_width="0dp"
         android:layout_height="40dp"
+        android:background="@drawable/button_learn"
         android:text="wrong"
-        app:layout_constraintLeft_toLeftOf="@id/btn_home"
-        app:layout_constraintRight_toRightOf="@id/btn_home"
-        app:layout_constraintTop_toBottomOf="@id/btn_home"></Button>
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="@id/btn_retry"
+        app:layout_constraintRight_toRightOf="@id/btn_retry"
+        app:layout_constraintTop_toBottomOf="@id/btn_retry"
+        app:layout_constraintBottom_toBottomOf="@+id/image_recognition"/>
 
 </android.support.constraint.ConstraintLayout>
