@@ -38,11 +38,11 @@
         android:layout_height="0dp"
         app:foregroundStrokeColor="#30b05f"
         app:foregroundStrokeWidth="6dp"
-        app:maximum="100"
-        app:progress="50"
-        app:startAngle="270"
+        app:layout_constraintBottom_toBottomOf="@id/collection_list_img"
         app:layout_constraintLeft_toLeftOf="@id/collection_list_img"
         app:layout_constraintRight_toRightOf="@id/collection_list_img"
         app:layout_constraintTop_toTopOf="@id/collection_list_img"
-        app:layout_constraintBottom_toBottomOf="@id/collection_list_img"/>
+        app:maximum="100"
+        app:progress="50"
+        app:startAngle="270" />
 </android.support.constraint.ConstraintLayout>
