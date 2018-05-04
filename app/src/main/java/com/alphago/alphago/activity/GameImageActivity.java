@@ -112,6 +112,7 @@ public class GameImageActivity extends NoStatusBarActivity {
         btn_igame_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_igame_next.setEnabled(false);
                 // Show Result
                 if (result == true)
                 {
@@ -214,6 +215,7 @@ public class GameImageActivity extends NoStatusBarActivity {
     }
 
     protected void SetQuestion(final int qcount) {
+        btn_igame_next.setEnabled(true);
         result = false;
 
         // 문제용 Label

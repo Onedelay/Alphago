@@ -100,6 +100,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
         btn_wgame3_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_wgame3_next.setEnabled(false);
                 // 답 확인
                 String answer = cardBookList.get(qst_num[qcount]).getName();
                 String input = img_wgame3_lqst.getText().toString();
@@ -179,6 +180,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
     }
 
     protected void SetQuestion(final int qcount) {
+        btn_wgame3_next.setEnabled(true);
         result = false;
 
         // 문제용 이미지 불러오기

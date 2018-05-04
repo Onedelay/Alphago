@@ -106,6 +106,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         btn_wgame_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btn_wgame_next.setEnabled(false);
                 // Show Result
                 if (result == true)
                 {
@@ -206,6 +207,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
     }
 
     protected void SetQuestion(final int qcount) {
+        btn_wgame_next.setEnabled(true);
         result = false;
 
         // 문제용 이미지 불러오기
