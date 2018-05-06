@@ -89,7 +89,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             @Override
             public void onClick(View view) {
                 if (!view.isSelected()) {
-                    saveBtn.setText("SAVED");
+                    saveBtn.setText("저장완료");
                     view.setSelected(true);
                     String filePath = storeImageFile(imageFile, maxLabel);
                     Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
@@ -116,7 +116,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         wrongBtn.setOnClickListener(requestClickListener);
 
         if(maxLabel.equals("none")){
-            saveBtn.setText("REQUEST");
+            saveBtn.setText("틀렸어요");
             saveBtn.setOnClickListener(requestClickListener);
             wrongBtn.setVisibility(View.GONE);
         } else {

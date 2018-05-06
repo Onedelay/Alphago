@@ -26,7 +26,6 @@ import com.alphago.alphago.activity.GameWordActivity3;
 
 public class GameModeSelectionDialog extends DialogFragment {
     public static final int GAME_MODE_WORD = 0;
-    public static final int GAME_MODE_PICTURE = 1;
     public static final int GAME_DIFFICULTY_EASY = 0;
     public static final int GAME_DIFFICULTY_NORMAL = 1;
     public static final int GAME_DIFFICULTY_HARD = 2;
@@ -50,7 +49,6 @@ public class GameModeSelectionDialog extends DialogFragment {
         rootView.findViewById(R.id.btn_word_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(), "단어 맞추기 선택", Toast.LENGTH_SHORT).show();
                 gameMode = GAME_MODE_WORD;
                 setDifficultyGrade(rootView);
                 selectDifficultyGrade(rootView);
@@ -60,7 +58,6 @@ public class GameModeSelectionDialog extends DialogFragment {
         rootView.findViewById(R.id.btn_img_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getContext(), "그림 맞추기 선택", Toast.LENGTH_SHORT).show();
                 intent = new Intent(getContext(), GameImageActivity.class);
                 startActivity(intent);
             }

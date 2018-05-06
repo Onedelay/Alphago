@@ -67,9 +67,9 @@ public class StartActivity extends NoStatusBarActivity {
                     Log.d("WJY", "Server contacted and has file");
                     boolean writtenToDisk = writeResponseBodyToDist(response.body());
                     if (!writtenToDisk) {
-                        Toast.makeText(StartActivity.this, "디폴트 이미지가 저장되지 않았습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StartActivity.this, "기본 이미지가 저장되지 않았습니다.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(StartActivity.this, "디폴트 이미지가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StartActivity.this, "기본 이미지가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("Default", true);
