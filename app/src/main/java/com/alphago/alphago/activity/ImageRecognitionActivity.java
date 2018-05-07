@@ -178,7 +178,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         catID = catId;
         ID = labelId;
 
-        saveBtn.setText("SAVE");
+        saveBtn.setText("저장하기");
         saveBtn.setOnClickListener(saveClickListener);
         wrongBtn.setVisibility(View.GONE);
     }

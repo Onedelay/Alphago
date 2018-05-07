@@ -57,40 +57,51 @@ public class DbHelper extends SQLiteOpenHelper {
                     CollectionEntry.COLUMN_NAME_PATH + " TEXT ,"+
                     CollectionEntry.COLUMN_NAME_COLLECT+" INTEGER)";
 
-    private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room"};
+    private static final String[] CATEGORY_LIST = {"동물", "실외", "음식", "학교", "부엌", "욕실", "가전제품", "실내"};
+    //private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room"};
 
     private static final String[][] ANIMAL_COLLECTION = {
-            {"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"},
-            {"Chicken","37"},{"Alligator","38"},{"Duck","40"}
+//            {"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"},
+//            {"Chicken","37"},{"Alligator","38"},{"Duck","40"}
+            {"고양이","1"},{"강아지","2"},{"사자","3"},{"곰","33"},{"하마","41"},  {"사슴","35"},{"코끼리","36"},{"토끼","42"},{"개구리","43"},{"말","44"},
+            {"닭","37"},{"악어","38"},{"오리","40"}
     };
 
     private static final String[][] OUTDOOR_COLLECTION = {
-            {"Car","52"},{"Bicycle","53"},{"Motorcycle","54"},{"Bus","55"},{"Bench","56"}
+//            {"Car","52"},{"Bicycle","53"},{"Motorcycle","54"},{"Bus","55"},{"Bench","56"}
+            {"차","52"},{"자전거","53"},{"오토바이","54"},{"버스","55"},{"벤치","56"}
     };
 
     private static final String[][] FOOD_COLLECTION = {
-            {"Apple","9"},{"Banana","10"},{"Cucumber","11"},{"Lemon","12"},{"Potato","13"},  {"Strawberry","15"},{"Pumpkin","16"},
-            {"Tomato","14"}
+//            {"Apple","9"},{"Banana","10"},{"Cucumber","11"},{"Lemon","12"},{"Potato","13"},  {"Strawberry","15"},{"Pumpkin","16"},
+//            {"Tomato","14"}
+            {"사과","9"},{"바나나","10"},{"오이","11"},{"레몬","12"},{"감자","13"},  {"딸기","15"},{"호박","16"},
+            {"토마토","14"}
     };
 
     private static final String[][] SCHOOL_COLLECTION = {
-            {"Chair","21"},{"Desk","22"},{"Pen","23"},{"Pencil","24"},{"Eraser","28"},{"Mop","57"},{"Broom","58"}
+//            {"Chair","21"},{"Desk","22"},{"Pen","23"},{"Pencil","24"},{"Eraser","28"},{"Mop","57"},{"Broom","58"}
+            {"의자","21"},{"책상","22"},{"펜","23"},{"연필","24"},{"지우개","28"},{"대걸레","57"},{"빗자루","58"}
     };
 
     private static final String[][] KITCHEN_COLLECTION = {
-            {"Cup","17"},{"Knife","18"},{"Scissor","19"},{"Tumbler","25"},{"Bottle","29"}
+//            {"Cup","17"},{"Knife","18"},{"Scissor","19"},{"Tumbler","25"},{"Bottle","29"}
+            {"컵","17"},{"칼","18"},{"가위","19"},{"텀블러","25"},{"병","29"}
     };
 
     private static final String[][] BATHROOM_COLLECTION = {
-            {"Toilet","45"},{"Tub","46"},{"Toothbrush","48"},{"Basin","49"},{"Toilet paper","47"}
+//            {"Toilet","45"},{"Tub","46"},{"Toothbrush","48"},{"Basin","49"},{"Toilet paper","47"}
+            {"변기","45"},{"욕조","46"},{"칫솔","48"},{"세면대","49"},{"화장지","47"}
     };
 
     private static final String[][] ELECTRONICS_COLLECTION = {
-            {"Laptop","5"},{"Mike","6"},{"Monitor","7"},{"Usb","8"},{"Cellphone","26"},{"Television","27"},{"Mouse","31"},{"Keyboard","32"}
+//            {"Laptop","5"},{"Mike","6"},{"Monitor","7"},{"Usb","8"},{"Cellphone","26"},{"Television","27"},{"Mouse","31"},{"Keyboard","32"}
+            {"노트북","5"},{"마이크","6"},{"모니터","7"},{"유에스비","8"},{"핸드폰","26"},{"텔레비전","27"},{"마우스","31"},{"키보드","32"}
     };
 
     private static final String[][] ROOM_COLLECTION = {
-            {"Bed","20"},{"Umbrella","30"},{"Sofa","50"},{"Clock","51"}
+//            {"Bed","20"},{"Umbrella","30"},{"Sofa","50"},{"Clock","51"}
+            {"침대","20"},{"우산","30"},{"소파","50"},{"시계","51"}
     };
 
     private static final ArrayList<String[][]> COLLECTION_LIST = new ArrayList<>();
@@ -286,6 +297,7 @@ public class DbHelper extends SQLiteOpenHelper {
             ContentValues colValue = new ContentValues();
             if (collection.moveToNext()) { // 컬렉션 테이블에 존재하지 않을 경우 갱신 안함
                 if (collection.getInt(collection.getColumnIndexOrThrow(CollectionEntry.COLUMN_NAME_COLLECT)) == 0) {
+                    colValue.put(CollectionEntry.COLUMN_NAME_LABEL, imageLabel);
                     colValue.put(CollectionEntry.COLUMN_NAME_COLLECT, 1);
                     colValue.put(CollectionEntry.COLUMN_NAME_PATH, filePath);
                     rdb.update(CollectionEntry.TABLE_NAME, colValue, colSelection, colSelArgs);
