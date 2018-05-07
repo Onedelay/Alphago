@@ -41,7 +41,8 @@ public class AlphagoServer {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://52.79.52.192:3002/")
+                //.baseUrl("http://52.79.52.192:3002/")
+                .baseUrl("http://13.124.3.169:3030/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
