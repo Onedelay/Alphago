@@ -57,8 +57,8 @@ public class DbHelper extends SQLiteOpenHelper {
                     CollectionEntry.COLUMN_NAME_PATH + " TEXT ,"+
                     CollectionEntry.COLUMN_NAME_COLLECT+" INTEGER)";
 
-    private static final String[] CATEGORY_LIST = {"동물", "실외", "음식", "학교", "부엌", "욕실", "가전제품", "실내"};
-    //private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room"};
+    //private static final String[] CATEGORY_LIST = {"동물", "실외", "음식", "학교", "부엌", "욕실", "가전제품", "실내"};
+    private static final String[] CATEGORY_LIST = {"Animal", "Outdoor", "Food", "School", "Kitchen", "Bathroom", "Electronics", "Room"};
 
     private static final String[][] ANIMAL_COLLECTION = {
 //            {"Cat","1"},{"Dog","2"},{"Lion","3"},{"Bear","33"},{"Hippo","41"},  {"Deer","35"},{"Elephant","36"},{"Rabbit","42"},{"Frog","43"},{"Horse","44"},
