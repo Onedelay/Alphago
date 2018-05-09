@@ -18,6 +18,8 @@ import com.alphago.alphago.model.Category;
 
 import java.util.ArrayList;
 
+import static com.alphago.alphago.fragment.LearningSelectionMethodDialog.TYPE_ALL;
+
 public class CardBookActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener, LearningSelectionMethodDialog.OnLearningCategoryListener {
     private Button btnLearning;
     private RecyclerView recyclerView;
@@ -35,6 +37,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         dbHelper = new DbHelper(getBaseContext());
 
         btnLearning = (Button) findViewById(R.id.btn_learning);
+        /* 전체학습/카테고리학습 기능 */
         btnLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +57,15 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
             }
         });
 
+//        btnLearning.setText("전체학습");
+//        btnLearning.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                intent.putExtra("learning_type", TYPE_ALL);
+//                startActivity(intent);
+//            }
+//        });
+
         adapter = new CategoryAdapter(this);
         recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
@@ -72,6 +84,9 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     @Override
     public void onCardClick(Object data) {
         if (data instanceof Category) {
+            /* 카테고리 선택 시
+             * if selectMode : 학습할 카테고리 추가
+             * else : 해당 카테고리 이미지들 보기 */
             long catId = ((Category) data).getId();
             if (!isSelectMode) {
                 Intent intent = new Intent(getBaseContext(), CardBookListActivity.class);
@@ -79,7 +94,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
                 intent.putExtra("category", ((Category) data).getLabel());
                 startActivity(intent);
             } else {
-                if(!selectList.contains(catId)){
+                if (!selectList.contains(catId)) {
                     selectList.add(catId);
                     ((Category) data).setSelect(true);
                 } else {
@@ -94,19 +109,19 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     @Override
     public void onLearningCategory() {
         isSelectMode = true;
-        btnLearning.setText("선택완료★");
+        btnLearning.setText("학습시작");
     }
 
     @Override
     public void onBackPressed() {
-        if(isSelectMode){
+        if (isSelectMode) {
             cancelLearning(dbHelper);
         } else {
             super.onBackPressed();
         }
     }
 
-    public void cancelLearning(DbHelper dbHelper){
+    public void cancelLearning(DbHelper dbHelper) {
         isSelectMode = false;
         btnLearning.setText("학습하기");
         adapter.setList(dbHelper.categorySelect());

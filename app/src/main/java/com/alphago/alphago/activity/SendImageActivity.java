@@ -33,6 +33,7 @@ public class SendImageActivity extends NoStatusBarActivity {
     private File imageFile;
     private String category;
     private String max_label;
+    private String ko_label;
     private int ID;
     private int cate_ID;
     private CropImageView cropImageView;
@@ -80,6 +81,8 @@ public class SendImageActivity extends NoStatusBarActivity {
                             max_label = response.body().getResponseLabel();
                             ID = response.body().getID();
                             cate_ID = response.body().getCate_ID();
+                            ko_label = response.body().getKo_label();
+
 
                             Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
                             intent.putExtra("imageFile", imageFile);
@@ -87,6 +90,7 @@ public class SendImageActivity extends NoStatusBarActivity {
                             intent.putExtra("max_label", max_label);
                             intent.putExtra("ID", ID);
                             intent.putExtra("cate_ID", cate_ID);
+                            intent.putExtra("ko_label", ko_label);
                             showLoadingView(false);
                             startActivity(intent);
                             finish();

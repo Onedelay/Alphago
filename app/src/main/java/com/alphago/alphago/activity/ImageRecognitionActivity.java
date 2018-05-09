@@ -1,8 +1,5 @@
 package com.alphago.alphago.activity;
 
-import android.app.DialogFragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -31,7 +28,8 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     private TTSHelper tts;
     private Button saveBtn;
     private Button wrongBtn;
-    private TextView textView;
+    private TextView resultWord;
+    private TextView resultKorean;
     private int catID;
     private int ID;
 
@@ -61,12 +59,17 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
                     .into(myImage);
         }
 
-        maxLabel = getIntent().getStringExtra("max_label");
-        catID = getIntent().getIntExtra("cate_ID", 0);
-        ID = getIntent().getIntExtra("ID", 0);
+        Intent intent = getIntent();
+        maxLabel = intent.getStringExtra("max_label");
+        catID = intent.getIntExtra("cate_ID", 0);
+        ID = intent.getIntExtra("ID", 0);
 
-        textView = (TextView) findViewById(R.id.result_recog);
-        textView.setText(maxLabel);
+
+        resultWord = (TextView) findViewById(R.id.recog_result);
+        resultWord.setText(maxLabel);
+
+        resultKorean = findViewById(R.id.result_kor);
+        resultKorean.setText(intent.getStringExtra("ko_label"));
 
         tts = new TTSHelper(this);
         findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
@@ -172,9 +175,10 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     }
 
     @Override
-    public void onRequestTraining(String category, String label, int catId, int labelId) {
+    public void onRequestTraining(String category, String label, String korLabel, int catId, int labelId) {
         maxLabel = label;
-        textView.setText(maxLabel);
+        resultWord.setText(maxLabel);
+        resultKorean.setText(korLabel);
         catID = catId;
         ID = labelId;
 
