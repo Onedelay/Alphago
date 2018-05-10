@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
+import com.alphago.alphago.SoundManager;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
@@ -36,6 +37,12 @@ public class GameWordActivity3 extends NoStatusBarActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SoundManager.cleanup();
     }
 
     private ImageButton btn_wgame3_exit;
@@ -78,6 +85,9 @@ public class GameWordActivity3 extends NoStatusBarActivity {
         img_wgame3_lqst = (EditText)findViewById(R.id.img_wgame3_lqst);
         img_wgame3_lqst.setPrivateImeOptions("defaultInputmode=english;");
 
+        SoundManager.getInstance();
+        SoundManager.initSounds(this);
+        SoundManager.loadSounds();
         final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         // First Question
@@ -113,6 +123,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
                 // Show Result
                 if (result == true)
                 {
+                    SoundManager.playSound(1, 1);
                     img_wgame3_tvqst.setImageResource(R.drawable.img_right);
                     res[qcount] = true;
                     qcount++;

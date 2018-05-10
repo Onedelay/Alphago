@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
+import com.alphago.alphago.SoundManager;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
@@ -89,6 +90,9 @@ public class GameImageActivity extends NoStatusBarActivity {
         tv_igame_tvqst = (TextView)findViewById(R.id.tv_igame_tvqst);
         img_igame_qst = (TextView)findViewById(R.id.img_igame_qst);
 
+        SoundManager.getInstance();
+        SoundManager.initSounds(this);
+        SoundManager.loadSounds();
         final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
         // First Question
@@ -116,6 +120,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                 // Show Result
                 if (result == true)
                 {
+                    SoundManager.playSound(1, 1);
                     img_igame_tvqst.setImageResource(R.drawable.img_right);
                     res[qcount-1] = true;
                 }
@@ -212,6 +217,12 @@ public class GameImageActivity extends NoStatusBarActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        SoundManager.cleanup();
     }
 
     protected void SetQuestion(final int qcount) {
