@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,18 +35,18 @@ public class GameImageActivity extends NoStatusBarActivity {
     private boolean res[] = new boolean[10];
     private boolean result = false;
 
-    private ImageButton btn_igame_exit;
-    private ImageButton btn_igame_next;
+    private ImageView btn_igame_exit;
+    private ImageView btn_igame_next;
 
     private ImageView img_igame_check1;
     private ImageView img_igame_check2;
     private ImageView img_igame_check3;
     private ImageView img_igame_check4;
 
-    private ImageButton btn_igame_ex1;
-    private ImageButton btn_igame_ex2;
-    private ImageButton btn_igame_ex3;
-    private ImageButton btn_igame_ex4;
+    private ImageView btn_igame_ex1;
+    private ImageView btn_igame_ex2;
+    private ImageView btn_igame_ex3;
+    private ImageView btn_igame_ex4;
     private ImageView img_igame_tvqst;
     private TextView tv_igame_tvqst;
     private TextView img_igame_qst;
@@ -74,26 +74,26 @@ public class GameImageActivity extends NoStatusBarActivity {
             }
         }
 
-        img_igame_check1 = (ImageView)findViewById(R.id.img_igame_check1);
-        img_igame_check2 = (ImageView)findViewById(R.id.img_igame_check2);
-        img_igame_check3 = (ImageView)findViewById(R.id.img_igame_check3);
-        img_igame_check4 = (ImageView)findViewById(R.id.img_igame_check4);
+        img_igame_check1 = (ImageView) findViewById(R.id.img_igame_check1);
+        img_igame_check2 = (ImageView) findViewById(R.id.img_igame_check2);
+        img_igame_check3 = (ImageView) findViewById(R.id.img_igame_check3);
+        img_igame_check4 = (ImageView) findViewById(R.id.img_igame_check4);
 
-        btn_igame_exit = (ImageButton)findViewById(R.id.btn_igame_exit);
-        btn_igame_next = (ImageButton)findViewById(R.id.btn_igame_next);
-        btn_igame_ex1 = (ImageButton)findViewById(R.id.btn_igame_ex1);
-        btn_igame_ex2 = (ImageButton)findViewById(R.id.btn_igame_ex2);
-        btn_igame_ex3 = (ImageButton)findViewById(R.id.btn_igame_ex3);
-        btn_igame_ex4 = (ImageButton)findViewById(R.id.btn_igame_ex4);
+        btn_igame_exit = (ImageView) findViewById(R.id.btn_igame_exit);
+        btn_igame_next = (ImageView) findViewById(R.id.btn_igame_next);
+        btn_igame_ex1 = (ImageView) findViewById(R.id.btn_igame_ex1);
+        btn_igame_ex2 = (ImageView) findViewById(R.id.btn_igame_ex2);
+        btn_igame_ex3 = (ImageView) findViewById(R.id.btn_igame_ex3);
+        btn_igame_ex4 = (ImageView) findViewById(R.id.btn_igame_ex4);
 
-        img_igame_tvqst = (ImageView)findViewById(R.id.img_igame_tvqst);
-        tv_igame_tvqst = (TextView)findViewById(R.id.tv_igame_tvqst);
-        img_igame_qst = (TextView)findViewById(R.id.img_igame_qst);
+        img_igame_tvqst = (ImageView) findViewById(R.id.img_igame_tvqst);
+        tv_igame_tvqst = (TextView) findViewById(R.id.tv_igame_tvqst);
+        img_igame_qst = (TextView) findViewById(R.id.img_igame_qst);
 
         SoundManager.getInstance();
         SoundManager.initSounds(this);
         SoundManager.loadSounds();
-        final Vibrator vibe = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         // First Question
         if (qcount == 0) {
@@ -118,32 +118,26 @@ public class GameImageActivity extends NoStatusBarActivity {
             public void onClick(View v) {
                 btn_igame_next.setEnabled(false);
                 // Show Result
-                if (result == true)
-                {
+                if (result == true) {
                     SoundManager.playSound(1, 1);
                     img_igame_tvqst.setImageResource(R.drawable.img_right);
-                    res[qcount-1] = true;
-                }
-                else
-                {
+                    res[qcount - 1] = true;
+                } else {
                     vibe.vibrate(500);
                     img_igame_tvqst.setImageResource(R.drawable.img_wrong);
-                    res[qcount-1] = false;
+                    res[qcount - 1] = false;
                 }
 
                 // Change the screen after 1.5 seconds
-                new Handler().postDelayed(new Runnable()
-                {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         if (qcount == 10) {
                             Intent intent = new Intent(GameImageActivity.this, GameResultActivity.class);
                             intent.putExtra("result", res);
                             intent.putExtra("type", 1);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             tv_igame_tvqst.setText("Q" + (qcount + 1));
                             SetQuestion(qcount);
                             qcount++;
@@ -155,27 +149,22 @@ public class GameImageActivity extends NoStatusBarActivity {
         });
     }
 
-    protected void CreateQuestion(int dcount)
-    {
+    protected void CreateQuestion(int dcount) {
         int d, rnum;
 
-        for (int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             d = 0;
-            rnum = (int)(Math.random() * dcount);
+            rnum = (int) (Math.random() * dcount);
 
-            for (int j = 0; j < i; j++)
-            {
-                if (rnum == qst_num[j])
-                {
+            for (int j = 0; j < i; j++) {
+                if (rnum == qst_num[j]) {
                     d = 1;
                     break;
                 }
             }
             if (d == 1)
                 i--;
-            else
-            {
+            else {
                 qst_num[i] = rnum;
                 CreateExample(dcount, i);
             }
@@ -183,26 +172,22 @@ public class GameImageActivity extends NoStatusBarActivity {
 
     }
 
-    protected void CreateExample(int dcount, int qindex)
-    {
+    protected void CreateExample(int dcount, int qindex) {
         int d, rnum;
-        int qrnum = (int)(Math.random() * 4);
+        int qrnum = (int) (Math.random() * 4);
         ex_num[qindex][qrnum] = qst_num[qindex];
 
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             if (i == qrnum)
                 continue;
 
             d = 0;
-            rnum = (int)(Math.random() * dcount);
+            rnum = (int) (Math.random() * dcount);
             if (rnum == ex_num[qindex][qrnum])
                 d = 1;
 
-            for (int j = 0; j < i; j++)
-            {
-                if (rnum == ex_num[qindex][j])
-                {
+            for (int j = 0; j < i; j++) {
+                if (rnum == ex_num[qindex][j]) {
                     d = 1;
                     break;
                 }
@@ -273,7 +258,7 @@ public class GameImageActivity extends NoStatusBarActivity {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    case R.id.btn_igame_ex1 :
+                    case R.id.btn_igame_ex1:
                         img_igame_check1.setVisibility(View.VISIBLE);
                         img_igame_check2.setVisibility(View.GONE);
                         img_igame_check3.setVisibility(View.GONE);
@@ -287,7 +272,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                         else
                             result = false;
                         break;
-                    case R.id.btn_igame_ex2 :
+                    case R.id.btn_igame_ex2:
                         img_igame_check1.setVisibility(View.GONE);
                         img_igame_check2.setVisibility(View.VISIBLE);
                         img_igame_check3.setVisibility(View.GONE);
@@ -301,7 +286,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                         else
                             result = false;
                         break;
-                    case R.id.btn_igame_ex3 :
+                    case R.id.btn_igame_ex3:
                         img_igame_check1.setVisibility(View.GONE);
                         img_igame_check2.setVisibility(View.GONE);
                         img_igame_check3.setVisibility(View.VISIBLE);
@@ -315,7 +300,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                         else
                             result = false;
                         break;
-                    case R.id.btn_igame_ex4 :
+                    case R.id.btn_igame_ex4:
                         img_igame_check1.setVisibility(View.GONE);
                         img_igame_check2.setVisibility(View.GONE);
                         img_igame_check3.setVisibility(View.GONE);

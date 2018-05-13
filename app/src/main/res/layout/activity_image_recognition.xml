@@ -26,7 +26,7 @@
         android:layout_height="40dp"
         android:layout_marginRight="43dp"
         android:layout_marginTop="35dp"
-        android:background="@drawable/bg_pronounce_white2"
+        android:background="@drawable/icon_speak_white"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

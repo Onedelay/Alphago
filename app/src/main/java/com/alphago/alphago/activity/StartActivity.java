@@ -53,7 +53,7 @@ public class StartActivity extends NoStatusBarActivity {
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
 
-        if(sharedPreferences.getBoolean("Default",false)){
+        if (sharedPreferences.getBoolean("Default", false)) {
             controlStartActivity(0);
         }
     }
@@ -70,7 +70,6 @@ public class StartActivity extends NoStatusBarActivity {
                         Toast.makeText(StartActivity.this, "기본 이미지가 저장되지 않았습니다.", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(StartActivity.this, "기본 이미지가 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                        sharedPreferences = getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean("Default", true);
                         editor.apply();
@@ -203,22 +202,20 @@ public class StartActivity extends NoStatusBarActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSONS) {
-            for (int i=0; i<permissions.length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    //Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
-                    if(!sharedPreferences.getBoolean("Default",false)) {
-                        downloadFile();
-                    } else {
-                        controlStartActivity(0);
-                    }
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                //Toast.makeText(this, permissions[i] + " Permission Granted", Toast.LENGTH_SHORT).show();
+                if (!sharedPreferences.getBoolean("Default", false)) {
+                    downloadFile();
                 } else {
-                    //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
+                    controlStartActivity(0);
+                }
+            } else {
+                //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(this, "권한이 없어 종료됩니다.", Toast.LENGTH_SHORT).show();
 //                    try{
 //                        Thread.sleep(2000L);
 //                        finish();
 //                    } catch (Exception e){}
-                }
             }
         }
     }
