@@ -42,6 +42,8 @@ public class GameResultActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         btn_rgame_ret = (Button)findViewById(R.id.btn_rgame_ret);
         btn_rgame_home = (Button)findViewById(R.id.btn_rgame_home);
         img_rgame_result = (ImageView)findViewById(R.id.img_rgame_result);
@@ -116,5 +118,11 @@ public class GameResultActivity extends NoStatusBarActivity {
         };
         btn_rgame_ret.setOnClickListener(onClickListener);
         btn_rgame_home.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

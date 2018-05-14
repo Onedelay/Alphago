@@ -24,6 +24,8 @@ public class CollectionActivity extends NoStatusBarActivity implements Collectio
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
         int language = getLanguage(lang);
 
@@ -44,5 +46,11 @@ public class CollectionActivity extends NoStatusBarActivity implements Collectio
             intent.putExtra("categoryId", catId);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

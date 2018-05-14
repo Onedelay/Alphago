@@ -49,6 +49,9 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_recognition);
+
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         dbHelper = new DbHelper(getBaseContext());
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
@@ -206,5 +209,11 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     protected void onDestroy() {
         super.onDestroy();
         tts.shutdown();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

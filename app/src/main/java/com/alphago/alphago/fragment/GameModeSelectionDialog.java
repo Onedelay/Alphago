@@ -46,6 +46,8 @@ public class GameModeSelectionDialog extends DialogFragment {
         final View rootView = inflater.inflate(R.layout.dialog_mode_select_method, null);
         builder.setView(rootView);
 
+        getActivity().overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         rootView.findViewById(R.id.btn_word_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +62,7 @@ public class GameModeSelectionDialog extends DialogFragment {
             public void onClick(View v) {
                 intent = new Intent(getContext(), GameImageActivity.class);
                 startActivity(intent);
+
             }
         });
 

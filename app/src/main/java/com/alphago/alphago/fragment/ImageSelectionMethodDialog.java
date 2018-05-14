@@ -49,6 +49,8 @@ public class ImageSelectionMethodDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        getActivity().overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         View rootView = inflater.inflate(R.layout.dialog_img_select_method, null);
         builder.setView(rootView);
 
@@ -70,8 +72,6 @@ public class ImageSelectionMethodDialog extends DialogFragment {
 
         // 상태바 숨김
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
 
         return builder.create();
     }

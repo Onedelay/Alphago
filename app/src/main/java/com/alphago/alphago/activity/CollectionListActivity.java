@@ -19,6 +19,8 @@ public class CollectionListActivity extends NoStatusBarActivity implements Colle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_list);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
         dbHelper = new DbHelper(getBaseContext());
         adapter = new CollectionAdapter(this);
@@ -33,5 +35,11 @@ public class CollectionListActivity extends NoStatusBarActivity implements Colle
     @Override
     public void onCategoryClick(Object data) {
         // Do-nothing
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

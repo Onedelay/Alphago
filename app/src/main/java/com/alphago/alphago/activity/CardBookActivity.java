@@ -36,6 +36,8 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_book);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         final Intent intent = new Intent(this, WordLearningActivity.class);
         dbHelper = new DbHelper(getBaseContext());
 
@@ -137,5 +139,11 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     protected void onResume() {
         super.onResume();
         if(!isSelectMode) btnLearning.setBackgroundResource(R.drawable.icon_learning);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

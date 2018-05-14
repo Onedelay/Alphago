@@ -40,6 +40,8 @@ public class WordLearningActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_learning);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
 
         learnImage = (ImageView) findViewById(R.id.learn_image);
@@ -142,5 +144,11 @@ public class WordLearningActivity extends NoStatusBarActivity {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

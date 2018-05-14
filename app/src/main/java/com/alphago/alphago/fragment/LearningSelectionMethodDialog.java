@@ -46,6 +46,8 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
+        getActivity().overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         View rootView = inflater.inflate(R.layout.dialog_img_select_method, null);
         builder.setView(rootView);
 

@@ -27,6 +27,8 @@ public class MainActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         backPressCloseHandler = new BackPressCloseHandler(this);
 
         findViewById(R.id.btn_recognition).setOnClickListener(new View.OnClickListener() {
@@ -58,5 +60,11 @@ public class MainActivity extends NoStatusBarActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

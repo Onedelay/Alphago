@@ -23,6 +23,8 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_book_list);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
 
         long categoryId = getIntent().getLongExtra("categoryId", -1);
@@ -49,5 +51,11 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
 //            intent.putExtra("labelId", ((CardBook) data).getId());
 //            startActivity(intent);
 //        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }

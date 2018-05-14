@@ -56,6 +56,8 @@ public class GameImageActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_image);
 
+        this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
 
         // Load CardBook in Database
@@ -323,5 +325,11 @@ public class GameImageActivity extends NoStatusBarActivity {
         btn_igame_ex2.setOnClickListener(onClickListener);
         btn_igame_ex3.setOnClickListener(onClickListener);
         btn_igame_ex4.setOnClickListener(onClickListener);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
     }
 }
