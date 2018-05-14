@@ -45,12 +45,16 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
 
     private RequestImageTrainingFragment requestFragment;
 
+    private String lang;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_recognition);
 
         this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
+        lang = StartActivity.sharedPreferences.getString("Language", "ENG");
 
         dbHelper = new DbHelper(getBaseContext());
 
@@ -71,7 +75,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         chLabel = intent.getStringExtra("ch_label");
         enLabel = intent.getStringExtra("max_label");
 
-        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
+        String lang = StartActivity.sharedPreferences.getString("Language", "ENG");
 
         maxLabel = intent.getStringExtra("max_label");
         if (lang.equals("JAP")) {
@@ -136,12 +140,18 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         wrongBtn = findViewById(R.id.btn_wrong);
         wrongBtn.setOnClickListener(requestClickListener);
 
-        if (maxLabel.equals("none")) {
-            saveBtn.setText("틀렸어요");
-            saveBtn.setOnClickListener(requestClickListener);
-            wrongBtn.setVisibility(View.GONE);
-        } else {
-            saveBtn.setOnClickListener(saveClickListener);
+        try {
+            if (maxLabel.equals("none")) {
+                saveBtn.setText("틀렸어요");
+                saveBtn.setOnClickListener(requestClickListener);
+                wrongBtn.setVisibility(View.GONE);
+            } else {
+                saveBtn.setOnClickListener(saveClickListener);
+            }
+        } catch (NullPointerException e){
+            Toast.makeText(this, "None 오류", Toast.LENGTH_SHORT).show();
+            finish();
+            e.printStackTrace();
         }
 
 
@@ -193,11 +203,24 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     }
 
     @Override
-    public void onRequestTraining(String category, String label, String korLabel, int catId, int labelId) {
-        maxLabel = label;
+    public void onRequestTraining(String category, String label, String jaLabel, String chLabel, String korLabel, int cateId, int labelId) {
+        switch (Constants.getLanguage(lang)) {
+            case Constants.LANGUAGE_JAP:
+                maxLabel = jaLabel;
+                break;
+            case Constants.LANGUAGE_CHI:
+                maxLabel = chLabel;
+                break;
+            default:
+                maxLabel = label;
+        }
         resultWord.setText(maxLabel);
         resultKorean.setText(korLabel);
-        catID = catId;
+
+        this.enLabel = label;
+        this.japLabel = jaLabel;
+        this.chLabel = chLabel;
+        catID = cateId;
         ID = labelId;
 
         saveBtn.setText("저장하기");

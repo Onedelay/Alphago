@@ -39,7 +39,7 @@ public class TTSHelper {
             public void onInit(int status) {
                 int lang = Constants.getLanguage(language);
                 if(lang == LANGUAGE_JAP) tts.setLanguage(Locale.JAPANESE);
-                else if(lang == LANGUAGE_CHI) tts.setLanguage(Locale.CHINESE);
+                else if(lang == LANGUAGE_CHI) tts.setLanguage(Locale.CHINA);
                 else tts.setLanguage(Locale.ENGLISH);
             }
         });

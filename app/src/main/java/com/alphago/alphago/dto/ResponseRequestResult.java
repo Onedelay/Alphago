@@ -2,27 +2,38 @@ package com.alphago.alphago.dto;
 
 public class ResponseRequestResult {
     private String category;
-    private String name;
-    private int ID;
-    private int cate_ID;
+    private String ko;
+    private String en;
+    private String ja;
+    private String zh_CN;
+    private int LABEL_ID;
+    private int CAT_ID;
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public String getKo() {
+        return ko;
     }
 
-    public int getID() {
-        return ID;
+    public String getEn() {
+        return en;
     }
 
-    public int getCate_ID() {
-        return cate_ID;
+    public String getJa() {
+        return ja;
     }
 
-    public String getName() {
-        return name;
+    public String getZh_CN() {
+        return zh_CN;
+    }
+
+    public int getLABEL_ID() {
+        return LABEL_ID;
+    }
+
+    public int getCAT_ID() {
+        return CAT_ID;
     }
 }

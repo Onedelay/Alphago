@@ -43,7 +43,7 @@ public class RequestImageTrainingFragment extends DialogFragment {
     private OnRequestTrainingListener listener;
 
     public interface OnRequestTrainingListener {
-        void onRequestTraining(String category, String label, String korLabel, int cateId, int labelId);
+        void onRequestTraining(String category, String label, String jaLabel, String chLabel, String korLabel, int cateId, int labelId);
     }
 
     @NonNull
@@ -86,7 +86,8 @@ public class RequestImageTrainingFragment extends DialogFragment {
                     public void onResponse(Call<ResponseRequestResult> call, Response<ResponseRequestResult> response) {
                         if(response != null){
                             Toast.makeText(getContext(), "전송 완료", Toast.LENGTH_SHORT).show();
-                            listener.onRequestTraining(response.body().getCategory(), response.body().getName(), requestLabel, response.body().getCate_ID(), response.body().getID());
+                            listener.onRequestTraining(response.body().getCategory(), response.body().getEn(), response.body().getJa(), response.body().getZh_CN(), response.body().getKo(),
+                                    response.body().getCAT_ID(), response.body().getLABEL_ID());
                         } else {
                             Toast.makeText(getContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                         }
