@@ -1,6 +1,7 @@
 package com.alphago.alphago.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -34,14 +35,20 @@ public class SendImageActivity extends NoStatusBarActivity {
     private String category;
     private String max_label;
     private String ko_label;
+    private String ja_label;
+    private String ch_label;
     private int ID;
     private int cate_ID;
     private CropImageView cropImageView;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_image);
+
+
 
         imageFile = (File) getIntent().getSerializableExtra("sendImage");
 
@@ -79,10 +86,11 @@ public class SendImageActivity extends NoStatusBarActivity {
                         if (response.body() != null) {
                             category = response.body().getCategory();
                             max_label = response.body().getResponseLabel();
-                            ID = response.body().getID();
-                            cate_ID = response.body().getCate_ID();
-                            ko_label = response.body().getKo_label();
-
+                            ID = response.body().getLABEL_ID();
+                            cate_ID = response.body().getCAT_ID();
+                            ko_label = response.body().getKo();
+                            ja_label = response.body().getJa();
+                            ch_label = response.body().getZh_CN();
 
                             Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
                             intent.putExtra("imageFile", imageFile);
@@ -91,6 +99,9 @@ public class SendImageActivity extends NoStatusBarActivity {
                             intent.putExtra("ID", ID);
                             intent.putExtra("cate_ID", cate_ID);
                             intent.putExtra("ko_label", ko_label);
+                            intent.putExtra("ja_label", ja_label);
+                            intent.putExtra("ch_label", ch_label);
+
                             showLoadingView(false);
                             startActivity(intent);
                             finish();

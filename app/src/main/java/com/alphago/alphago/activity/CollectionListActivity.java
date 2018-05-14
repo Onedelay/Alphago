@@ -19,6 +19,7 @@ public class CollectionListActivity extends NoStatusBarActivity implements Colle
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_list);
 
+        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
         dbHelper = new DbHelper(getBaseContext());
         adapter = new CollectionAdapter(this);
         recyclerView = (RecyclerView) findViewById(R.id.collection_list);
@@ -26,7 +27,7 @@ public class CollectionListActivity extends NoStatusBarActivity implements Colle
         recyclerView.setHasFixedSize(true);
 
         long catId = getIntent().getLongExtra("categoryId",0);
-        adapter.setList(dbHelper.collectionSelect(catId));
+        adapter.setList(dbHelper.collectionSelect(catId, lang));
     }
 
     @Override

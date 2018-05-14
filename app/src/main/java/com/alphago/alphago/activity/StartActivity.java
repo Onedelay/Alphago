@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -34,13 +35,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StartActivity extends NoStatusBarActivity {
+public class StartActivity extends NoStatusBarActivity implements InitSettingFragment.OnSettingLanguageListener {
     private static final int REQUEST_PERMISSONS = 1;
 
     private String zipFileName = "";
     private DbHelper dbHelper;
 
-    private SharedPreferences sharedPreferences;
+    static SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,12 @@ public class StartActivity extends NoStatusBarActivity {
 
         dbHelper = new DbHelper(getBaseContext());
 
-        PermissionUtils.checkPermissions(this, REQUEST_PERMISSONS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
-
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+
+        if (sharedPreferences.getString("Language", "none").equals("none")) {
+            InitSettingFragment settingFragment = new InitSettingFragment();
+            settingFragment.show(getSupportFragmentManager(), "dialog");
+        }
 
         if (sharedPreferences.getBoolean("Default", false)) {
             controlStartActivity(0);
@@ -76,6 +80,7 @@ public class StartActivity extends NoStatusBarActivity {
                     }
                 } else {
                     Log.d("#### WJY ####", "Server contact failed");
+                    finish();
                 }
 
                 final long endTime = System.currentTimeMillis();
@@ -93,6 +98,7 @@ public class StartActivity extends NoStatusBarActivity {
     }
 
     private void controlStartActivity(long time) {
+        Toast.makeText(this, sharedPreferences.getString("Language", "none"), Toast.LENGTH_SHORT).show();
         if (time < 2000L) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -116,7 +122,8 @@ public class StartActivity extends NoStatusBarActivity {
 
         try {
             fis = new FileInputStream(zipFilePath);
-            ZipInputStream zis = new ZipInputStream(fis);
+            //Charset CP866 = Charset.forName("CP866");
+            ZipInputStream zis = new ZipInputStream(fis, Charset.forName("Cp437"));
             ZipEntry ze = zis.getNextEntry();
 
             while (ze != null) {
@@ -132,7 +139,8 @@ public class StartActivity extends NoStatusBarActivity {
                 }
 
                 String[] result = fileName.split("_");
-                dbHelper.insertImage(result[2], Integer.parseInt(result[1]), Integer.parseInt(result[3].substring(0, result[3].length() - 4)), fileDir, false);
+                dbHelper.insertImage(Integer.parseInt(result[0]), Integer.parseInt(result[1]), result[2], result[3], result[4].substring(0, result[4].length() - 4), fileDir, false);
+                //dbHelper.insertImage(result[2], Integer.parseInt(result[1]), Integer.parseInt(result[3].substring(0, result[3].length() - 4)), fileDir, false);
 
                 fileOutputStream.close();
                 zis.closeEntry();
@@ -218,5 +226,14 @@ public class StartActivity extends NoStatusBarActivity {
 //                    } catch (Exception e){}
             }
         }
+    }
+
+    @Override
+    public void onSettingLanguage(String language) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Language", language);
+        editor.apply();
+
+        PermissionUtils.checkPermissions(this, REQUEST_PERMISSONS, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA);
     }
 }

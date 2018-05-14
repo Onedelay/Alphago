@@ -14,6 +14,8 @@ public final class CardBookContract {
     public static class CategoryEntry implements BaseColumns {
         public static final String TABLE_NAME = "category";
         public static final String COLUMN_NAME_LABEL = "category_label";
+        public static final String COLUMN_NAME_JAP_LABEL = "category_label_jap";
+        public static final String COLUMN_NAME_CHI_LABEL = "category_label_chi";
         public static final String COLUMN_NAME_PATH = "img_path";
     }
 
@@ -22,6 +24,8 @@ public final class CardBookContract {
         public static final String _ID = "id";
         public static final String COLUMN_NAME_CATEGORY = "category_id"; // 카테고리 기본키
         public static final String COLUMN_NAME_LABEL = "card_book_label";
+        public static final String COLUMN_NAME_JAP_LABEL = "card_book_jap_label";
+        public static final String COLUMN_NAME_CHI_LABEL = "card_book_chi_label";
         public static final String COLUMN_NAME_PATH = "img_path";
         public static final String COLUMN_NAME_COLLECT = "collect";
     }
@@ -36,6 +40,8 @@ public final class CardBookContract {
     public static class CollectionEntry implements BaseColumns{
         public static final String TABLE_NAME = "collection";
         public static final String COLUMN_NAME_LABEL = "label";
+        public static final String COLUMN_NAME_JAP_LABEL = "jap_label";
+        public static final String COLUMN_NAME_CHI_LABEL = "chi_label";
         public static final String COLUMN_NAME_CAT_ID = "category_id";
         public static final String COLUMN_NAME_LABEL_ID = "label_id";
         public static final String COLUMN_NAME_PATH = "img_path";

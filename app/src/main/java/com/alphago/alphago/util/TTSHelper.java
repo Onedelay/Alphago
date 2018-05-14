@@ -4,10 +4,15 @@ import android.content.Context;
 import android.os.Build;
 import android.speech.tts.TextToSpeech;
 
+import com.alphago.alphago.Constants;
 import com.alphago.alphago.activity.ImageRecognitionActivity;
 
 import java.util.HashMap;
 import java.util.Locale;
+
+import static com.alphago.alphago.Constants.LANGUAGE_CHI;
+import static com.alphago.alphago.Constants.LANGUAGE_ENG;
+import static com.alphago.alphago.Constants.LANGUAGE_JAP;
 
 /**
  * # 사용하려는 액티비티에 꼭 onDestroy 메소드 오버라이드 필요 (shutdown() 넣어주기).
@@ -23,6 +28,19 @@ public class TTSHelper {
             @Override
             public void onInit(int status) {
                 tts.setLanguage(Locale.ENGLISH);
+            }
+        });
+    }
+
+    public TTSHelper(Context context, final String language){
+        this.context = context;
+        tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                int lang = Constants.getLanguage(language);
+                if(lang == LANGUAGE_JAP) tts.setLanguage(Locale.JAPANESE);
+                else if(lang == LANGUAGE_CHI) tts.setLanguage(Locale.CHINESE);
+                else tts.setLanguage(Locale.ENGLISH);
             }
         });
     }

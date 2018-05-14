@@ -3,6 +3,8 @@ package com.alphago.alphago.fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -10,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -79,6 +82,19 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setAttributes(params);
+        }
     }
 
     @Override

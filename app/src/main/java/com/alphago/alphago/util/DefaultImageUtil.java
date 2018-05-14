@@ -32,9 +32,9 @@ public class DefaultImageUtil {
             case 5:
                 return R.drawable.e_img_collect_kch;
             case 6:
-                return R.drawable.f_img_collect_bth;
-            case 7:
                 return R.drawable.g_img_collect_elec;
+            case 7:
+                return R.drawable.f_img_collect_bth;
             case 8:
                 return R.drawable.h_img_collect_room;
             default:

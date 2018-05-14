@@ -40,9 +40,11 @@ public class WordLearningActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_learning);
 
+        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
+
         learnImage = (ImageView) findViewById(R.id.learn_image);
         learnLabel = (TextView) findViewById(R.id.learn_label);
-        tts = new TTSHelper(this);
+        tts = new TTSHelper(this, lang);
 
         findViewById(btn_learn_exit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,19 +90,19 @@ public class WordLearningActivity extends NoStatusBarActivity {
         int type = getIntent().getIntExtra("learning_type", 0);
 
         if (type == TYPE_ALL) {
-            List<Category> categories = dbHelper.categorySelect();
+            List<Category> categories = dbHelper.categorySelect(lang);
             List<CardBook> cardBooks;
 
             // 현재 카드북으로 되어있지만, 카드에서 중복 제거 후 구현해야함.
             for (Category category : categories) {
-                cardBooks = dbHelper.cardbookSelect(category.getId());
+                cardBooks = dbHelper.cardbookSelect(category.getId(), lang);
                 cards.addAll(cardBooks);
             }
         } else if (type == TYPE_ALBUM) {
             ArrayList<Long> list = (ArrayList<Long>) getIntent().getSerializableExtra("category_select_list");
 
             for (Long id : list) {
-                List<CardBook> cardBooks = dbHelper.cardbookSelect(id);
+                List<CardBook> cardBooks = dbHelper.cardbookSelect(id, lang);
                 cards.addAll(cardBooks);
             }
         } else {

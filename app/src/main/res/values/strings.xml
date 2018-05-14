@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pic2word</string>
+    <string name="start_guide">어플리케이션을 시작하기위해서는 파일 접근권한, 쓰기권한이 필요합니다.</string>
 </resources>

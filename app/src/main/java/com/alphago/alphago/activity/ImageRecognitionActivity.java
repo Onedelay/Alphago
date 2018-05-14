@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alphago.alphago.Constants;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.database.DbHelper;
@@ -23,7 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 
-public class ImageRecognitionActivity extends NoStatusBarActivity implements RequestImageTrainingFragment.OnRequestTrainingListener{
+public class ImageRecognitionActivity extends NoStatusBarActivity implements RequestImageTrainingFragment.OnRequestTrainingListener {
     private File imageFile;
     private TTSHelper tts;
     private Button saveBtn;
@@ -34,6 +35,9 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     private int ID;
 
     private String maxLabel;
+    private String japLabel;
+    private String chLabel;
+    private String enLabel;
 
     private DbHelper dbHelper;
     private Button.OnClickListener saveClickListener;
@@ -45,8 +49,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_recognition);
-
-        dbHelper =  new DbHelper(getBaseContext());
+        dbHelper = new DbHelper(getBaseContext());
 
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
 
@@ -60,10 +63,22 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         }
 
         Intent intent = getIntent();
+
+        japLabel = intent.getStringExtra("ja_label");
+        chLabel = intent.getStringExtra("ch_label");
+        enLabel = intent.getStringExtra("max_label");
+
+        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
+
         maxLabel = intent.getStringExtra("max_label");
+        if (lang.equals("JAP")) {
+            maxLabel = intent.getStringExtra("ja_label");
+        } else if (lang.equals("CHI")) {
+            maxLabel = intent.getStringExtra("ch_label");
+        }
+
         catID = intent.getIntExtra("cate_ID", 0);
         ID = intent.getIntExtra("ID", 0);
-
 
         resultWord = (TextView) findViewById(R.id.recog_result);
         resultWord.setText(maxLabel);
@@ -71,7 +86,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         resultKorean = findViewById(R.id.result_kor);
         resultKorean.setText(intent.getStringExtra("ko_label"));
 
-        tts = new TTSHelper(this);
+        tts = new TTSHelper(this, lang);
         findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +103,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         });
 
         saveBtn = (Button) findViewById(R.id.btn_save);
-        saveClickListener = new Button.OnClickListener(){
+        saveClickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!view.isSelected()) {
@@ -96,7 +111,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
                     view.setSelected(true);
                     String filePath = storeImageFile(imageFile, maxLabel);
                     Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
-                    dbHelper.insertImage(maxLabel, catID, ID, filePath, true);
+                    dbHelper.insertImage(catID, ID, enLabel, japLabel, chLabel, filePath, true);
                 } else {
                     Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -118,7 +133,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         wrongBtn = findViewById(R.id.btn_wrong);
         wrongBtn.setOnClickListener(requestClickListener);
 
-        if(maxLabel.equals("none")){
+        if (maxLabel.equals("none")) {
             saveBtn.setText("틀렸어요");
             saveBtn.setOnClickListener(requestClickListener);
             wrongBtn.setVisibility(View.GONE);

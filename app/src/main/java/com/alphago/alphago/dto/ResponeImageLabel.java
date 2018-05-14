@@ -7,9 +7,11 @@ package com.alphago.alphago.dto;
 public class ResponeImageLabel {
     private String category;
     private String max_label;
-    private String ko_label;
-    private int ID;
-    private int cate_ID;
+    private String ko;
+    private String ja;
+    private String zh_CN;
+    private int LABEL_ID;
+    private int CAT_ID;
 
     public String getCategory() {
         return category;
@@ -23,19 +25,27 @@ public class ResponeImageLabel {
         return max_label;
     }
 
-    public String getKo_label() {
-        return ko_label;
+    public String getKo() {
+        return ko;
     }
 
     public void setResponseLabel(String max_label) {
         this.max_label = max_label;
     }
 
-    public int getID() {
-        return ID;
+    public int getLABEL_ID() {
+        return LABEL_ID;
     }
 
-    public int getCate_ID() {
-        return cate_ID;
+    public int getCAT_ID() {
+        return CAT_ID;
+    }
+
+    public String getJa() {
+        return ja;
+    }
+
+    public String getZh_CN() {
+        return zh_CN;
     }
 }

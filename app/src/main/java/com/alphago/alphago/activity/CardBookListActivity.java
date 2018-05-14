@@ -23,6 +23,8 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_book_list);
 
+        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
+
         long categoryId = getIntent().getLongExtra("categoryId", -1);
         String category = getIntent().getStringExtra("category");
 
@@ -36,16 +38,16 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
         recyclerView.setHasFixedSize(true);
 
         DbHelper dbHelper = new DbHelper(getBaseContext());
-        adapter.setList(dbHelper.cardbookSelect(categoryId));
+        adapter.setList(dbHelper.cardbookSelect(categoryId, lang));
     }
 
     @Override
     public void onCardClick(Object data) {
-        if (data instanceof CardBook) {
-            Intent intent = new Intent(this, CardListActivity.class);
-            intent.putExtra("label", ((CardBook) data).getName());
-            intent.putExtra("labelId", ((CardBook) data).getId());
-            startActivity(intent);
-        }
+//        if (data instanceof CardBook) {
+//            Intent intent = new Intent(this, CardListActivity.class);
+//            intent.putExtra("label", ((CardBook) data).getName());
+//            intent.putExtra("labelId", ((CardBook) data).getId());
+//            startActivity(intent);
+//        }
     }
 }

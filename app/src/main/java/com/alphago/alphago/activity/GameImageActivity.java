@@ -56,8 +56,10 @@ public class GameImageActivity extends NoStatusBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_image);
 
+        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
+
         // Load CardBook in Database
-        categoryList = dbHelper.categorySelect();
+        categoryList = dbHelper.categorySelect(lang);
         int catSize = categoryList.size();
         long catId = 0;
         int carSize = 0;
@@ -65,7 +67,7 @@ public class GameImageActivity extends NoStatusBarActivity {
         for (int i = 0; i < catSize; i++) {
             catId = categoryList.get(i).getId();
             // 해당 카테고리의 카드북 반환
-            List<CardBook> tmpList = dbHelper.cardbookSelect(catId);
+            List<CardBook> tmpList = dbHelper.cardbookSelect(catId, lang);
             // 카드북의 사이즈 반환
             carSize = tmpList.size();
             // 사이즈만큼 돌면서 카드북에 추가
