@@ -1,10 +1,12 @@
-package com.alphago.alphago;
+package com.alphago.alphago.util;
 
 import java.util.HashMap;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+
+import com.alphago.alphago.R;
 
 
 public class SoundManager {

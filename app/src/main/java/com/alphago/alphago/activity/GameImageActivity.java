@@ -8,12 +8,11 @@ import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
-import com.alphago.alphago.SoundManager;
+import com.alphago.alphago.util.SoundManager;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;

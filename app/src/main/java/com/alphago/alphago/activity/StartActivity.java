@@ -17,6 +17,7 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
 import com.alphago.alphago.database.DbHelper;
+import com.alphago.alphago.fragment.InitSettingFragment;
 import com.alphago.alphago.util.PermissionUtils;
 
 import java.io.File;
@@ -26,7 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.util.Random;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -98,7 +98,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
     }
 
     private void controlStartActivity(long time) {
-        Toast.makeText(this, sharedPreferences.getString("Language", "none"), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, sharedPreferences.getString("Language", "none"), Toast.LENGTH_SHORT).show();
         if (time < 2000L) {
             new Handler().postDelayed(new Runnable() {
                 @Override

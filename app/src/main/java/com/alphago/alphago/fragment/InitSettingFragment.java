@@ -1,4 +1,4 @@
-package com.alphago.alphago.activity;
+package com.alphago.alphago.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.alphago.alphago.R;
+import com.alphago.alphago.activity.StartActivity;
 
 public class InitSettingFragment extends DialogFragment {
     private RadioGroup radioGroup;

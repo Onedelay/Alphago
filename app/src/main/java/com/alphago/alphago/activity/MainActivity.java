@@ -1,12 +1,17 @@
 package com.alphago.alphago.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.alphago.alphago.Constants;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
@@ -16,6 +21,7 @@ import com.alphago.alphago.util.PermissionUtils;
 
 public class MainActivity extends NoStatusBarActivity {
     private BackPressCloseHandler backPressCloseHandler;
+    private String lang;
 
     @Override
     public void onBackPressed() {
@@ -28,6 +34,8 @@ public class MainActivity extends NoStatusBarActivity {
         setContentView(R.layout.activity_main);
 
         this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
+        lang = StartActivity.sharedPreferences.getString("Language", "ENG");
 
         backPressCloseHandler = new BackPressCloseHandler(this);
 
@@ -60,11 +68,63 @@ public class MainActivity extends NoStatusBarActivity {
                 startActivity(intent);
             }
         });
+
+        findViewById(R.id.btn_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setLanguageDialog();
+            }
+        });
     }
 
     @Override
     public void finish() {
         super.finish();
         this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
+    }
+
+    public void setLanguageDialog() {
+        final SharedPreferences.Editor editor = StartActivity.sharedPreferences.edit();
+
+        final String[] languages = {"영어", "일본어", "중국어"};
+
+        int checked = -1;
+        switch (Constants.getLanguage(lang)) {
+            case 20:
+                checked = 1;
+                break;
+            case 30:
+                checked = 2;
+                break;
+            default:
+                checked = 0;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("언어를 선택하세요.");
+        builder.setSingleChoiceItems(languages, checked,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        switch (i) {
+                            case 1:
+                                lang = "JAP";
+                                Toast.makeText(MainActivity.this, "일본어로 선택되었습니다.", Toast.LENGTH_SHORT).show();
+                                break;
+                            case 2:
+                                lang = "CHI";
+                                Toast.makeText(MainActivity.this, "중국어로 선택되었습니다.", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Toast.makeText(MainActivity.this, "영어로 선택되었습니다.", Toast.LENGTH_SHORT).show();
+                                lang = "ENG";
+                        }
+                        editor.putString("Language", lang);
+                        editor.apply();
+                        dialogInterface.dismiss();
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
