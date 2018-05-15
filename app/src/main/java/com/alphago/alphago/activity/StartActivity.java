@@ -108,7 +108,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
                 }
             }, 2000 - time);
         } else {
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
+            startActivity(new Intent(StartActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
             finish();
         }
     }

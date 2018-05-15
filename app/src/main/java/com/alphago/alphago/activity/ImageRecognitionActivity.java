@@ -1,6 +1,9 @@
 package com.alphago.alphago.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;
@@ -69,7 +72,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
                     .into(myImage);
         }
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         japLabel = intent.getStringExtra("ja_label");
         chLabel = intent.getStringExtra("ch_label");
@@ -119,6 +122,27 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
                     String filePath = storeImageFile(imageFile, maxLabel);
                     Toast.makeText(getBaseContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show();
                     dbHelper.insertImage(catID, ID, enLabel, japLabel, chLabel, filePath, true);
+                    if(dbHelper.getAchievementRate(catID) == 100.0){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ImageRecognitionActivity.this);
+                        final Intent collecIntent = new Intent(getBaseContext(), CollectionActivity.class);
+                        builder.setMessage("해당 카테고리의 컬렉션이 모두 완성되었습니다!");
+                        builder.setPositiveButton("확인하러가기",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        startActivity(collecIntent);
+                                        finish();
+                                    }
+                                });
+                        builder.setNegativeButton("취소",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        // Do-nothing
+                                    }
+                                });
+                        builder.show();
+                    }
                 } else {
                     Toast.makeText(getBaseContext(), "이미 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 }
@@ -148,7 +172,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             } else {
                 saveBtn.setOnClickListener(saveClickListener);
             }
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Toast.makeText(this, "None 오류", Toast.LENGTH_SHORT).show();
             finish();
             e.printStackTrace();
@@ -220,12 +244,18 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         this.enLabel = label;
         this.japLabel = jaLabel;
         this.chLabel = chLabel;
-        catID = cateId;
-        ID = labelId;
+        this.catID = cateId;
+        this.ID = labelId;
 
         saveBtn.setText("저장하기");
         saveBtn.setOnClickListener(saveClickListener);
         wrongBtn.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 
     @Override
