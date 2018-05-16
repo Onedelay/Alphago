@@ -113,6 +113,14 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         }
     }
 
+    public void cancelLearning(DbHelper dbHelper) {
+        isSelectMode = false;
+        selectList.clear();
+        btnLearning.setBackgroundResource(R.drawable.icon_learning);
+        adapter.setList(dbHelper.categorySelect(""));
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onLearningCategory() {
         isSelectMode = true;
@@ -127,13 +135,6 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         } else {
             super.onBackPressed();
         }
-    }
-
-    public void cancelLearning(DbHelper dbHelper) {
-        isSelectMode = false;
-        btnLearning.setBackgroundResource(R.drawable.icon_learning);
-        adapter.setList(dbHelper.categorySelect(""));
-        adapter.notifyDataSetChanged();
     }
 
     @Override
