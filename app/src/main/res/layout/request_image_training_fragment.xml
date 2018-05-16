@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/oegyein"
             android:text="분류"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <Spinner
@@ -42,6 +43,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/oegyein"
             android:text="단어"
+            android:textColor="@android:color/black"
             android:textSize="18sp" />
 
         <EditText

@@ -16,6 +16,7 @@
 
         <TextView
             android:id="@+id/select_difficulty"
+            style="@style/GameFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oegyein"
@@ -92,6 +93,7 @@
 
         <TextView
             android:id="@+id/select_mode"
+            style="@style/GameFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/oegyein"
