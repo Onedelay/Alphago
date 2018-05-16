@@ -36,6 +36,7 @@
 
             <Button
                 android:id="@+id/btn_easy"
+                style="@style/GameFont"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
                 android:background="@drawable/button_dialog"
@@ -46,6 +47,7 @@
 
             <Button
                 android:id="@+id/btn_normal"
+                style="@style/GameFont"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"
@@ -58,6 +60,7 @@
 
             <Button
                 android:id="@+id/btn_hard"
+                style="@style/GameFont"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
                 android:layout_marginLeft="20dp"

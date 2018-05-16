@@ -116,7 +116,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
             Collections.shuffle(cards);
             setWord(index);
         } else {
-            Toast.makeText(WordLearningActivity.this, "학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(WordLearningActivity.this, "학습할 목록이 없습니다", Toast.LENGTH_SHORT).show();
         }
     }
 

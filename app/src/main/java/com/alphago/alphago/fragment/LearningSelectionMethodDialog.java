@@ -55,7 +55,7 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         method1 = (TextView) rootView.findViewById(R.id.btn_img_capture);
         method2 = (TextView) rootView.findViewById(R.id.btn_img_album_select);
 
-        method.setText("학습 방법을 선택하세요.");
+        method.setText("학습 방법을 선택하세요");
         method1.setText("카테고리 학습");
         method2.setText("전체 학습 ");
 

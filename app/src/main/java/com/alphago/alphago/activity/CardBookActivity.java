@@ -54,7 +54,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
                     intent.putExtra("category_select_list", selectList);
                     intent.putExtra("learning_type", LearningSelectionMethodDialog.TYPE_ALBUM);
                     if(selectList.size() == 0) {
-                        Toast.makeText(CardBookActivity.this, "학습할 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CardBookActivity.this, "학습할 목록이 없습니다", Toast.LENGTH_SHORT).show();
                         cancelLearning(dbHelper);
                     } else {
                         startActivity(intent);
@@ -122,7 +122,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     public void onBackPressed() {
         if (isSelectMode) {
             cancelLearning(dbHelper);
-            Toast.makeText(this, "학습이 취소되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "학습이 취소되었습니다", Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }
