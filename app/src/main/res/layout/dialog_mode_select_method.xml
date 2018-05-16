@@ -100,6 +100,7 @@
 
         <Button
             android:id="@+id/btn_word_game"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginRight="20dp"
@@ -114,6 +115,7 @@
 
         <Button
             android:id="@+id/btn_img_game"
+            style="@style/GameFont"
             android:layout_width="0dp"
             android:layout_height="60dp"
             android:layout_marginLeft="20dp"

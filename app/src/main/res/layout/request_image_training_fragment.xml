@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/oegyein"
             android:text="분류"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/request_category"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/oegyein"
             android:text="단어"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/request_label_name"
@@ -55,7 +55,7 @@
         android:id="@+id/request_send"
         style="@style/GameFont"
         android:layout_width="90dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:background="@drawable/button_ex"
         android:fontFamily="@font/oegyein"
         android:text="전송하기"

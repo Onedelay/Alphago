@@ -26,6 +26,7 @@
 
     <Button
         android:id="@+id/btn_img_capture"
+        style="@style/GameFont"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginRight="20dp"
@@ -40,6 +41,7 @@
 
     <Button
         android:id="@+id/btn_img_album_select"
+        style="@style/GameFont"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
