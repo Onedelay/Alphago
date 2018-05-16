@@ -247,7 +247,7 @@ public class GameImageActivity extends NoStatusBarActivity {
                 .into(btn_igame_ex4);
 
         // Example 선택 표시(game_right_border) 초기화
-        img_igame_tvqst.setImageResource(R.drawable.tv_qst);
+        img_igame_tvqst.setImageResource(R.drawable.img_imggame_qst);
         img_igame_check1.setVisibility(View.GONE);
         img_igame_check2.setVisibility(View.GONE);
         img_igame_check3.setVisibility(View.GONE);

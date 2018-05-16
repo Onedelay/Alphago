@@ -24,6 +24,7 @@
         style="@style/CollectionFont"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/oegyein"
         android:gravity="center"
         android:text="label"
         android:textSize="20sp"

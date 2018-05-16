@@ -55,7 +55,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
         <TextView
             android:id="@+id/learn_label"
             android:layout_width="0dp"
@@ -65,6 +64,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/basic_border"
+            android:fontFamily="@font/oegyein"
             android:gravity="center"
             android:text="Label"
             android:textSize="45sp"

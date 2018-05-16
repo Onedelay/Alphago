@@ -293,7 +293,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/button_ex"
-            android:text="Home"
+            android:fontFamily="@font/oegyein"
+            android:text="돌아갈래요"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/rgame_guideline3"
             app:layout_constraintRight_toRightOf="parent" />
@@ -305,7 +306,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/button_ex"
-            android:text="Retry"
+            android:fontFamily="@font/oegyein"
+            android:text="다시할래요"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/rgame_guideline3" />

@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:fontFamily="@font/oegyein"
         android:gravity="center"
         android:text="Q1"
         android:textSize="40sp"
@@ -90,6 +91,7 @@
             style="@style/GameFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/oegyein"
             android:text="Label"
             android:textSize="35sp"
             android:textStyle="bold"
@@ -106,6 +108,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/button_ex"
+            android:fontFamily="@font/oegyein"
             android:text="X"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -124,6 +127,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/button_ex"
+            android:fontFamily="@font/oegyein"
             android:text="O"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -182,6 +186,6 @@
         app:layout_constraintLeft_toLeftOf="@+id/img_wgame1_bgqst"
         app:layout_constraintRight_toRightOf="@+id/img_wgame1_bgqst"
         app:layout_constraintTop_toTopOf="@+id/img_wgame1_bgqst"
-        app:srcCompat="@drawable/tv_qst" />
+        app:srcCompat="@drawable/img_wordgame1_qst" />
 
 </android.support.constraint.ConstraintLayout>

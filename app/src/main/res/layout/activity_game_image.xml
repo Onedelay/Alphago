@@ -44,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:fontFamily="@font/oegyein"
         android:gravity="center"
         android:text="Q1"
         android:textSize="40sp"
@@ -139,6 +140,7 @@
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/oegyein"
             android:gravity="center"
             android:text="Label"
             android:textSize="32sp"
@@ -223,6 +225,6 @@
         app:layout_constraintLeft_toLeftOf="@+id/img_igame_bgqst"
         app:layout_constraintRight_toRightOf="@+id/img_igame_bgqst"
         app:layout_constraintTop_toTopOf="@+id/img_igame_bgqst"
-        app:srcCompat="@drawable/tv_qst" />
+        app:srcCompat="@drawable/img_imggame_qst" />
 
 </android.support.constraint.ConstraintLayout>

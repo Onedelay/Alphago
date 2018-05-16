@@ -234,7 +234,7 @@ public class GameWordActivity1 extends NoStatusBarActivity {
         btn_wgame_ex2.setText(TestData.dataLabel[ex_num[qcount][1]]); */
 
         // 말풍선 및 Example 선택 표시 초기화
-        img_wgame1_tvqst.setImageResource(R.drawable.tv_qst);
+        img_wgame1_tvqst.setImageResource(R.drawable.img_wordgame1_qst);
         btn_wgame1_ex1.setBackgroundResource(R.drawable.button_ex);
         btn_wgame1_ex2.setBackgroundResource(R.drawable.button_ex);
 

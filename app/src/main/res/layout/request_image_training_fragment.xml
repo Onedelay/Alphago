@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_green_rectangle"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp">
@@ -20,7 +21,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="카테고리명 : " />
+            android:fontFamily="@font/oegyein"
+            android:text="분류"
+            android:textSize="24sp" />
 
         <Spinner
             android:id="@+id/request_category"
@@ -37,19 +40,25 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="레이블명 : " />
+            android:fontFamily="@font/oegyein"
+            android:text="단어"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/request_label_name"
-            android:layout_width="100dp"
+            android:layout_width="148dp"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/request_send"
+        style="@style/GameFont"
         android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:text="전송하기"></Button>
+        android:layout_height="50dp"
+        android:background="@drawable/button_ex"
+        android:fontFamily="@font/oegyein"
+        android:text="전송하기"
+        android:textSize="18sp"></Button>
 
 </LinearLayout>

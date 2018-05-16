@@ -204,7 +204,7 @@ public class GameWordActivity3 extends NoStatusBarActivity {
                 .into(img_wgame3_qst);
 
         // 말풍선 초기화
-        img_wgame3_tvqst.setImageResource(R.drawable.tv_qst2);
+        img_wgame3_tvqst.setImageResource(R.drawable.img_wordgame3_qst);
         img_wgame3_lqst.setText("");
     }
 }

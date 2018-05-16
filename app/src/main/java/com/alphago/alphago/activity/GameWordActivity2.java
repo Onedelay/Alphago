@@ -241,7 +241,7 @@ public class GameWordActivity2 extends NoStatusBarActivity {
         btn_wgame_ex4.setText(cardBookList.get(ex_num[qcount][3]).getName());
 
         // 말풍선 및 Example 선택 표시 초기화
-        img_wgame_tvqst.setImageResource(R.drawable.tv_qst);
+        img_wgame_tvqst.setImageResource(R.drawable.img_wordgame2_qst);
         btn_wgame_ex1.setBackgroundResource(R.drawable.button_ex);
         btn_wgame_ex2.setBackgroundResource(R.drawable.button_ex);
         btn_wgame_ex3.setBackgroundResource(R.drawable.button_ex);
