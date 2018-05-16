@@ -62,7 +62,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
                     index--;
                     setWord(index);
                 } else {
-                    Toast.makeText(WordLearningActivity.this, "First card.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WordLearningActivity.this, "첫번째 카드입니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -74,7 +74,7 @@ public class WordLearningActivity extends NoStatusBarActivity {
                     index++;
                     setWord(index);
                 } else {
-                    Toast.makeText(WordLearningActivity.this, "Last card.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WordLearningActivity.this, "마지막 카드입니다", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -82,8 +82,9 @@ public class WordLearningActivity extends NoStatusBarActivity {
         findViewById(R.id.btn_pronounce).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(learnLabel.getText().toString().equals("usb")) tts.speak("U.S.B");
-                else tts.speak(learnLabel.getText().toString());
+                //if(learnLabel.getText().toString().equals("usb")) tts.speak("U S B");
+                //else
+                tts.speak(learnLabel.getText().toString());
             }
         });
 

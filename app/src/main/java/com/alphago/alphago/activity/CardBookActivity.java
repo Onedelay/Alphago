@@ -77,7 +77,8 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        adapter.setList(dbHelper.categorySelect(lang));
+        //adapter.setList(dbHelper.categorySelect(lang));
+        adapter.setList(dbHelper.categorySelect(""));
 
 //        findViewById(R.id.btn_management).setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -131,7 +132,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     public void cancelLearning(DbHelper dbHelper) {
         isSelectMode = false;
         btnLearning.setBackgroundResource(R.drawable.icon_learning);
-        adapter.setList(dbHelper.categorySelect(lang));
+        adapter.setList(dbHelper.categorySelect(""));
         adapter.notifyDataSetChanged();
     }
 

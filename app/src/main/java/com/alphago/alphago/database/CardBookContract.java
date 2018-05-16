@@ -16,6 +16,7 @@ public final class CardBookContract {
         public static final String COLUMN_NAME_LABEL = "category_label";
         public static final String COLUMN_NAME_JAP_LABEL = "category_label_jap";
         public static final String COLUMN_NAME_CHI_LABEL = "category_label_chi";
+        public static final String COLUMN_NAME_KOR_LABEL = "category_label_kor";
         public static final String COLUMN_NAME_PATH = "img_path";
     }
 

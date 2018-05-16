@@ -35,7 +35,8 @@ public class CollectionActivity extends NoStatusBarActivity implements Collectio
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        adapter.setList(dbHelper.categoryAllSelect(language));
+        //adapter.setList(dbHelper.categoryAllSelect(language));
+        adapter.setList(dbHelper.categoryAllSelect(0));
     }
 
     @Override

@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.alphago.alphago.Constants.LANGUAGE_CHI;
+import static com.alphago.alphago.Constants.LANGUAGE_ENG;
 import static com.alphago.alphago.Constants.LANGUAGE_JAP;
 import static com.alphago.alphago.Constants.getLanguage;
 
@@ -37,6 +38,7 @@ public class DbHelper extends SQLiteOpenHelper {
                     CategoryEntry.COLUMN_NAME_LABEL + " TEXT ," +
                     CategoryEntry.COLUMN_NAME_JAP_LABEL + " TEXT ," +
                     CategoryEntry.COLUMN_NAME_CHI_LABEL + " TEXT ," +
+                    CategoryEntry.COLUMN_NAME_KOR_LABEL + " TEXT ," +
                     CategoryEntry.COLUMN_NAME_PATH + " TEXT)";
 
     private static final String SQL_CREATE_CARD_BOOK =
@@ -67,15 +69,15 @@ public class DbHelper extends SQLiteOpenHelper {
                     CollectionEntry.COLUMN_NAME_PATH + " TEXT ," +
                     CollectionEntry.COLUMN_NAME_COLLECT + " INTEGER)";
 
-    //private static final String[] CATEGORY_LIST = {"동물", "실외", "음식", "학교", "부엌", "욕실", "가전제품", "실내"};
+    //private static final String[] CATEGORY_LIST_KOR = {"동물", "실외", "음식", "학교", "부엌", "욕실", "가전제품", "실내"};
     private static final String[][] CATEGORY_LIST = {
             /*
             {"Animal", "Outdoor", "Food", "School", "Kitchen", "Electronics", "Bathroom", "Room"}, // 영어
             {"どうぶつ", "しつがい", "たべもの", "がっこう", "だいどころ", "でんしせいひん", "トイレ", "しつない"}, // 일본어
             {"动物", "室外", "食物", "学校", "厨房", "电子产品", "卫生间", "室内"}  // 중국어
             */
-            {"Animal", "どうぶつ", "动物"}, {"Outdoor", "しつがい", "室外"}, {"Food", "たべもの", "食物"}, {"School", "がっこう", "学校"},
-            {"Kitchen", "だいどころ", "厨房"}, {"Electronics", "でんしせいひん", "电子产品"}, {"Bathroom", "トイレ", "卫生间"}, {"Room", "しつない", "室内"}
+            {"Animal", "どうぶつ", "动物", "동물"}, {"Outdoor", "しつがい", "室外", "실외"}, {"Food", "たべもの", "食物", "음식"}, {"School", "がっこう", "学校", "학교"},
+            {"Kitchen", "だいどころ", "厨房", "부엌"}, {"Electronics", "でんしせいひん", "电子产品", "전자제품"}, {"Bathroom", "トイレ", "卫生间", "욕실"}, {"Room", "しつない", "室内", "실내"}
     };
 
     private static final String[][] ANIMAL_COLLECTION = {
@@ -153,6 +155,7 @@ public class DbHelper extends SQLiteOpenHelper {
             values.put(CategoryEntry.COLUMN_NAME_LABEL, category[0]);
             values.put(CategoryEntry.COLUMN_NAME_JAP_LABEL, category[1]);
             values.put(CategoryEntry.COLUMN_NAME_CHI_LABEL, category[2]);
+            values.put(CategoryEntry.COLUMN_NAME_KOR_LABEL, category[3]);
             db.insert(CategoryEntry.TABLE_NAME, null, values); // return row ID (long)
         }
 
@@ -193,8 +196,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 case LANGUAGE_CHI:
                     category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_CHI_LABEL));
                     break;
-                default:
+                case LANGUAGE_ENG:
                     category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_LABEL));
+                    break;
+                default:
+                    category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_KOR_LABEL));
             }
             String filePath = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_PATH));
 
@@ -227,8 +233,11 @@ public class DbHelper extends SQLiteOpenHelper {
                 case LANGUAGE_CHI:
                     category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_CHI_LABEL));
                     break;
-                default:
+                case LANGUAGE_ENG:
                     category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_LABEL));
+                    break;
+                default:
+                    category = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_KOR_LABEL));
             }
 
             String filePath = c.getString(c.getColumnIndexOrThrow(CategoryEntry.COLUMN_NAME_PATH));
