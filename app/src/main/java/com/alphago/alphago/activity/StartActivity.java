@@ -162,7 +162,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
 
     private boolean writeResponseBodyToDist(ResponseBody body) {
         try {
-            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Alphago";
+            String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pic2word";
 
             File dirFile = new File(dirPath);
             if (!dirFile.exists()) dirFile.mkdirs();

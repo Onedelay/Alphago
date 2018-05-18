@@ -195,16 +195,16 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         //super.onBackPressed();
     }
 
-    // 내부저장소 Alphago 폴더 내 사진 저장
+    // 내부저장소 Pic2word 폴더 내 사진 저장
     private String storeImageFile(File imageFile, String imageLabel) {
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Alphago";
+        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pic2word";
 
-        File dirAlphago = new File(dirPath);
-        if (!dirAlphago.exists()) dirAlphago.mkdirs();
+        File dirName = new File(dirPath);
+        if (!dirName.exists()) dirName.mkdirs();
 
         String fileName = String.format(imageLabel + System.currentTimeMillis() + ".jpg");
 
-        File outFile = new File(dirAlphago, fileName);
+        File outFile = new File(dirName, fileName);
 
         try {
             FileOutputStream outStream = new FileOutputStream(outFile);
