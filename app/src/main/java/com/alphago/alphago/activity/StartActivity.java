@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -52,13 +53,15 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
 
         sharedPreferences = getPreferences(Context.MODE_PRIVATE);
 
-        if (sharedPreferences.getString("Language", "none").equals("none")) {
-            InitSettingFragment settingFragment = new InitSettingFragment();
-            settingFragment.show(getSupportFragmentManager(), "dialog");
-        }
-
-        if (sharedPreferences.getBoolean("Default", false)) {
-            controlStartActivity(0);
+        int permissionWriteCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCamCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (permissionWriteCheck == PackageManager.PERMISSION_GRANTED
+                && permissionCamCheck == PackageManager.PERMISSION_GRANTED) {
+            if (sharedPreferences.getBoolean("Default", false)) {
+                controlStartActivity(0);
+            }
+        } else {
+            guideMessage();
         }
     }
 
@@ -108,7 +111,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
                 }
             }, 2000 - time);
         } else {
-            startActivity(new Intent(StartActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
             finish();
         }
     }
@@ -219,12 +222,16 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
                 }
             } else {
                 //Toast.makeText(this, permissions[i] + " Permission Denied", Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(this, "권한이 없어 종료됩니다.", Toast.LENGTH_SHORT).show();
-//                    try{
-//                        Thread.sleep(2000L);
-//                        finish();
-//                    } catch (Exception e){}
+                Toast.makeText(this, "권한이 없어 종료됩니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
+        }
+    }
+
+    private void guideMessage(){
+        if (sharedPreferences.getString("Language", "none").equals("none")) {
+            InitSettingFragment settingFragment = new InitSettingFragment();
+            settingFragment.show(getSupportFragmentManager(), "dialog");
         }
     }
 

@@ -41,24 +41,34 @@ public class InitSettingFragment extends DialogFragment {
         rootView.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!sw) nextSetting(rootView);
-                else {
-                    int id = radioGroup.getCheckedRadioButtonId();
-                    switch (id) {
-                        case R.id.japanese:
-                            language = "JAP";
-                            break;
-                        case R.id.chinese:
-                            language = "CHI";
-                            break;
-                        default:
-                            language = "ENG";
-                    }
-                    listener.onSettingLanguage(language);
-                    dismiss();
-                }
+                language = "ENG";
+                listener.onSettingLanguage(language);
+                dismiss();
             }
         });
+
+
+//        rootView.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (!sw) nextSetting(rootView);
+//                else {
+//                    int id = radioGroup.getCheckedRadioButtonId();
+//                    switch (id) {
+//                        case R.id.japanese:
+//                            language = "JAP";
+//                            break;
+//                        case R.id.chinese:
+//                            language = "CHI";
+//                            break;
+//                        default:
+//                            language = "ENG";
+//                    }
+//                    listener.onSettingLanguage(language);
+//                    dismiss();
+//                }
+//            }
+//        });
 
         radioGroup = rootView.findViewById(R.id.language_radio);
         return builder.create();
