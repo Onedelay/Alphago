@@ -3,6 +3,8 @@ package com.alphago.alphago.fragment;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -13,7 +15,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -41,6 +45,8 @@ public class RequestImageTrainingFragment extends DialogFragment {
     private Spinner spinner;
     private EditText requestImageName;
     private OnRequestTrainingListener listener;
+    private Button sendButton;
+    FrameLayout frameLayout;
 
     public interface OnRequestTrainingListener {
         void onRequestTraining(String category, String label, String jaLabel, String chLabel, String korLabel, int cateId, int labelId);
@@ -75,11 +81,14 @@ public class RequestImageTrainingFragment extends DialogFragment {
                     .into(requestImage);
         }
 
-        rootView.findViewById(R.id.request_send).setOnClickListener(new View.OnClickListener() {
+        sendButton = rootView.findViewById(R.id.request_send);
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String category = (String) spinner.getSelectedItem();
                 final String requestLabel = requestImageName.getText().toString().toLowerCase();
+
+                showLoadingView(true);
 
                 AlphagoServer.getInstance().requestTrain(getContext(), requestImageFile, category.toLowerCase() + "_" + requestLabel, new Callback<ResponseRequestResult>() {
                     @Override
@@ -104,7 +113,22 @@ public class RequestImageTrainingFragment extends DialogFragment {
             }
         });
 
+        frameLayout = rootView.findViewById(R.id.frame_loading);
+
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = WindowManager.LayoutParams.WRAP_CONTENT;
+            params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            window.setAttributes(params);
+        }
     }
 
     @Override
@@ -115,5 +139,13 @@ public class RequestImageTrainingFragment extends DialogFragment {
         } catch(ClassCastException e){
             throw new ClassCastException(context.toString()+" must implement OnRequestTrainingListener");
         }
+    }
+
+    private void showLoadingView(boolean show) {
+        frameLayout.setVisibility(show ? View.VISIBLE : View.GONE);
+        frameLayout.setClickable(true);
+        sendButton.setEnabled(false);
+        sendButton.setTextColor(Color.LTGRAY);
+        spinner.setEnabled(false);
     }
 }
