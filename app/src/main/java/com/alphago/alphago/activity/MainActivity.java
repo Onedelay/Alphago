@@ -6,9 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.util.Linkify;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphago.alphago.Constants;
@@ -75,6 +79,13 @@ public class MainActivity extends NoStatusBarActivity {
                 setLanguageDialog();
             }
         });
+
+        findViewById(R.id.hideButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showInformation();
+            }
+        });
     }
 
     @Override
@@ -124,6 +135,27 @@ public class MainActivity extends NoStatusBarActivity {
                         dialogInterface.dismiss();
                     }
                 });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void showInformation(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("개인정보 처리 취급방침을 보시겠습니까?");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.url)));
+                startActivity(intent);
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
