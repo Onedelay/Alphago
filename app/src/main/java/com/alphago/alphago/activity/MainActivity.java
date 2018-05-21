@@ -1,18 +1,12 @@
 package com.alphago.alphago.activity;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.util.Linkify;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphago.alphago.Constants;
@@ -21,7 +15,6 @@ import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.alphago.alphago.handler.BackPressCloseHandler;
-import com.alphago.alphago.util.PermissionUtils;
 
 public class MainActivity extends NoStatusBarActivity {
     private BackPressCloseHandler backPressCloseHandler;

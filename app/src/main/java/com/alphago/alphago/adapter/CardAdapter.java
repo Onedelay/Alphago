@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.alphago.alphago.CardViewHolder;
 import com.alphago.alphago.R;
 import com.alphago.alphago.model.Card;
-import com.alphago.alphago.model.CardBook;
 
 import java.util.ArrayList;
 import java.util.List;

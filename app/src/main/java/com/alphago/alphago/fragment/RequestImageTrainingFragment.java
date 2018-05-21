@@ -8,12 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,13 +22,11 @@ import android.widget.Toast;
 
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
-import com.alphago.alphago.dto.ResponeImageLabel;
 import com.alphago.alphago.dto.ResponseRequestResult;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

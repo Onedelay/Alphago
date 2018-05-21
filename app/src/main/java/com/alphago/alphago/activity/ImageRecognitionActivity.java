@@ -3,7 +3,6 @@ package com.alphago.alphago.activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Bundle;

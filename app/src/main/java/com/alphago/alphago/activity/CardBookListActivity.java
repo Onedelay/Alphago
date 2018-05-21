@@ -1,7 +1,5 @@
 package com.alphago.alphago.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -11,7 +9,6 @@ import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.adapter.CardBookAdapter;
 import com.alphago.alphago.database.DbHelper;
-import com.alphago.alphago.model.CardBook;
 
 public class CardBookListActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
     private TextView cat;

@@ -2,7 +2,6 @@ package com.alphago.alphago.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,7 +9,6 @@ import android.widget.Toast;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.database.DbHelper;
-import com.alphago.alphago.model.Card;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
 import com.alphago.alphago.util.TTSHelper;

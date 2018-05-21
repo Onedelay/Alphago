@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alphago.alphago.model.Category;
 import com.alphago.alphago.model.CollectCategory;
 import com.alphago.alphago.model.Collection;
 import com.alphago.alphago.util.DefaultImageUtil;
@@ -47,6 +46,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         Picasso.with(itemView.getContext())
                 .load(DefaultImageUtil.getCollectionImage(category.getId()))
                 .into(mImageView);
+        //mImageView.setForeground(itemView.getContext().getDrawable(R.drawable.icon_complete));
         mTextView.setText(category.getLabel());
         circularProgressBar.setProgress(category.getAchievementRate());
     }

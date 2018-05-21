@@ -1,6 +1,5 @@
 package com.alphago.alphago;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import com.alphago.alphago.model.Card;
 import com.alphago.alphago.model.CardBook;
 import com.alphago.alphago.model.Category;
-import com.alphago.alphago.util.DefaultImageUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

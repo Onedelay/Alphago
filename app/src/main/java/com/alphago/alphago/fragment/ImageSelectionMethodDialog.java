@@ -2,18 +2,12 @@ package com.alphago.alphago.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -22,7 +16,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.alphago.alphago.R;
-import com.alphago.alphago.activity.ImageRecognitionActivity;
 import com.alphago.alphago.activity.SendImageActivity;
 
 import java.io.File;

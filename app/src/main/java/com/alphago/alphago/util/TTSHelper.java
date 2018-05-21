@@ -5,13 +5,11 @@ import android.os.Build;
 import android.speech.tts.TextToSpeech;
 
 import com.alphago.alphago.Constants;
-import com.alphago.alphago.activity.ImageRecognitionActivity;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 import static com.alphago.alphago.Constants.LANGUAGE_CHI;
-import static com.alphago.alphago.Constants.LANGUAGE_ENG;
 import static com.alphago.alphago.Constants.LANGUAGE_JAP;
 
 /**

@@ -5,16 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.alphago.alphago.R;
-import com.alphago.alphago.activity.StartActivity;
 
 public class InitSettingFragment extends DialogFragment {
     private RadioGroup radioGroup;
