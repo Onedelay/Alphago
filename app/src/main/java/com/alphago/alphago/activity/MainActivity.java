@@ -13,12 +13,15 @@ import com.alphago.alphago.Constants;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
+import com.alphago.alphago.fragment.HelpFragment;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.alphago.alphago.handler.BackPressCloseHandler;
 
-public class MainActivity extends NoStatusBarActivity {
+public class MainActivity extends NoStatusBarActivity implements HelpFragment.OnCloseListener{
     private BackPressCloseHandler backPressCloseHandler;
     private String lang;
+
+    private HelpFragment fragment;
 
     @Override
     public void onBackPressed() {
@@ -79,12 +82,25 @@ public class MainActivity extends NoStatusBarActivity {
                 showInformation();
             }
         });
+
+        findViewById(R.id.btn_help).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new HelpFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.container_main, fragment).commit();
+            }
+        });
     }
 
     @Override
     public void finish() {
         super.finish();
         this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
+    }
+
+    @Override
+    public void onClose() {
+        getSupportFragmentManager().beginTransaction().remove(fragment).commit();
     }
 
     public void setLanguageDialog() {
