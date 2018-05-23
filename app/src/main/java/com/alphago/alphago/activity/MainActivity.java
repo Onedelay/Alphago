@@ -1,9 +1,11 @@
 package com.alphago.alphago.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -45,7 +47,10 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
         findViewById(R.id.btn_recognition).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
+                if (isNetWork())
+                    new ImageSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
+                else
+                    Toast.makeText(MainActivity.this, "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -178,5 +183,19 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private Boolean isNetWork() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        boolean isMobileAvailable = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
+        boolean isMobileConnect = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
+        boolean isWifiAvailable = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable();
+        boolean isWifiConnect = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+
+        if ((isWifiAvailable && isWifiConnect) || (isMobileAvailable && isMobileConnect)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
