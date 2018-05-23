@@ -18,6 +18,7 @@ public class HelpFragment extends Fragment {
     private ImageView imageView;
     private Button preButton;
     private Button nextButton;
+    private  Button closeButton;
 
     private OnCloseListener listener;
 
@@ -35,6 +36,7 @@ public class HelpFragment extends Fragment {
         imageView = rootView.findViewById(R.id.help_image);
         preButton = rootView.findViewById(R.id.btn_help_pre);
         nextButton = rootView.findViewById(R.id.btn_help_next);
+        closeButton = rootView.findViewById(R.id.btn_help_close);
 
         preButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,13 @@ public class HelpFragment extends Fragment {
 
                 setPreButton();
                 setNextButton();
+            }
+        });
+
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClose();
             }
         });
 
