@@ -58,8 +58,11 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
         if (permissionWriteCheck == PackageManager.PERMISSION_GRANTED
                 && permissionCamCheck == PackageManager.PERMISSION_GRANTED) {
             if (sharedPreferences.getBoolean("Default", false)) {
-                controlStartActivity(0);
+                    controlStartActivity(0);
+            } else {
+                downloadFile();
             }
+            //controlStartActivity(0);
         } else {
             guideMessage();
         }
@@ -92,7 +95,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(StartActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StartActivity.this, "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
                 final long endTime = System.currentTimeMillis();
                 controlStartActivity(endTime - startTime);
