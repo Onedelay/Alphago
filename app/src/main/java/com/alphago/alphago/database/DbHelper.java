@@ -3,6 +3,7 @@ package com.alphago.alphago.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -355,6 +356,11 @@ public class DbHelper extends SQLiteOpenHelper {
         c.close();
 
         return collections;
+    }
+
+    public int getCardbookCount(){
+        SQLiteDatabase db = getReadableDatabase();
+        return (int)DatabaseUtils.queryNumEntries(db, CardBookEntry.TABLE_NAME);
     }
 
     // 컬렉션 달성률

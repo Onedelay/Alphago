@@ -12,12 +12,13 @@ import android.widget.Toast;
 import com.alphago.alphago.Constants;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
+import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.fragment.GameModeSelectionDialog;
 import com.alphago.alphago.fragment.HelpFragment;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.alphago.alphago.handler.BackPressCloseHandler;
 
-public class MainActivity extends NoStatusBarActivity implements HelpFragment.OnCloseListener{
+public class MainActivity extends NoStatusBarActivity implements HelpFragment.OnCloseListener {
     private BackPressCloseHandler backPressCloseHandler;
     private String lang;
 
@@ -34,6 +35,8 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
         setContentView(R.layout.activity_main);
 
         this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
+
+        final DbHelper dbHelper = new DbHelper(getBaseContext());
 
         lang = StartActivity.sharedPreferences.getString("Language", "ENG");
 
@@ -57,7 +60,11 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
         findViewById(R.id.btn_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GameModeSelectionDialog().show(getSupportFragmentManager(), "dialog");
+                if (dbHelper.getCardbookCount() < 10) {
+                    Toast.makeText(MainActivity.this, "10장의 카드를 채워주세요!", Toast.LENGTH_SHORT).show();
+                } else {
+                    new GameModeSelectionDialog().show(getSupportFragmentManager(), "dialog");
+                }
             }
         });
 
@@ -148,7 +155,7 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
         alertDialog.show();
     }
 
-    private void showInformation(){
+    private void showInformation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("개인정보 처리 취급방침을 보시겠습니까?");
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {

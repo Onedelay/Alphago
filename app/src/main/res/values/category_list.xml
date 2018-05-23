@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="category_array">
-        <item>Animal</item>
-        <item>Outdoor</item>
-        <item>Food</item>
-        <item>School</item>
-        <item>Kitchen</item>
-        <item>Bathroom</item>
-        <item>Electronics</item>
-        <item>Room</item>
+        <item>동물</item>
+        <item>실외</item>
+        <item>음식</item>
+        <item>학교</item>
+        <item>부엌</item>
+        <item>화장실</item>
+        <item>전자제품</item>
+        <item>실내</item>
     </string-array>
 </resources>
