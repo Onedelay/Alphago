@@ -12,13 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.alphago.alphago.R;
-import com.squareup.picasso.Picasso;
 
 public class HelpFragment extends Fragment {
     private ImageView imageView;
     private Button preButton;
     private Button nextButton;
-    private  Button closeButton;
+    private Button closeButton;
 
     private OnCloseListener listener;
 
@@ -42,11 +41,7 @@ public class HelpFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (count > 0) count--;
-                Picasso.with(getActivity().getBaseContext())
-                        .load(HELP_IMAGES[count])
-                        .centerInside()
-                        .fit()
-                        .into(imageView);
+                imageView.setImageResource(HELP_IMAGES[count]);
                 setPreButton();
                 setNextButton();
             }
@@ -58,13 +53,7 @@ public class HelpFragment extends Fragment {
                 if (count < HELP_IMAGES.length - 1) {
                     count++;
                 } else if (count == HELP_IMAGES.length - 1) listener.onClose();
-
-                Picasso.with(getActivity().getBaseContext())
-                        .load(HELP_IMAGES[count])
-                        .centerInside()
-                        .fit()
-                        .into(imageView);
-
+                imageView.setImageResource(HELP_IMAGES[count]);
                 setPreButton();
                 setNextButton();
             }
@@ -77,6 +66,7 @@ public class HelpFragment extends Fragment {
             }
         });
 
+        rootView.setClickable(true);
         return rootView;
     }
 
@@ -105,4 +95,6 @@ public class HelpFragment extends Fragment {
             throw new ClassCastException(context.toString() + " must implement OnRequestTrainingListener");
         }
     }
+
+
 }

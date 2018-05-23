@@ -101,7 +101,6 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
                 fragment = new HelpFragment();
                 if (fragment != null)
                     getSupportFragmentManager().beginTransaction().add(R.id.container_main, fragment).commit();
-                findViewById(R.id.main_container).setVisibility(View.GONE);
             }
         });
     }
@@ -116,7 +115,6 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
     public void onClose() {
         if (fragment != null)
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
-        findViewById(R.id.main_container).setVisibility(View.VISIBLE);
     }
 
     public void setLanguageDialog() {
