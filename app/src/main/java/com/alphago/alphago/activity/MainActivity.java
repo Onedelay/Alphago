@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.alphago.alphago.fragment.GameModeSelectionDialog;
 import com.alphago.alphago.fragment.HelpFragment;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.alphago.alphago.handler.BackPressCloseHandler;
+
+import static com.alphago.alphago.Constants.LANGUAGE_CHI;
+import static com.alphago.alphago.Constants.LANGUAGE_JAP;
 
 public class MainActivity extends NoStatusBarActivity implements HelpFragment.OnCloseListener {
     private BackPressCloseHandler backPressCloseHandler;
@@ -99,8 +103,7 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
             @Override
             public void onClick(View view) {
                 fragment = new HelpFragment();
-                if (fragment != null)
-                    getSupportFragmentManager().beginTransaction().add(R.id.container_main, fragment).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.container_main, fragment).commit();
             }
         });
     }
@@ -124,10 +127,10 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
 
         int checked = -1;
         switch (Constants.getLanguage(lang)) {
-            case 20:
+            case LANGUAGE_JAP:
                 checked = 1;
                 break;
-            case 30:
+            case LANGUAGE_CHI:
                 checked = 2;
                 break;
             default:
@@ -185,15 +188,8 @@ public class MainActivity extends NoStatusBarActivity implements HelpFragment.On
 
     private Boolean isNetWork() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        boolean isMobileAvailable = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isAvailable();
-        boolean isMobileConnect = manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnectedOrConnecting();
-        boolean isWifiAvailable = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isAvailable();
-        boolean isWifiConnect = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnectedOrConnecting();
+        NetworkInfo activeNetwork = manager != null ? manager.getActiveNetworkInfo() : null;
+        return activeNetwork != null;
 
-        if ((isWifiAvailable && isWifiConnect) || (isMobileAvailable && isMobileConnect)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

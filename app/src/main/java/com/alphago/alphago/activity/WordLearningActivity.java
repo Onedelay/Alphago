@@ -42,8 +42,8 @@ public class WordLearningActivity extends NoStatusBarActivity {
 
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
 
-        learnImage = (ImageView) findViewById(R.id.learn_image);
-        learnLabel = (TextView) findViewById(R.id.learn_label);
+        learnImage = findViewById(R.id.learn_image);
+        learnLabel = findViewById(R.id.learn_label);
         tts = new TTSHelper(this, lang);
 
         findViewById(btn_learn_exit).setOnClickListener(new View.OnClickListener() {

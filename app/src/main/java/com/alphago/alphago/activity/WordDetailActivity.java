@@ -17,7 +17,6 @@ import static com.alphago.alphago.R.id.btn_learn_exit;
 public class WordDetailActivity extends NoStatusBarActivity {
 
     private TTSHelper tts;
-    private ImageView learnImage;
     private TextView learnLabel;
 
     @Override
@@ -26,7 +25,7 @@ public class WordDetailActivity extends NoStatusBarActivity {
         setContentView(R.layout.activity_word_detail);
 
         learnLabel = findViewById(R.id.learn_label);
-        learnImage = findViewById(R.id.learn_image);
+        ImageView learnImage = findViewById(R.id.learn_image);
         tts = new TTSHelper(this);
 
         String label = getIntent().getStringExtra("label");

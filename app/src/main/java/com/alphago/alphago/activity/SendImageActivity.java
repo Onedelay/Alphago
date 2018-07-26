@@ -1,11 +1,11 @@
 package com.alphago.alphago.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.alphago.alphago.NoStatusBarActivity;
 import com.alphago.alphago.R;
 import com.alphago.alphago.api.AlphagoServer;
-import com.alphago.alphago.dto.ResponeImageLabel;
+import com.alphago.alphago.dto.ResponseImageLabel;
 import com.alphago.alphago.fragment.ImageSelectionMethodDialog;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -40,14 +40,10 @@ public class SendImageActivity extends NoStatusBarActivity {
     private int cate_ID;
     private CropImageView cropImageView;
 
-    private SharedPreferences sharedPreferences;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_image);
-
-
 
         imageFile = (File) getIntent().getSerializableExtra("sendImage");
 
@@ -79,17 +75,18 @@ public class SendImageActivity extends NoStatusBarActivity {
                     }
                 }
 
-                AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponeImageLabel>() {
+                AlphagoServer.getInstance().sendImage(getBaseContext(), imageFile, new Callback<ResponseImageLabel>() {
                     @Override
-                    public void onResponse(Call<ResponeImageLabel> call, Response<ResponeImageLabel> response) {
-                        if (response.body() != null) {
-                            category = response.body().getCategory();
-                            max_label = response.body().getResponseLabel();
-                            ID = response.body().getLABEL_ID();
-                            cate_ID = response.body().getCAT_ID();
-                            ko_label = response.body().getKo();
-                            ja_label = response.body().getJa();
-                            ch_label = response.body().getZh_CN();
+                    public void onResponse(@NonNull Call<ResponseImageLabel> call, @NonNull Response<ResponseImageLabel> response) {
+                        ResponseImageLabel body = response.body();
+                        if (body != null) {
+                            category = body.getCategory();
+                            max_label = body.getResponseLabel();
+                            ID = body.getLABEL_ID();
+                            cate_ID = body.getCAT_ID();
+                            ko_label = body.getKo();
+                            ja_label = body.getJa();
+                            ch_label = body.getZh_CN();
 
                             Intent intent = new Intent(getBaseContext(), ImageRecognitionActivity.class);
                             intent.putExtra("imageFile", imageFile);
@@ -108,7 +105,7 @@ public class SendImageActivity extends NoStatusBarActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<ResponeImageLabel> call, Throwable t) {
+                    public void onFailure(Call<ResponseImageLabel> call, Throwable t) {
                         showLoadingView(false);
                         Toast.makeText(SendImageActivity.this, "서버 연결 안됨", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();

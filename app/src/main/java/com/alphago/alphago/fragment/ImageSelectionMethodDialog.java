@@ -32,10 +32,6 @@ public class ImageSelectionMethodDialog extends DialogFragment {
     public static final int TYPE_GALLERY = 0;
     public static final int TYPE_CAMERA = 1;
 
-
-    private Button btnImageCapture;
-    private Button btnImageSelect;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -47,7 +43,7 @@ public class ImageSelectionMethodDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_img_select_method, null);
         builder.setView(rootView);
 
-        btnImageCapture = (Button) rootView.findViewById(R.id.btn_img_capture);
+        Button btnImageCapture = (Button) rootView.findViewById(R.id.btn_img_capture);
         btnImageCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +51,7 @@ public class ImageSelectionMethodDialog extends DialogFragment {
             }
         });
 
-        btnImageSelect = (Button) rootView.findViewById(R.id.btn_img_album_select);
+        Button btnImageSelect = (Button) rootView.findViewById(R.id.btn_img_album_select);
         btnImageSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

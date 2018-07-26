@@ -14,8 +14,6 @@ import android.widget.RadioGroup;
 import com.alphago.alphago.R;
 
 public class InitSettingFragment extends DialogFragment {
-    private RadioGroup radioGroup;
-    private boolean sw = false;
     private String language;
     private OnSettingLanguageListener listener;
 
@@ -44,38 +42,7 @@ public class InitSettingFragment extends DialogFragment {
             }
         });
 
-
-//        rootView.findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (!sw) nextSetting(rootView);
-//                else {
-//                    int id = radioGroup.getCheckedRadioButtonId();
-//                    switch (id) {
-//                        case R.id.japanese:
-//                            language = "JAP";
-//                            break;
-//                        case R.id.chinese:
-//                            language = "CHI";
-//                            break;
-//                        default:
-//                            language = "ENG";
-//                    }
-//                    listener.onSettingLanguage(language);
-//                    dismiss();
-//                }
-//            }
-//        });
-
-        radioGroup = rootView.findViewById(R.id.language_radio);
         return builder.create();
-    }
-
-    private void nextSetting(View view) {
-        view.findViewById(R.id.start_guide).setVisibility(View.GONE);
-        view.findViewById(R.id.language_guide).setVisibility(View.VISIBLE);
-        view.findViewById(R.id.language_radio).setVisibility(View.VISIBLE);
-        sw = true;
     }
 
     @Override

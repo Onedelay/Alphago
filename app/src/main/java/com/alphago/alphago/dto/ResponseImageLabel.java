@@ -4,7 +4,7 @@ package com.alphago.alphago.dto;
  * Created by su_me on 2018-02-04.
  */
 
-public class ResponeImageLabel {
+public class ResponseImageLabel {
     private String category;
     private String max_label;
     private String ko;

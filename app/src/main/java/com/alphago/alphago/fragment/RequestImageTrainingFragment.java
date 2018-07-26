@@ -36,7 +36,6 @@ import retrofit2.Response;
  */
 
 public class RequestImageTrainingFragment extends DialogFragment {
-    private ImageView requestImage;
     private File requestImageFile;
     private Spinner spinner;
     private EditText requestImageName;
@@ -68,7 +67,7 @@ public class RequestImageTrainingFragment extends DialogFragment {
         requestImageName = rootView.findViewById(R.id.request_label_name);
 
         requestImageFile = (File) getActivity().getIntent().getSerializableExtra("imageFile");
-        requestImage = rootView.findViewById(R.id.request_image);
+        ImageView requestImage = rootView.findViewById(R.id.request_image);
         if (requestImageFile.exists()) {
             Picasso.with(getActivity().getBaseContext())
                     .load(requestImageFile)
@@ -88,19 +87,18 @@ public class RequestImageTrainingFragment extends DialogFragment {
 
                 AlphagoServer.getInstance().requestTrain(getContext(), requestImageFile, category.toLowerCase() + "_" + requestLabel, new Callback<ResponseRequestResult>() {
                     @Override
-                    public void onResponse(Call<ResponseRequestResult> call, Response<ResponseRequestResult> response) {
-                        if(response != null){
-                            Toast.makeText(getContext(), "전송 완료", Toast.LENGTH_SHORT).show();
-                            listener.onRequestTraining(response.body().getCategory(), response.body().getEn(), response.body().getJa(), response.body().getZh_CN(), response.body().getKo(),
-                                    response.body().getCAT_ID(), response.body().getLABEL_ID());
-                        } else {
-                            Toast.makeText(getContext(), "전송 실패", Toast.LENGTH_SHORT).show();
+                    public void onResponse(@NonNull Call<ResponseRequestResult> call, @NonNull Response<ResponseRequestResult> response) {
+                        Toast.makeText(getContext(), "전송 완료", Toast.LENGTH_SHORT).show();
+                        ResponseRequestResult body = response.body();
+                        if(body != null) {
+                            listener.onRequestTraining(body.getCategory(), body.getEn(), body.getJa(), body.getZh_CN(), body.getKo(),
+                                    body.getCAT_ID(), body.getLABEL_ID());
                         }
                         dismiss();
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseRequestResult> call, Throwable t) {
+                    public void onFailure(@NonNull Call<ResponseRequestResult> call, @NonNull Throwable t) {
                         Toast.makeText(getContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                         dismiss();
                     }

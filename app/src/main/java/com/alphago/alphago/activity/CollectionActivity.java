@@ -11,12 +11,10 @@ import com.alphago.alphago.adapter.CollectionCatAdapter;
 import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.CollectCategory;
 
+import static com.alphago.alphago.Constants.LANGUAGE_KOR;
 import static com.alphago.alphago.Constants.getLanguage;
 
-
 public class CollectionActivity extends NoStatusBarActivity implements CollectionViewHolder.OnCategoryClickListener {
-    private RecyclerView recyclerView;
-    private CollectionCatAdapter adapter;
     DbHelper dbHelper;
 
     @Override
@@ -27,16 +25,14 @@ public class CollectionActivity extends NoStatusBarActivity implements Collectio
         this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
 
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
-        int language = getLanguage(lang);
 
         dbHelper = new DbHelper(getBaseContext());
-        adapter = new CollectionCatAdapter(this);
-        recyclerView = (RecyclerView) findViewById(R.id.collection_list);
+        CollectionCatAdapter adapter = new CollectionCatAdapter(this);
+        RecyclerView recyclerView = findViewById(R.id.collection_list);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 
-        //adapter.setList(dbHelper.categoryAllSelect(language));
-        adapter.setList(dbHelper.categoryAllSelect(0));
+        adapter.setList(dbHelper.categoryAllSelect(LANGUAGE_KOR));
     }
 
     @Override

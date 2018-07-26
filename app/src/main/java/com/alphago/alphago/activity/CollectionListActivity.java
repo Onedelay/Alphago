@@ -10,9 +10,6 @@ import com.alphago.alphago.adapter.CollectionAdapter;
 import com.alphago.alphago.database.DbHelper;
 
 public class CollectionListActivity extends NoStatusBarActivity implements CollectionViewHolder.OnCategoryClickListener {
-    private RecyclerView recyclerView;
-    private CollectionAdapter adapter;
-    DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +19,9 @@ public class CollectionListActivity extends NoStatusBarActivity implements Colle
         this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
 
         String lang = StartActivity.sharedPreferences.getString("Language","ENG");
-        dbHelper = new DbHelper(getBaseContext());
-        adapter = new CollectionAdapter(this);
-        recyclerView = (RecyclerView) findViewById(R.id.collection_list);
+        DbHelper dbHelper = new DbHelper(getBaseContext());
+        CollectionAdapter adapter = new CollectionAdapter(this);
+        RecyclerView recyclerView = findViewById(R.id.collection_list);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 

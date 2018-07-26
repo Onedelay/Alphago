@@ -39,7 +39,6 @@ import retrofit2.Response;
 public class StartActivity extends NoStatusBarActivity implements InitSettingFragment.OnSettingLanguageListener {
     private static final int REQUEST_PERMISSONS = 1;
 
-    private String zipFileName = "";
     private DbHelper dbHelper;
 
     static SharedPreferences sharedPreferences;
@@ -72,7 +71,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
         final long startTime = System.currentTimeMillis();
         AlphagoServer.getInstance().fileDownload(getBaseContext(), new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Log.d("WJY", "Server contacted and has file");
                     boolean writtenToDisk = writeResponseBodyToDist(response.body());
@@ -94,7 +93,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 Toast.makeText(StartActivity.this, "인터넷 연결을 확인해주세요.", Toast.LENGTH_SHORT).show();
                 t.printStackTrace();
                 final long endTime = System.currentTimeMillis();
@@ -172,7 +171,7 @@ public class StartActivity extends NoStatusBarActivity implements InitSettingFra
 
             File dirFile = new File(dirPath);
             if (!dirFile.exists()) dirFile.mkdirs();
-            zipFileName = "download" + System.currentTimeMillis() + ".zip";
+            String zipFileName = "download" + System.currentTimeMillis() + ".zip";
             File saveFile = new File(dirFile, zipFileName);
 
             InputStream inputStream = null;

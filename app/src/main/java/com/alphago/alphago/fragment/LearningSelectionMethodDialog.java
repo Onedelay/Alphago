@@ -25,9 +25,6 @@ import com.alphago.alphago.activity.WordLearningActivity;
 public class LearningSelectionMethodDialog extends DialogFragment {
     public static final int TYPE_ALL = 0;
     public static final int TYPE_ALBUM = 1;
-    private TextView method;
-    private TextView method1;
-    private TextView method2;
     private LearningSelectionMethodDialog.OnLearningCategoryListener listener;
 
     Intent intent;
@@ -47,9 +44,9 @@ public class LearningSelectionMethodDialog extends DialogFragment {
         View rootView = inflater.inflate(R.layout.dialog_img_select_method, null);
         builder.setView(rootView);
 
-        method = (TextView) rootView.findViewById(R.id.how_to_img);
-        method1 = (TextView) rootView.findViewById(R.id.btn_img_capture);
-        method2 = (TextView) rootView.findViewById(R.id.btn_img_album_select);
+        TextView method = rootView.findViewById(R.id.how_to_img);
+        TextView method1 = rootView.findViewById(R.id.btn_img_capture);
+        TextView method2 = rootView.findViewById(R.id.btn_img_album_select);
 
         method.setText("학습 방법을 선택하세요");
         method1.setText("카테고리 학습");

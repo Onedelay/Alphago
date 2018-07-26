@@ -1,10 +1,9 @@
 package com.alphago.alphago.api;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.alphago.alphago.dto.ResponeImageLabel;
+import com.alphago.alphago.dto.ResponseImageLabel;
 import com.alphago.alphago.dto.ResponseRequestResult;
 
 import java.io.File;
@@ -15,7 +14,6 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -51,7 +49,7 @@ public class AlphagoServer {
         alphagoService = retrofit.create(AlphagoService.class);
     }
 
-    public void sendImage(@NonNull Context context, File imageFile, Callback<ResponeImageLabel> callback) {
+    public void sendImage(@NonNull Context context, File imageFile, Callback<ResponseImageLabel> callback) {
         RequestBody requestBody = RequestBody.create(MediaType.parse("image"), imageFile);
         MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("userfile", imageFile.getName(), requestBody);
         alphagoService.sendImage(multipartBody).enqueue(callback);

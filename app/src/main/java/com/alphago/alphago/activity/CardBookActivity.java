@@ -23,13 +23,10 @@ import static com.alphago.alphago.fragment.LearningSelectionMethodDialog.TYPE_AL
 
 public class CardBookActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener, LearningSelectionMethodDialog.OnLearningCategoryListener {
     private ImageView btnLearning;
-    private RecyclerView recyclerView;
     private CategoryAdapter adapter;
     private boolean isSelectMode = false;
-    private ArrayList<Long> selectList = new ArrayList<Long>();
-    DbHelper dbHelper;
-
-    private String lang;
+    private ArrayList<Long> selectList = new ArrayList<>();
+    private DbHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +38,19 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
         final Intent intent = new Intent(this, WordLearningActivity.class);
         dbHelper = new DbHelper(getBaseContext());
 
-        lang = StartActivity.sharedPreferences.getString("Language","ENG");
+        String lang = StartActivity.sharedPreferences.getString("Language", "ENG");
 
         btnLearning = findViewById(R.id.btn_learning);
         /* 전체학습/카테고리학습 기능 */
         btnLearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isSelectMode){
+                if (!isSelectMode) {
                     new LearningSelectionMethodDialog().show(getSupportFragmentManager(), "dialog");
                 } else {
                     intent.putExtra("category_select_list", selectList);
                     intent.putExtra("learning_type", LearningSelectionMethodDialog.TYPE_ALBUM);
-                    if(selectList.size() == 0) {
+                    if (selectList.size() == 0) {
                         Toast.makeText(CardBookActivity.this, "학습할 목록이 없습니다", Toast.LENGTH_SHORT).show();
                         cancelLearning(dbHelper);
                     } else {
@@ -64,28 +61,13 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
             }
         });
 
-//        btnLearning.setText("전체학습");
-//        btnLearning.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                intent.putExtra("learning_type", TYPE_ALL);
-//                startActivity(intent);
-//            }
-//        });
-
         adapter = new CategoryAdapter(this);
-        recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         //adapter.setList(dbHelper.categorySelect(lang));
         adapter.setList(dbHelper.categorySelect(""));
 
-//        findViewById(R.id.btn_management).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(CardBookActivity.this, "이 버튼 없앨까 말까~!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override
@@ -140,7 +122,7 @@ public class CardBookActivity extends NoStatusBarActivity implements CardViewHol
     @Override
     protected void onResume() {
         super.onResume();
-        if(!isSelectMode) btnLearning.setBackgroundResource(R.drawable.icon_learning);
+        if (!isSelectMode) btnLearning.setBackgroundResource(R.drawable.icon_learning);
     }
 
     @Override

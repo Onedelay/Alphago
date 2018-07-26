@@ -30,9 +30,9 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
 
     public CollectionViewHolder(View itemView, final OnCategoryClickListener listener) {
         super(itemView);
-        mImageView = (ImageView) itemView.findViewById(R.id.collection_list_img);
-        mTextView = (TextView) itemView.findViewById(R.id.collection_list_label);
-        circularProgressBar = (CircularProgressBar) itemView.findViewById(R.id.progress_bar);
+        mImageView = itemView.findViewById(R.id.collection_list_img);
+        mTextView = itemView.findViewById(R.id.collection_list_label);
+        circularProgressBar = itemView.findViewById(R.id.progress_bar);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +46,6 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         Picasso.with(itemView.getContext())
                 .load(DefaultImageUtil.getCollectionImage(category.getId()))
                 .into(mImageView);
-        //mImageView.setForeground(itemView.getContext().getDrawable(R.drawable.icon_complete));
         mTextView.setText(category.getLabel());
         circularProgressBar.setProgress(category.getAchievementRate());
     }

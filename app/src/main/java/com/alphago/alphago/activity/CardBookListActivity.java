@@ -11,9 +11,6 @@ import com.alphago.alphago.adapter.CardBookAdapter;
 import com.alphago.alphago.database.DbHelper;
 
 public class CardBookListActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
-    private TextView cat;
-    private RecyclerView recyclerView;
-    private CardBookAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,17 +19,17 @@ public class CardBookListActivity extends NoStatusBarActivity implements CardVie
 
         this.overridePendingTransition(R.anim.start_enter, R.anim.start_exit);
 
-        String lang = StartActivity.sharedPreferences.getString("Language","ENG");
+        String lang = StartActivity.sharedPreferences.getString("Language", "ENG");
 
         long categoryId = getIntent().getLongExtra("categoryId", -1);
         String category = getIntent().getStringExtra("category");
 
 
-        cat = (TextView) findViewById(R.id.cardbook_list_main_label);
+        TextView cat = findViewById(R.id.cardbook_list_main_label);
         cat.setText(category);
 
-        adapter = new CardBookAdapter(this);
-        recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
+        CardBookAdapter adapter = new CardBookAdapter(this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 

@@ -13,9 +13,6 @@ import com.alphago.alphago.database.DbHelper;
 import com.alphago.alphago.model.Card;
 
 public class CardListActivity extends NoStatusBarActivity implements CardViewHolder.OnCardClickListener {
-    private TextView cat;
-    private RecyclerView recyclerView;
-    private CardAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +23,11 @@ public class CardListActivity extends NoStatusBarActivity implements CardViewHol
         String label = getIntent().getStringExtra("label");
 
 
-        cat = (TextView) findViewById(R.id.cardbook_list_main_label);
+        TextView cat = findViewById(R.id.cardbook_list_main_label);
         cat.setText(label);
 
-        adapter = new CardAdapter(this);
-        recyclerView = (RecyclerView) findViewById(R.id.cardbook_grid);
+        CardAdapter adapter = new CardAdapter(this);
+        RecyclerView recyclerView = findViewById(R.id.cardbook_grid);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 

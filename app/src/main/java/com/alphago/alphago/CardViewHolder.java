@@ -23,8 +23,8 @@ public class CardViewHolder extends RecyclerView.ViewHolder {
 
     public CardViewHolder(View itemView, final OnCardClickListener listener) {
         super(itemView);
-        mImageView = (ImageView) itemView.findViewById(R.id.cardbook_list_img);
-        mTextView = (TextView) itemView.findViewById(R.id.cardbook_list_label);
+        mImageView = itemView.findViewById(R.id.cardbook_list_img);
+        mTextView = itemView.findViewById(R.id.cardbook_list_label);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

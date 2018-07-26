@@ -1,5 +1,6 @@
 package com.alphago.alphago.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +21,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardViewHolder> {
         this.listener = listener;
     }
 
+    @NonNull
     @Override
-    public CardViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_book_list, parent, false);
         CardViewHolder vh = new CardViewHolder(v, listener);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(CardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         holder.bind(list.get(position));
     }
 

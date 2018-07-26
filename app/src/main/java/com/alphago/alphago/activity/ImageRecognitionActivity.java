@@ -43,7 +43,6 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
 
     private DbHelper dbHelper;
     private Button.OnClickListener saveClickListener;
-    private Button.OnClickListener requestClickListener;
 
     private RequestImageTrainingFragment requestFragment;
 
@@ -63,7 +62,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         imageFile = (File) getIntent().getSerializableExtra("imageFile");
 
         if (imageFile.exists()) {
-            ImageView myImage = (ImageView) findViewById(R.id.image_recognition);
+            ImageView myImage = findViewById(R.id.image_recognition);
             Picasso.with(getBaseContext())
                     .load(imageFile)
                     .centerInside()
@@ -89,7 +88,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         catID = intent.getIntExtra("cate_ID", 0);
         ID = intent.getIntExtra("ID", 0);
 
-        resultWord = (TextView) findViewById(R.id.recog_result);
+        resultWord = findViewById(R.id.recog_result);
         resultWord.setText(maxLabel);
 
         resultKorean = findViewById(R.id.result_kor);
@@ -111,7 +110,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             }
         });
 
-        saveBtn = (Button) findViewById(R.id.btn_save);
+        saveBtn = findViewById(R.id.btn_save);
         saveClickListener = new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,13 +122,13 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
                     dbHelper.insertImage(catID, ID, enLabel, japLabel, chLabel, filePath, true);
                     if(dbHelper.getAchievementRate(catID) == 100.0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(ImageRecognitionActivity.this);
-                        final Intent collecIntent = new Intent(getBaseContext(), CollectionActivity.class);
+                        final Intent collectIntent = new Intent(getBaseContext(), CollectionActivity.class);
                         builder.setMessage("해당 카테고리의 컬렉션이 모두 완성되었습니다!");
                         builder.setPositiveButton("확인하러가기",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        startActivity(collecIntent);
+                                        startActivity(collectIntent);
                                         finish();
                                     }
                                 });
@@ -148,7 +147,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
             }
         };
 
-        requestClickListener = new View.OnClickListener() {
+        Button.OnClickListener requestClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!view.isSelected()) {
@@ -201,7 +200,7 @@ public class ImageRecognitionActivity extends NoStatusBarActivity implements Req
         File dirName = new File(dirPath);
         if (!dirName.exists()) dirName.mkdirs();
 
-        String fileName = String.format(imageLabel + System.currentTimeMillis() + ".jpg");
+        String fileName = imageLabel + System.currentTimeMillis() + ".jpg";
 
         File outFile = new File(dirName, fileName);
 

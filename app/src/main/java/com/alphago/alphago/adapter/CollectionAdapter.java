@@ -1,5 +1,6 @@
 package com.alphago.alphago.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +25,16 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionViewHolder
         this.listener = listener;
     }
 
+    @NonNull
     @Override
-    public CollectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CollectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.collection_list, parent, false);
         CollectionViewHolder vh = new CollectionViewHolder(v, listener);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(CollectionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CollectionViewHolder holder, int position) {
         holder.bind(list.get(position));
     }
 
