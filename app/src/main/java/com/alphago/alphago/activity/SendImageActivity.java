@@ -67,7 +67,7 @@ public class SendImageActivity extends NoStatusBarActivity {
                 if (bitmap != null) {
                     try {
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bos);
                         byte[] bitmapData = bos.toByteArray();
 
                         FileOutputStream fos = new FileOutputStream(imageFile);
