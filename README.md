@@ -5,18 +5,15 @@
 
 - Function
   - Recognition : Recognize an object in a picture and learn a word
-  ![이미지인식](screenshots/인식결과.jpg)
+  ![이미지인식](screenshots/1.gif)
   - Game : Game learning with various difficulty levels
-  ![단어게임](screenshots/단어게임.jpg)
-  ![그림맞추기](screenshots/그림맞추기.jpg)
+  ![게임](screenshots/3.gif)
   - Card book : Your own cardbook to study with your own photos
-  ![나의카드북](screenshots/나의카드북.jpg)
-  ![단어학습](screenshots/단어학습.jpg)
+  ![카드북](screenshots/2.gif)
   - Collection : Photo Collection Record
-  ![컬렉션](screenshots/컬렉션.jpg)
+  ![컬렉션](screenshots/4.gif)
   - Multilingual : Learning English as well as Japanese and Chinese
-  ![다국어](screenshots/다국어설정.jpg)
-  ![일본어](screenshots/일본어.jpg)
+  ![다국어](screenshots/5.gif)
   
 - Collaborator
   - Android App : 원지연, 이주혜
