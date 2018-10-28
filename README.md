@@ -1,4 +1,6 @@
-# Pic2word
+# ![](/screenshots/pic2word_ic.png)Pic2Word
+
+![](/screenshots/pic2word_workflow.png)
 
 - Main
   - ![메인화면](screenshots/메인.jpg)
@@ -19,7 +21,6 @@
   - Multilingual : Learning English as well as Japanese and Chinese  
   ![다국어](screenshots/5.gif)
 
-  
 - Collaborator
   - Android App : 원지연, 이주혜
   - Design : 이주혜
